@@ -1,0 +1,190 @@
+ARM GAS  /var/folders/xk/r98rwmxs6v74g9mcvvcfhvz00000gn/T//ccUUvfmM.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"user_main.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.user_setup,"ax",%progbits
+  18              		.align	1
+  19              		.global	user_setup
+  20              		.arch armv7e-m
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  24              		.fpu fpv4-sp-d16
+  26              	user_setup:
+  27              	.LFB130:
+  28              		.file 1 "Src/User/user_main.c"
+   1:Src/User/user_main.c **** #include "user_main.h"
+   2:Src/User/user_main.c **** #include "motor_driver.h"
+   3:Src/User/user_main.c **** #include "algorithm.h"
+   4:Src/User/user_main.c **** #include "tim.h"
+   5:Src/User/user_main.c **** 
+   6:Src/User/user_main.c **** pid_t motor_pid;
+   7:Src/User/user_main.c **** 
+   8:Src/User/user_main.c **** float motor_current = 0.1f, motor_speed = 500, motor_position = 0;
+   9:Src/User/user_main.c **** 
+  10:Src/User/user_main.c **** void user_setup()
+  11:Src/User/user_main.c **** {
+  29              		.loc 1 11 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33 0000 08B5     		push	{r3, lr}
+  34              	.LCFI0:
+  35              		.cfi_def_cfa_offset 8
+  36              		.cfi_offset 3, -8
+  37              		.cfi_offset 14, -4
+  12:Src/User/user_main.c ****     // pid_init(&motor_pid_current, 5, 50, 50, 50.0f, 5.0f, 0.5f);
+  13:Src/User/user_main.c ****     // pid_init(&motor_pid_speed, -40, 40, 50, 0.05f, 0.005f, 0.001f);
+  14:Src/User/user_main.c ****     // pid_init(&motor_pid_position, -10, 10, 10, 1.0f, 0.00f, 0.0f);
+  15:Src/User/user_main.c **** 
+  16:Src/User/user_main.c ****     motor.pwm = 30;
+  38              		.loc 1 16 5 view .LVU1
+  39              		.loc 1 16 15 is_stmt 0 view .LVU2
+  40 0002 044B     		ldr	r3, .L3
+  41 0004 1E22     		movs	r2, #30
+  42 0006 1A70     		strb	r2, [r3]
+ARM GAS  /var/folders/xk/r98rwmxs6v74g9mcvvcfhvz00000gn/T//ccUUvfmM.s 			page 2
+
+
+  17:Src/User/user_main.c ****     motor_start();
+  43              		.loc 1 17 5 is_stmt 1 view .LVU3
+  44 0008 FFF7FEFF 		bl	motor_start
+  45              	.LVL0:
+  18:Src/User/user_main.c **** 
+  19:Src/User/user_main.c ****     HAL_TIM_Base_Start_IT(&htim7);
+  46              		.loc 1 19 5 view .LVU4
+  47 000c 0248     		ldr	r0, .L3+4
+  48 000e FFF7FEFF 		bl	HAL_TIM_Base_Start_IT
+  49              	.LVL1:
+  20:Src/User/user_main.c **** }
+  50              		.loc 1 20 1 is_stmt 0 view .LVU5
+  51 0012 08BD     		pop	{r3, pc}
+  52              	.L4:
+  53              		.align	2
+  54              	.L3:
+  55 0014 00000000 		.word	motor
+  56 0018 00000000 		.word	htim7
+  57              		.cfi_endproc
+  58              	.LFE130:
+  60              		.section	.text.user_loop,"ax",%progbits
+  61              		.align	1
+  62              		.global	user_loop
+  63              		.syntax unified
+  64              		.thumb
+  65              		.thumb_func
+  66              		.fpu fpv4-sp-d16
+  68              	user_loop:
+  69              	.LFB131:
+  21:Src/User/user_main.c **** 
+  22:Src/User/user_main.c **** void user_loop()
+  23:Src/User/user_main.c **** {
+  70              		.loc 1 23 1 is_stmt 1 view -0
+  71              		.cfi_startproc
+  72              		@ args = 0, pretend = 0, frame = 0
+  73              		@ frame_needed = 0, uses_anonymous_args = 0
+  74 0000 08B5     		push	{r3, lr}
+  75              	.LCFI1:
+  76              		.cfi_def_cfa_offset 8
+  77              		.cfi_offset 3, -8
+  78              		.cfi_offset 14, -4
+  24:Src/User/user_main.c ****     // motor_current_loop(motor_current);
+  25:Src/User/user_main.c ****     // motor_speed_loop(motor_speed);
+  26:Src/User/user_main.c ****     // motor_position_loop(motor_position);
+  27:Src/User/user_main.c **** 
+  28:Src/User/user_main.c ****     // motor_speed = pid_calc(&motor_pid_position, motor.position, motor_position);
+  29:Src/User/user_main.c ****     // motor_current = pid_calc(&motor_pid_speed, motor.current, motor_speed);
+  30:Src/User/user_main.c ****     // motor.pwm = motor_current;
+  31:Src/User/user_main.c ****     HAL_Delay(1);
+  79              		.loc 1 31 5 view .LVU7
+  80 0002 0120     		movs	r0, #1
+  81 0004 FFF7FEFF 		bl	HAL_Delay
+  82              	.LVL2:
+  32:Src/User/user_main.c ****     // motor_position += DEGREE2HALL(90);
+  33:Src/User/user_main.c **** }...
+  83              		.loc 1 33 1 is_stmt 0 view .LVU8
+  84 0008 08BD     		pop	{r3, pc}
+ARM GAS  /var/folders/xk/r98rwmxs6v74g9mcvvcfhvz00000gn/T//ccUUvfmM.s 			page 3
+
+
+  85              		.cfi_endproc
+  86              	.LFE131:
+  88              		.global	motor_position
+  89              		.global	motor_speed
+  90              		.global	motor_current
+  91              		.comm	motor_pid,56,4
+  92              		.section	.bss.motor_position,"aw",%nobits
+  93              		.align	2
+  96              	motor_position:
+  97 0000 00000000 		.space	4
+  98              		.section	.data.motor_current,"aw"
+  99              		.align	2
+ 102              	motor_current:
+ 103 0000 CDCCCC3D 		.word	1036831949
+ 104              		.section	.data.motor_speed,"aw"
+ 105              		.align	2
+ 108              	motor_speed:
+ 109 0000 0000FA43 		.word	1140457472
+ 110              		.text
+ 111              	.Letext0:
+ 112              		.file 2 "/Users/geekzjk/opt/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/machine/_defau
+ 113              		.file 3 "/Users/geekzjk/opt/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/_stdint.h"
+ 114              		.file 4 "Drivers/CMSIS/Include/core_cm4.h"
+ 115              		.file 5 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h"
+ 116              		.file 6 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h"
+ 117              		.file 7 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h"
+ 118              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
+ 119              		.file 9 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
+ 120              		.file 10 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h"
+ 121              		.file 11 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h"
+ 122              		.file 12 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h"
+ 123              		.file 13 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
+ 124              		.file 14 "Inc/User/user_main.h"
+ 125              		.file 15 "Inc/tim.h"
+ 126              		.file 16 "Inc/spi.h"
+ 127              		.file 17 "Inc/adc.h"
+ 128              		.file 18 "Inc/User/algorithm.h"
+ 129              		.file 19 "/Users/geekzjk/opt/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/lock.h"
+ 130              		.file 20 "/Users/geekzjk/opt/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/_types.h"
+ 131              		.file 21 "/Users/geekzjk/opt/gcc-arm-none-eabi-9-2019-q4-major/lib/gcc/arm-none-eabi/9.2.1/include
+ 132              		.file 22 "/Users/geekzjk/opt/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/reent.h"
+ 133              		.file 23 "/Users/geekzjk/opt/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/stdlib.h"
+ 134              		.file 24 "Inc/User/motor_driver.h"
+ARM GAS  /var/folders/xk/r98rwmxs6v74g9mcvvcfhvz00000gn/T//ccUUvfmM.s 			page 4
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 user_main.c
+/var/folders/xk/r98rwmxs6v74g9mcvvcfhvz00000gn/T//ccUUvfmM.s:18     .text.user_setup:0000000000000000 $t
+/var/folders/xk/r98rwmxs6v74g9mcvvcfhvz00000gn/T//ccUUvfmM.s:26     .text.user_setup:0000000000000000 user_setup
+/var/folders/xk/r98rwmxs6v74g9mcvvcfhvz00000gn/T//ccUUvfmM.s:55     .text.user_setup:0000000000000014 $d
+/var/folders/xk/r98rwmxs6v74g9mcvvcfhvz00000gn/T//ccUUvfmM.s:61     .text.user_loop:0000000000000000 $t
+/var/folders/xk/r98rwmxs6v74g9mcvvcfhvz00000gn/T//ccUUvfmM.s:68     .text.user_loop:0000000000000000 user_loop
+/var/folders/xk/r98rwmxs6v74g9mcvvcfhvz00000gn/T//ccUUvfmM.s:96     .bss.motor_position:0000000000000000 motor_position
+/var/folders/xk/r98rwmxs6v74g9mcvvcfhvz00000gn/T//ccUUvfmM.s:108    .data.motor_speed:0000000000000000 motor_speed
+/var/folders/xk/r98rwmxs6v74g9mcvvcfhvz00000gn/T//ccUUvfmM.s:102    .data.motor_current:0000000000000000 motor_current
+                            *COM*:0000000000000038 motor_pid
+/var/folders/xk/r98rwmxs6v74g9mcvvcfhvz00000gn/T//ccUUvfmM.s:93     .bss.motor_position:0000000000000000 $d
+/var/folders/xk/r98rwmxs6v74g9mcvvcfhvz00000gn/T//ccUUvfmM.s:99     .data.motor_current:0000000000000000 $d
+/var/folders/xk/r98rwmxs6v74g9mcvvcfhvz00000gn/T//ccUUvfmM.s:105    .data.motor_speed:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+motor_start
+HAL_TIM_Base_Start_IT
+motor
+htim7
+HAL_Delay

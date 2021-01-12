@@ -1,0 +1,17 @@
+
+OpenDocument="startup_stm32f405xx.s", FilePath="/Volumes/exChange/STM32/ODriveSingleMotor/startup_stm32f405xx.s", Line=68
+OpenDocument="main.c", FilePath="/Volumes/exChange/STM32/ODriveSingleMotor/Src/main.c", Line=60
+OpenToolbar="Debug", Floating=0, x=0, y=0
+OpenWindow="Source Files", DockArea=LEFT, x=0, y=0, w=300, h=540, FilterBarShown=1, ToolBarShown=0
+OpenWindow="Disassembly", DockArea=RIGHT, x=0, y=0, w=488, h=182, FilterBarShown=0, ToolBarShown=0, ExecCountersShown=0, InstEncodingsShown=0
+OpenWindow="Source", x=0, y=0, w=0, h=0, FilterBarShown=0, ToolBarShown=0, ExecCountersShown=0
+OpenWindow="Memory 1", DockArea=BOTTOM, x=2, y=0, w=315, h=260, FilterBarShown=0, ToolBarShown=0, EditorAddress=0x0
+OpenWindow="Watched Data", DockArea=RIGHT, x=0, y=1, w=488, h=357, FilterBarShown=0, ToolBarShown=0
+OpenWindow="Data Graph", DockArea=BOTTOM, x=0, y=0, w=844, h=260, FilterBarShown=0, ToolBarShown=0, VisibleTab=0, SamplingFreq=1 kHz, ClearEvent=RESUME, LegendShown=0, UniformSampleSpacing=0, PinCursor=-1, TimePerDiv=1000000
+OpenWindow="Console", DockArea=BOTTOM, x=1, y=0, w=519, h=260, FilterBarShown=0, ToolBarShown=0
+TableHeader="Watched Data", SortCol="Expression", SortOrder="ASCENDING", VisibleCols=["Expression";"Value";"Location";"Refresh"], ColWidths=[177;171;77;63]
+TableHeader="Source Files", SortCol="File", SortOrder="ASCENDING", VisibleCols=["File";"Status";"Size";"#Insts";"Path"], ColWidths=[173;62;49;49;626]
+TableHeader="Data Graph", SortCol="None", SortOrder="ASCENDING", VisibleCols=["Index";"Time                    "], ColWidths=[27;73]
+TableHeader="Data Graph", SortCol="Expression", SortOrder="ASCENDING", VisibleCols=["Expression";"Type";"Value";"Min";"Max";"Average";"# Changes";"Min. Change";"Max. Change"], ColWidths=[110;43;46;36;39;60;73;84;353]
+TableHeader="Power Graph", SortCol="None", SortOrder="ASCENDING", VisibleCols=["Index";"Time";"Channel 0"], ColWidths=[84;119;126]
+TableHeader="RegisterSelectionDialog", SortCol="Name", SortOrder="ASCENDING", VisibleCols=["Auto";"Name";"Address";"Description"], ColWidths=[26;26;26;26]
