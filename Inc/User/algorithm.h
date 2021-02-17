@@ -36,6 +36,6 @@ void pid_init(pid_t *pid, float min_out, float max_out, float intergral_limit, f
 
 void pid_reset(pid_t *pid, float kp, float ki, float kd);
 
-float pid_calc(pid_t *pid, float get, float set);
+float pid_calculate(pid_t *pid, float get, float set);
 
 #endif

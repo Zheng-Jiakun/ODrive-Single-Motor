@@ -11,11 +11,8 @@
 #include "user_main.h"
 #include <stdlib.h>
 
-
-extern uint32_t hall_tick_10us;
-
 #define ADC_MEANFILTER_SIZE         100
-#define SPEED_FILTER_SIZE           9
+#define SPEED_FILTER_SIZE           240
 #define ZERO_SPEED_TIMEOUT          10000U
 
 #define DRV8301_MODE_W              0
@@ -38,8 +35,9 @@ extern uint32_t hall_tick_10us;
 // #define DRV8301_VOLTAGE2CURRENT(x)  (-10.068f*(x)+16.037+CURRENT_LINEAR_OFFSET)
 // #define DRV8301_VOLTAGE2CURRENT(x)  (-5.2726f*(x)+8.4632+CURRENT_LINEAR_OFFSET)
 
-#define HALL2DEGREE(x)              (360.0f/42.0f*(x))
-#define DEGREE2HALL(x)              ((x)*42.0f/360.0f)
+#define POLAR_NUM                   60
+#define HALL2DEGREE(x)              (360.0f/(float)POLAR_NUM*(x))
+#define DEGREE2HALL(x)              ((x)*(float)POLAR_NUM/360.0f)
 
 typedef enum {
     HIGH_ON_LOW_OFF = 0,
@@ -49,9 +47,10 @@ typedef enum {
 
 typedef struct {
     int8_t pwm;
+    int8_t pwm_buffer;
     int16_t rpm;
     float current;
-    uint32_t position;
+    int32_t position;
     float degree;
 } motor_t;
 
@@ -69,5 +68,6 @@ void motor_current_loop(float set);
 void motor_speed_loop(float set);
 void motor_position_loop(float set);
 void adc_filter();
+void motor_pwm_buffer();
 
 #endif

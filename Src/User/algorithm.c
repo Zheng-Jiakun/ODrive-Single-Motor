@@ -20,7 +20,7 @@ void pid_init(pid_t *pid, float min_out, float max_out, float intergral_limit,
     pid->d = kd;
 }
 
-float pid_calc(pid_t *pid, float get, float set)
+float pid_calculate(pid_t *pid, float get, float set)
 {
     pid->get = get;
     pid->set = set;

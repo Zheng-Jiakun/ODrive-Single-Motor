@@ -1,0 +1,654 @@
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccrWIRXu.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"LED.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.LED_init,"ax",%progbits
+  18              		.align	1
+  19              		.global	LED_init
+  20              		.syntax unified
+  21              		.thumb
+  22              		.thumb_func
+  23              		.fpu fpv4-sp-d16
+  25              	LED_init:
+  26              	.LFB130:
+  27              		.file 1 "Src/User/LED.c"
+   1:Src/User/LED.c **** #include "LED.h"
+   2:Src/User/LED.c **** 
+   3:Src/User/LED.c **** void LED_init()
+   4:Src/User/LED.c **** {
+  28              		.loc 1 4 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32 0000 10B5     		push	{r4, lr}
+  33              	.LCFI0:
+  34              		.cfi_def_cfa_offset 8
+  35              		.cfi_offset 4, -8
+  36              		.cfi_offset 14, -4
+   5:Src/User/LED.c ****     WS2812_init();
+  37              		.loc 1 5 0
+  38 0002 FFF7FEFF 		bl	WS2812_init
+  39              	.LVL0:
+  40              	.LBB2:
+   6:Src/User/LED.c ****     for (uint8_t i = 0; i < LED_NUM / 2; i++)
+  41              		.loc 1 6 0
+  42 0006 0024     		movs	r4, #0
+  43 0008 17E0     		b	.L2
+  44              	.LVL1:
+  45              	.L3:
+   7:Src/User/LED.c ****     {
+   8:Src/User/LED.c ****         led_string[i + 4].r = 50;
+  46              		.loc 1 8 0 discriminator 3
+  47 000a 221D     		adds	r2, r4, #4
+  48 000c 0C49     		ldr	r1, .L5
+  49 000e 02EB4202 		add	r2, r2, r2, lsl #1
+  50 0012 8818     		adds	r0, r1, r2
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccrWIRXu.s 			page 2
+
+
+  51 0014 3223     		movs	r3, #50
+  52 0016 8B54     		strb	r3, [r1, r2]
+   9:Src/User/LED.c ****         led_string[i + 4].g = 50;
+  53              		.loc 1 9 0 discriminator 3
+  54 0018 4370     		strb	r3, [r0, #1]
+  10:Src/User/LED.c ****         led_string[i + 4].b = 50;
+  55              		.loc 1 10 0 discriminator 3
+  56 001a 8370     		strb	r3, [r0, #2]
+  11:Src/User/LED.c ****         led_string[LED_NUM / 2 - 1 - i].r = 50;
+  57              		.loc 1 11 0 discriminator 3
+  58 001c C4F10302 		rsb	r2, r4, #3
+  59 0020 02EB4202 		add	r2, r2, r2, lsl #1
+  60 0024 8818     		adds	r0, r1, r2
+  61 0026 8B54     		strb	r3, [r1, r2]
+  12:Src/User/LED.c ****         led_string[LED_NUM / 2 - 1 - i].g = 50;
+  62              		.loc 1 12 0 discriminator 3
+  63 0028 4370     		strb	r3, [r0, #1]
+  13:Src/User/LED.c ****         led_string[LED_NUM / 2 - 1 - i].b = 50;
+  64              		.loc 1 13 0 discriminator 3
+  65 002a 8370     		strb	r3, [r0, #2]
+  14:Src/User/LED.c ****         WS2812_update();
+  66              		.loc 1 14 0 discriminator 3
+  67 002c FFF7FEFF 		bl	WS2812_update
+  68              	.LVL2:
+  15:Src/User/LED.c ****         HAL_Delay(200);
+  69              		.loc 1 15 0 discriminator 3
+  70 0030 C820     		movs	r0, #200
+  71 0032 FFF7FEFF 		bl	HAL_Delay
+  72              	.LVL3:
+   6:Src/User/LED.c ****     {
+  73              		.loc 1 6 0 discriminator 3
+  74 0036 0134     		adds	r4, r4, #1
+  75              	.LVL4:
+  76 0038 E4B2     		uxtb	r4, r4
+  77              	.LVL5:
+  78              	.L2:
+   6:Src/User/LED.c ****     {
+  79              		.loc 1 6 0 is_stmt 0 discriminator 1
+  80 003a 032C     		cmp	r4, #3
+  81 003c E5D9     		bls	.L3
+  82              	.LBE2:
+  16:Src/User/LED.c ****     }
+  17:Src/User/LED.c **** }
+  83              		.loc 1 17 0 is_stmt 1
+  84 003e 10BD     		pop	{r4, pc}
+  85              	.LVL6:
+  86              	.L6:
+  87              		.align	2
+  88              	.L5:
+  89 0040 00000000 		.word	led_string
+  90              		.cfi_endproc
+  91              	.LFE130:
+  93              		.section	.text.LED_stop,"ax",%progbits
+  94              		.align	1
+  95              		.global	LED_stop
+  96              		.syntax unified
+  97              		.thumb
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccrWIRXu.s 			page 3
+
+
+  98              		.thumb_func
+  99              		.fpu fpv4-sp-d16
+ 101              	LED_stop:
+ 102              	.LFB131:
+  18:Src/User/LED.c **** 
+  19:Src/User/LED.c **** void LED_stop()
+  20:Src/User/LED.c **** {
+ 103              		.loc 1 20 0
+ 104              		.cfi_startproc
+ 105              		@ args = 0, pretend = 0, frame = 0
+ 106              		@ frame_needed = 0, uses_anonymous_args = 0
+ 107 0000 10B5     		push	{r4, lr}
+ 108              	.LCFI1:
+ 109              		.cfi_def_cfa_offset 8
+ 110              		.cfi_offset 4, -8
+ 111              		.cfi_offset 14, -4
+ 112              	.LVL7:
+ 113              	.LBB3:
+  21:Src/User/LED.c ****     for (uint8_t i = 0; i < LED_NUM; i++)
+ 114              		.loc 1 21 0
+ 115 0002 0023     		movs	r3, #0
+ 116 0004 0AE0     		b	.L8
+ 117              	.LVL8:
+ 118              	.L9:
+  22:Src/User/LED.c ****     {
+  23:Src/User/LED.c ****         led_string[i].r = 255;
+ 119              		.loc 1 23 0 discriminator 3
+ 120 0006 0948     		ldr	r0, .L11
+ 121 0008 03EB4301 		add	r1, r3, r3, lsl #1
+ 122 000c 4218     		adds	r2, r0, r1
+ 123 000e FF24     		movs	r4, #255
+ 124 0010 4454     		strb	r4, [r0, r1]
+  24:Src/User/LED.c ****         led_string[i].g = 0;
+ 125              		.loc 1 24 0 discriminator 3
+ 126 0012 0021     		movs	r1, #0
+ 127 0014 5170     		strb	r1, [r2, #1]
+  25:Src/User/LED.c ****         led_string[i].b = 0;
+ 128              		.loc 1 25 0 discriminator 3
+ 129 0016 9170     		strb	r1, [r2, #2]
+  21:Src/User/LED.c ****     {
+ 130              		.loc 1 21 0 discriminator 3
+ 131 0018 0133     		adds	r3, r3, #1
+ 132              	.LVL9:
+ 133 001a DBB2     		uxtb	r3, r3
+ 134              	.LVL10:
+ 135              	.L8:
+  21:Src/User/LED.c ****     {
+ 136              		.loc 1 21 0 is_stmt 0 discriminator 1
+ 137 001c 072B     		cmp	r3, #7
+ 138 001e F2D9     		bls	.L9
+ 139              	.LBE3:
+  26:Src/User/LED.c ****     }
+  27:Src/User/LED.c ****     WS2812_init();
+ 140              		.loc 1 27 0 is_stmt 1
+ 141 0020 FFF7FEFF 		bl	WS2812_init
+ 142              	.LVL11:
+  28:Src/User/LED.c ****     WS2812_update();
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccrWIRXu.s 			page 4
+
+
+ 143              		.loc 1 28 0
+ 144 0024 FFF7FEFF 		bl	WS2812_update
+ 145              	.LVL12:
+ 146 0028 10BD     		pop	{r4, pc}
+ 147              	.L12:
+ 148 002a 00BF     		.align	2
+ 149              	.L11:
+ 150 002c 00000000 		.word	led_string
+ 151              		.cfi_endproc
+ 152              	.LFE131:
+ 154              		.section	.text.LED_go,"ax",%progbits
+ 155              		.align	1
+ 156              		.global	LED_go
+ 157              		.syntax unified
+ 158              		.thumb
+ 159              		.thumb_func
+ 160              		.fpu fpv4-sp-d16
+ 162              	LED_go:
+ 163              	.LFB132:
+  29:Src/User/LED.c **** }
+  30:Src/User/LED.c **** 
+  31:Src/User/LED.c **** void LED_go()
+  32:Src/User/LED.c **** {
+ 164              		.loc 1 32 0
+ 165              		.cfi_startproc
+ 166              		@ args = 0, pretend = 0, frame = 0
+ 167              		@ frame_needed = 0, uses_anonymous_args = 0
+ 168 0000 10B5     		push	{r4, lr}
+ 169              	.LCFI2:
+ 170              		.cfi_def_cfa_offset 8
+ 171              		.cfi_offset 4, -8
+ 172              		.cfi_offset 14, -4
+ 173              	.LVL13:
+ 174              	.LBB4:
+  33:Src/User/LED.c ****     for (uint8_t i = 0; i < LED_NUM; i++)
+ 175              		.loc 1 33 0
+ 176 0002 0023     		movs	r3, #0
+ 177 0004 0AE0     		b	.L14
+ 178              	.LVL14:
+ 179              	.L15:
+  34:Src/User/LED.c ****     {
+  35:Src/User/LED.c ****         led_string[i].r = 0;
+ 180              		.loc 1 35 0 discriminator 3
+ 181 0006 0948     		ldr	r0, .L17
+ 182 0008 03EB4301 		add	r1, r3, r3, lsl #1
+ 183 000c 4218     		adds	r2, r0, r1
+ 184 000e 0024     		movs	r4, #0
+ 185 0010 4454     		strb	r4, [r0, r1]
+  36:Src/User/LED.c ****         led_string[i].g = 255;
+ 186              		.loc 1 36 0 discriminator 3
+ 187 0012 FF21     		movs	r1, #255
+ 188 0014 5170     		strb	r1, [r2, #1]
+  37:Src/User/LED.c ****         led_string[i].b = 255;
+ 189              		.loc 1 37 0 discriminator 3
+ 190 0016 9170     		strb	r1, [r2, #2]
+  33:Src/User/LED.c ****     {
+ 191              		.loc 1 33 0 discriminator 3
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccrWIRXu.s 			page 5
+
+
+ 192 0018 0133     		adds	r3, r3, #1
+ 193              	.LVL15:
+ 194 001a DBB2     		uxtb	r3, r3
+ 195              	.LVL16:
+ 196              	.L14:
+  33:Src/User/LED.c ****     {
+ 197              		.loc 1 33 0 is_stmt 0 discriminator 1
+ 198 001c 072B     		cmp	r3, #7
+ 199 001e F2D9     		bls	.L15
+ 200              	.LBE4:
+  38:Src/User/LED.c ****     }
+  39:Src/User/LED.c ****     WS2812_init();
+ 201              		.loc 1 39 0 is_stmt 1
+ 202 0020 FFF7FEFF 		bl	WS2812_init
+ 203              	.LVL17:
+  40:Src/User/LED.c ****     WS2812_update();
+ 204              		.loc 1 40 0
+ 205 0024 FFF7FEFF 		bl	WS2812_update
+ 206              	.LVL18:
+ 207 0028 10BD     		pop	{r4, pc}
+ 208              	.L18:
+ 209 002a 00BF     		.align	2
+ 210              	.L17:
+ 211 002c 00000000 		.word	led_string
+ 212              		.cfi_endproc
+ 213              	.LFE132:
+ 215              		.section	.text.LED_left,"ax",%progbits
+ 216              		.align	1
+ 217              		.global	LED_left
+ 218              		.syntax unified
+ 219              		.thumb
+ 220              		.thumb_func
+ 221              		.fpu fpv4-sp-d16
+ 223              	LED_left:
+ 224              	.LFB133:
+  41:Src/User/LED.c **** }
+  42:Src/User/LED.c **** 
+  43:Src/User/LED.c **** void LED_left()
+  44:Src/User/LED.c **** {
+ 225              		.loc 1 44 0
+ 226              		.cfi_startproc
+ 227              		@ args = 0, pretend = 0, frame = 0
+ 228              		@ frame_needed = 0, uses_anonymous_args = 0
+ 229 0000 10B5     		push	{r4, lr}
+ 230              	.LCFI3:
+ 231              		.cfi_def_cfa_offset 8
+ 232              		.cfi_offset 4, -8
+ 233              		.cfi_offset 14, -4
+ 234              	.LVL19:
+ 235              	.LBB5:
+  45:Src/User/LED.c ****     for (uint8_t i = 0; i < LED_NUM / 2; i++)
+ 236              		.loc 1 45 0
+ 237 0002 0023     		movs	r3, #0
+ 238 0004 0AE0     		b	.L20
+ 239              	.LVL20:
+ 240              	.L21:
+  46:Src/User/LED.c ****     {
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccrWIRXu.s 			page 6
+
+
+  47:Src/User/LED.c ****         led_string[i].r = 255;
+ 241              		.loc 1 47 0 discriminator 3
+ 242 0006 094C     		ldr	r4, .L23
+ 243 0008 03EB4300 		add	r0, r3, r3, lsl #1
+ 244 000c 2218     		adds	r2, r4, r0
+ 245 000e FF21     		movs	r1, #255
+ 246 0010 2154     		strb	r1, [r4, r0]
+  48:Src/User/LED.c ****         led_string[i].g = 255;
+ 247              		.loc 1 48 0 discriminator 3
+ 248 0012 5170     		strb	r1, [r2, #1]
+  49:Src/User/LED.c ****         led_string[i].b = 0;
+ 249              		.loc 1 49 0 discriminator 3
+ 250 0014 0021     		movs	r1, #0
+ 251 0016 9170     		strb	r1, [r2, #2]
+  45:Src/User/LED.c ****     {
+ 252              		.loc 1 45 0 discriminator 3
+ 253 0018 0133     		adds	r3, r3, #1
+ 254              	.LVL21:
+ 255 001a DBB2     		uxtb	r3, r3
+ 256              	.LVL22:
+ 257              	.L20:
+  45:Src/User/LED.c ****     {
+ 258              		.loc 1 45 0 is_stmt 0 discriminator 1
+ 259 001c 032B     		cmp	r3, #3
+ 260 001e F2D9     		bls	.L21
+ 261              	.LBE5:
+  50:Src/User/LED.c ****     }
+  51:Src/User/LED.c ****     WS2812_init();
+ 262              		.loc 1 51 0 is_stmt 1
+ 263 0020 FFF7FEFF 		bl	WS2812_init
+ 264              	.LVL23:
+  52:Src/User/LED.c ****     WS2812_update();
+ 265              		.loc 1 52 0
+ 266 0024 FFF7FEFF 		bl	WS2812_update
+ 267              	.LVL24:
+ 268 0028 10BD     		pop	{r4, pc}
+ 269              	.L24:
+ 270 002a 00BF     		.align	2
+ 271              	.L23:
+ 272 002c 00000000 		.word	led_string
+ 273              		.cfi_endproc
+ 274              	.LFE133:
+ 276              		.section	.text.LED_right,"ax",%progbits
+ 277              		.align	1
+ 278              		.global	LED_right
+ 279              		.syntax unified
+ 280              		.thumb
+ 281              		.thumb_func
+ 282              		.fpu fpv4-sp-d16
+ 284              	LED_right:
+ 285              	.LFB134:
+  53:Src/User/LED.c **** }
+  54:Src/User/LED.c **** 
+  55:Src/User/LED.c **** void LED_right()
+  56:Src/User/LED.c **** {
+ 286              		.loc 1 56 0
+ 287              		.cfi_startproc
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccrWIRXu.s 			page 7
+
+
+ 288              		@ args = 0, pretend = 0, frame = 0
+ 289              		@ frame_needed = 0, uses_anonymous_args = 0
+ 290 0000 10B5     		push	{r4, lr}
+ 291              	.LCFI4:
+ 292              		.cfi_def_cfa_offset 8
+ 293              		.cfi_offset 4, -8
+ 294              		.cfi_offset 14, -4
+ 295              	.LVL25:
+ 296              	.LBB6:
+  57:Src/User/LED.c ****     for (uint8_t i = 4; i < LED_NUM; i++)
+ 297              		.loc 1 57 0
+ 298 0002 0423     		movs	r3, #4
+ 299 0004 0AE0     		b	.L26
+ 300              	.LVL26:
+ 301              	.L27:
+  58:Src/User/LED.c ****     {
+  59:Src/User/LED.c ****         led_string[i].r = 255;
+ 302              		.loc 1 59 0 discriminator 3
+ 303 0006 094C     		ldr	r4, .L29
+ 304 0008 03EB4300 		add	r0, r3, r3, lsl #1
+ 305 000c 2218     		adds	r2, r4, r0
+ 306 000e FF21     		movs	r1, #255
+ 307 0010 2154     		strb	r1, [r4, r0]
+  60:Src/User/LED.c ****         led_string[i].g = 255;
+ 308              		.loc 1 60 0 discriminator 3
+ 309 0012 5170     		strb	r1, [r2, #1]
+  61:Src/User/LED.c ****         led_string[i].b = 0;
+ 310              		.loc 1 61 0 discriminator 3
+ 311 0014 0021     		movs	r1, #0
+ 312 0016 9170     		strb	r1, [r2, #2]
+  57:Src/User/LED.c ****     {
+ 313              		.loc 1 57 0 discriminator 3
+ 314 0018 0133     		adds	r3, r3, #1
+ 315              	.LVL27:
+ 316 001a DBB2     		uxtb	r3, r3
+ 317              	.LVL28:
+ 318              	.L26:
+  57:Src/User/LED.c ****     {
+ 319              		.loc 1 57 0 is_stmt 0 discriminator 1
+ 320 001c 072B     		cmp	r3, #7
+ 321 001e F2D9     		bls	.L27
+ 322              	.LBE6:
+  62:Src/User/LED.c ****     }
+  63:Src/User/LED.c ****     WS2812_init();
+ 323              		.loc 1 63 0 is_stmt 1
+ 324 0020 FFF7FEFF 		bl	WS2812_init
+ 325              	.LVL29:
+  64:Src/User/LED.c ****     WS2812_update();
+ 326              		.loc 1 64 0
+ 327 0024 FFF7FEFF 		bl	WS2812_update
+ 328              	.LVL30:
+ 329 0028 10BD     		pop	{r4, pc}
+ 330              	.L30:
+ 331 002a 00BF     		.align	2
+ 332              	.L29:
+ 333 002c 00000000 		.word	led_string
+ 334              		.cfi_endproc
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccrWIRXu.s 			page 8
+
+
+ 335              	.LFE134:
+ 337              		.section	.text.LED_off,"ax",%progbits
+ 338              		.align	1
+ 339              		.global	LED_off
+ 340              		.syntax unified
+ 341              		.thumb
+ 342              		.thumb_func
+ 343              		.fpu fpv4-sp-d16
+ 345              	LED_off:
+ 346              	.LFB135:
+  65:Src/User/LED.c **** }
+  66:Src/User/LED.c **** 
+  67:Src/User/LED.c **** void LED_off()
+  68:Src/User/LED.c **** {
+ 347              		.loc 1 68 0
+ 348              		.cfi_startproc
+ 349              		@ args = 0, pretend = 0, frame = 0
+ 350              		@ frame_needed = 0, uses_anonymous_args = 0
+ 351 0000 10B5     		push	{r4, lr}
+ 352              	.LCFI5:
+ 353              		.cfi_def_cfa_offset 8
+ 354              		.cfi_offset 4, -8
+ 355              		.cfi_offset 14, -4
+ 356              	.LVL31:
+ 357              	.LBB7:
+  69:Src/User/LED.c ****     for (uint8_t i = 0; i < LED_NUM; i++)
+ 358              		.loc 1 69 0
+ 359 0002 0023     		movs	r3, #0
+ 360 0004 09E0     		b	.L32
+ 361              	.LVL32:
+ 362              	.L33:
+  70:Src/User/LED.c ****     {
+  71:Src/User/LED.c ****         led_string[i].r = 0;
+ 363              		.loc 1 71 0 discriminator 3
+ 364 0006 074C     		ldr	r4, .L35
+ 365 0008 03EB4300 		add	r0, r3, r3, lsl #1
+ 366 000c 2118     		adds	r1, r4, r0
+ 367 000e 0022     		movs	r2, #0
+ 368 0010 2254     		strb	r2, [r4, r0]
+  72:Src/User/LED.c ****         led_string[i].g = 0;
+ 369              		.loc 1 72 0 discriminator 3
+ 370 0012 4A70     		strb	r2, [r1, #1]
+  73:Src/User/LED.c ****         led_string[i].b = 0;
+ 371              		.loc 1 73 0 discriminator 3
+ 372 0014 8A70     		strb	r2, [r1, #2]
+  69:Src/User/LED.c ****     {
+ 373              		.loc 1 69 0 discriminator 3
+ 374 0016 0133     		adds	r3, r3, #1
+ 375              	.LVL33:
+ 376 0018 DBB2     		uxtb	r3, r3
+ 377              	.LVL34:
+ 378              	.L32:
+  69:Src/User/LED.c ****     {
+ 379              		.loc 1 69 0 is_stmt 0 discriminator 1
+ 380 001a 072B     		cmp	r3, #7
+ 381 001c F3D9     		bls	.L33
+ 382              	.LBE7:
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccrWIRXu.s 			page 9
+
+
+  74:Src/User/LED.c ****     }
+  75:Src/User/LED.c ****     WS2812_update();
+ 383              		.loc 1 75 0 is_stmt 1
+ 384 001e FFF7FEFF 		bl	WS2812_update
+ 385              	.LVL35:
+ 386 0022 10BD     		pop	{r4, pc}
+ 387              	.L36:
+ 388              		.align	2
+ 389              	.L35:
+ 390 0024 00000000 		.word	led_string
+ 391              		.cfi_endproc
+ 392              	.LFE135:
+ 394              		.section	.text.LED_system_start,"ax",%progbits
+ 395              		.align	1
+ 396              		.global	LED_system_start
+ 397              		.syntax unified
+ 398              		.thumb
+ 399              		.thumb_func
+ 400              		.fpu fpv4-sp-d16
+ 402              	LED_system_start:
+ 403              	.LFB136:
+  76:Src/User/LED.c **** }
+  77:Src/User/LED.c **** 
+  78:Src/User/LED.c **** void LED_system_start(float a)
+  79:Src/User/LED.c **** {
+ 404              		.loc 1 79 0
+ 405              		.cfi_startproc
+ 406              		@ args = 0, pretend = 0, frame = 8
+ 407              		@ frame_needed = 0, uses_anonymous_args = 0
+ 408              	.LVL36:
+ 409 0000 10B5     		push	{r4, lr}
+ 410              	.LCFI6:
+ 411              		.cfi_def_cfa_offset 8
+ 412              		.cfi_offset 4, -8
+ 413              		.cfi_offset 14, -4
+ 414 0002 82B0     		sub	sp, sp, #8
+ 415              	.LCFI7:
+ 416              		.cfi_def_cfa_offset 16
+ 417              	.LVL37:
+ 418              	.LBB8:
+  80:Src/User/LED.c ****     for (uint8_t i = 0; i < LED_NUM; i++)
+ 419              		.loc 1 80 0
+ 420 0004 0023     		movs	r3, #0
+ 421 0006 09E0     		b	.L38
+ 422              	.LVL38:
+ 423              	.L39:
+  81:Src/User/LED.c ****     {
+  82:Src/User/LED.c ****         led_string[i].r = 0;
+ 424              		.loc 1 82 0 discriminator 3
+ 425 0008 134C     		ldr	r4, .L41
+ 426 000a 03EB4300 		add	r0, r3, r3, lsl #1
+ 427 000e 2118     		adds	r1, r4, r0
+ 428 0010 0022     		movs	r2, #0
+ 429 0012 2254     		strb	r2, [r4, r0]
+  83:Src/User/LED.c ****         led_string[i].g = 0;
+ 430              		.loc 1 83 0 discriminator 3
+ 431 0014 4A70     		strb	r2, [r1, #1]
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccrWIRXu.s 			page 10
+
+
+  84:Src/User/LED.c ****         led_string[i].b = 0;
+ 432              		.loc 1 84 0 discriminator 3
+ 433 0016 8A70     		strb	r2, [r1, #2]
+  80:Src/User/LED.c ****     {
+ 434              		.loc 1 80 0 discriminator 3
+ 435 0018 0133     		adds	r3, r3, #1
+ 436              	.LVL39:
+ 437 001a DBB2     		uxtb	r3, r3
+ 438              	.LVL40:
+ 439              	.L38:
+  80:Src/User/LED.c ****     {
+ 440              		.loc 1 80 0 is_stmt 0 discriminator 1
+ 441 001c 072B     		cmp	r3, #7
+ 442 001e F3D9     		bls	.L39
+ 443              	.LBE8:
+  85:Src/User/LED.c ****     }
+  86:Src/User/LED.c ****     led_string[(uint8_t)(a / 90.0f * 7 + 7)].r = 255;
+ 444              		.loc 1 86 0 is_stmt 1
+ 445 0020 9FED0E7A 		vldr.32	s14, .L41+4
+ 446 0024 C0EE077A 		vdiv.f32	s15, s0, s14
+ 447 0028 B1EE0C7A 		vmov.f32	s14, #7.0e+0
+ 448 002c 67EE877A 		vmul.f32	s15, s15, s14
+ 449 0030 77EE877A 		vadd.f32	s15, s15, s14
+ 450 0034 FCEEE77A 		vcvt.u32.f32	s15, s15
+ 451 0038 CDED017A 		vstr.32	s15, [sp, #4]	@ int
+ 452 003c 9DF80430 		ldrb	r3, [sp, #4]	@ zero_extendqisi2
+ 453              	.LVL41:
+ 454 0040 0548     		ldr	r0, .L41
+ 455 0042 03EB4303 		add	r3, r3, r3, lsl #1
+ 456 0046 C118     		adds	r1, r0, r3
+ 457 0048 FF22     		movs	r2, #255
+ 458 004a C254     		strb	r2, [r0, r3]
+  87:Src/User/LED.c ****     led_string[(uint8_t)(a / 90.0f * 7 + 7)].g = 255;
+ 459              		.loc 1 87 0
+ 460 004c 4A70     		strb	r2, [r1, #1]
+  88:Src/User/LED.c ****     led_string[(uint8_t)(a / 90.0f * 7 + 7)].b = 255;
+ 461              		.loc 1 88 0
+ 462 004e 8A70     		strb	r2, [r1, #2]
+  89:Src/User/LED.c ****     WS2812_update();
+ 463              		.loc 1 89 0
+ 464 0050 FFF7FEFF 		bl	WS2812_update
+ 465              	.LVL42:
+  90:Src/User/LED.c **** }...
+ 466              		.loc 1 90 0
+ 467 0054 02B0     		add	sp, sp, #8
+ 468              	.LCFI8:
+ 469              		.cfi_def_cfa_offset 8
+ 470              		@ sp needed
+ 471 0056 10BD     		pop	{r4, pc}
+ 472              	.L42:
+ 473              		.align	2
+ 474              	.L41:
+ 475 0058 00000000 		.word	led_string
+ 476 005c 0000B442 		.word	1119092736
+ 477              		.cfi_endproc
+ 478              	.LFE136:
+ 480              		.text
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccrWIRXu.s 			page 11
+
+
+ 481              	.Letext0:
+ 482              		.file 2 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/machine/_defa
+ 483              		.file 3 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/sys/_stdint.h
+ 484              		.file 4 "Drivers/CMSIS/Include/core_cm4.h"
+ 485              		.file 5 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h"
+ 486              		.file 6 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h"
+ 487              		.file 7 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
+ 488              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
+ 489              		.file 9 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h"
+ 490              		.file 10 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h"
+ 491              		.file 11 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
+ 492              		.file 12 "Inc/tim.h"
+ 493              		.file 13 "Inc/spi.h"
+ 494              		.file 14 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/sys/lock.h"
+ 495              		.file 15 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/sys/_types.h
+ 496              		.file 16 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/lib/gcc/arm-none-eabi/6.3.1/includ
+ 497              		.file 17 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/sys/reent.h"
+ 498              		.file 18 "Inc/User/WS2812B.h"
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccrWIRXu.s 			page 12
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 LED.c
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccrWIRXu.s:18     .text.LED_init:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccrWIRXu.s:25     .text.LED_init:0000000000000000 LED_init
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccrWIRXu.s:89     .text.LED_init:0000000000000040 $d
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccrWIRXu.s:94     .text.LED_stop:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccrWIRXu.s:101    .text.LED_stop:0000000000000000 LED_stop
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccrWIRXu.s:150    .text.LED_stop:000000000000002c $d
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccrWIRXu.s:155    .text.LED_go:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccrWIRXu.s:162    .text.LED_go:0000000000000000 LED_go
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccrWIRXu.s:211    .text.LED_go:000000000000002c $d
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccrWIRXu.s:216    .text.LED_left:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccrWIRXu.s:223    .text.LED_left:0000000000000000 LED_left
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccrWIRXu.s:272    .text.LED_left:000000000000002c $d
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccrWIRXu.s:277    .text.LED_right:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccrWIRXu.s:284    .text.LED_right:0000000000000000 LED_right
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccrWIRXu.s:333    .text.LED_right:000000000000002c $d
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccrWIRXu.s:338    .text.LED_off:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccrWIRXu.s:345    .text.LED_off:0000000000000000 LED_off
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccrWIRXu.s:390    .text.LED_off:0000000000000024 $d
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccrWIRXu.s:395    .text.LED_system_start:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccrWIRXu.s:402    .text.LED_system_start:0000000000000000 LED_system_start
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccrWIRXu.s:475    .text.LED_system_start:0000000000000058 $d
+                     .debug_frame:0000000000000010 $d
+
+UNDEFINED SYMBOLS
+WS2812_init
+WS2812_update
+HAL_Delay
+led_string

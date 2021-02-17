@@ -1,0 +1,810 @@
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc6nc4sS.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"M3508.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.M3508_init,"ax",%progbits
+  18              		.align	1
+  19              		.global	M3508_init
+  20              		.syntax unified
+  21              		.thumb
+  22              		.thumb_func
+  23              		.fpu fpv4-sp-d16
+  25              	M3508_init:
+  26              	.LFB130:
+  27              		.file 1 "Src/User/M3508.c"
+   1:Src/User/M3508.c **** #include "M3508.h"
+   2:Src/User/M3508.c **** #include "algorithm.h"
+   3:Src/User/M3508.c **** 
+   4:Src/User/M3508.c **** // #define DEBUG
+   5:Src/User/M3508.c **** 
+   6:Src/User/M3508.c **** pid_t M3508_speed_pid, M3508_position_pid;
+   7:Src/User/M3508.c **** int32_t M3508_position;
+   8:Src/User/M3508.c **** int16_t M3508_speed = 0;
+   9:Src/User/M3508.c **** 
+  10:Src/User/M3508.c **** uint8_t calibrate_flag = 0;
+  11:Src/User/M3508.c **** int32_t left_position, right_position;
+  12:Src/User/M3508.c **** 
+  13:Src/User/M3508.c **** float angle_range = 0.0f;
+  14:Src/User/M3508.c **** 
+  15:Src/User/M3508.c **** void M3508_init()
+  16:Src/User/M3508.c **** {
+  28              		.loc 1 16 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32 0000 08B5     		push	{r3, lr}
+  33              	.LCFI0:
+  34              		.cfi_def_cfa_offset 8
+  35              		.cfi_offset 3, -8
+  36              		.cfi_offset 14, -4
+  37 0002 2DED028B 		vpush.64	{d8}
+  38              	.LCFI1:
+  39              		.cfi_def_cfa_offset 16
+  40              		.cfi_offset 80, -16
+  41              		.cfi_offset 81, -12
+  17:Src/User/M3508.c ****     pid_init(&M3508_speed_pid, -10000.0f, 10000.0f, 10000.f, 5.5f, 0.1f, 0.0f);
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc6nc4sS.s 			page 2
+
+
+  42              		.loc 1 17 0
+  43 0006 9FED118A 		vldr.32	s16, .L3
+  44 000a DFED110A 		vldr.32	s1, .L3+4
+  45 000e F0EE482A 		vmov.f32	s5, s16
+  46 0012 9FED102A 		vldr.32	s4, .L3+8
+  47 0016 F1EE061A 		vmov.f32	s3, #5.5e+0
+  48 001a B0EE601A 		vmov.f32	s2, s1
+  49 001e 9FED0E0A 		vldr.32	s0, .L3+12
+  50 0022 0E48     		ldr	r0, .L3+16
+  51 0024 FFF7FEFF 		bl	pid_init
+  52              	.LVL0:
+  18:Src/User/M3508.c ****     pid_init(&M3508_position_pid, -M3508_MAX_OUTPUT, M3508_MAX_OUTPUT, M3508_MAX_OUTPUT, 0.05f, 0.0
+  53              		.loc 1 18 0
+  54 0028 DFED0D0A 		vldr.32	s1, .L3+20
+  55 002c F0EE482A 		vmov.f32	s5, s16
+  56 0030 B0EE482A 		vmov.f32	s4, s16
+  57 0034 DFED0B1A 		vldr.32	s3, .L3+24
+  58 0038 B0EE601A 		vmov.f32	s2, s1
+  59 003c 9FED0A0A 		vldr.32	s0, .L3+28
+  60 0040 0A48     		ldr	r0, .L3+32
+  61 0042 FFF7FEFF 		bl	pid_init
+  62              	.LVL1:
+  19:Src/User/M3508.c **** }
+  63              		.loc 1 19 0
+  64 0046 BDEC028B 		vldm	sp!, {d8}
+  65              	.LCFI2:
+  66              		.cfi_restore 80
+  67              		.cfi_restore 81
+  68              		.cfi_def_cfa_offset 8
+  69 004a 08BD     		pop	{r3, pc}
+  70              	.L4:
+  71              		.align	2
+  72              	.L3:
+  73 004c 00000000 		.word	0
+  74 0050 00401C46 		.word	1176256512
+  75 0054 CDCCCC3D 		.word	1036831949
+  76 0058 00401CC6 		.word	3323740160
+  77 005c 00000000 		.word	M3508_speed_pid
+  78 0060 0000FA43 		.word	1140457472
+  79 0064 CDCC4C3D 		.word	1028443341
+  80 0068 0000FAC3 		.word	3287941120
+  81 006c 00000000 		.word	M3508_position_pid
+  82              		.cfi_endproc
+  83              	.LFE130:
+  85              		.section	.text.set_motor_speed,"ax",%progbits
+  86              		.align	1
+  87              		.global	set_motor_speed
+  88              		.syntax unified
+  89              		.thumb
+  90              		.thumb_func
+  91              		.fpu fpv4-sp-d16
+  93              	set_motor_speed:
+  94              	.LFB131:
+  20:Src/User/M3508.c **** 
+  21:Src/User/M3508.c **** void set_motor_speed(int16_t speed)
+  22:Src/User/M3508.c **** {
+  95              		.loc 1 22 0
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc6nc4sS.s 			page 3
+
+
+  96              		.cfi_startproc
+  97              		@ args = 0, pretend = 0, frame = 0
+  98              		@ frame_needed = 0, uses_anonymous_args = 0
+  99              		@ link register save eliminated.
+ 100              	.LVL2:
+  23:Src/User/M3508.c ****     M3508_speed = speed;
+ 101              		.loc 1 23 0
+ 102 0000 014B     		ldr	r3, .L6
+ 103 0002 1880     		strh	r0, [r3]	@ movhi
+ 104 0004 7047     		bx	lr
+ 105              	.L7:
+ 106 0006 00BF     		.align	2
+ 107              	.L6:
+ 108 0008 00000000 		.word	.LANCHOR0
+ 109              		.cfi_endproc
+ 110              	.LFE131:
+ 112              		.section	.text.set_motor_angle,"ax",%progbits
+ 113              		.align	1
+ 114              		.global	set_motor_angle
+ 115              		.syntax unified
+ 116              		.thumb
+ 117              		.thumb_func
+ 118              		.fpu fpv4-sp-d16
+ 120              	set_motor_angle:
+ 121              	.LFB133:
+  24:Src/User/M3508.c **** }
+  25:Src/User/M3508.c **** 
+  26:Src/User/M3508.c **** void M3508_update_control()
+  27:Src/User/M3508.c **** {
+  28:Src/User/M3508.c ****     if (calibrate_flag == 0)
+  29:Src/User/M3508.c ****     {
+  30:Src/User/M3508.c ****         set_motor_speed(CALIBRATE_SPEED);
+  31:Src/User/M3508.c ****         static uint32_t stuck_tick;
+  32:Src/User/M3508.c ****         static uint8_t stuck_flag = 0;
+  33:Src/User/M3508.c ****         if (STUCK_CONDITION && stuck_flag == 0)
+  34:Src/User/M3508.c ****         {
+  35:Src/User/M3508.c ****             stuck_tick = HAL_GetTick();
+  36:Src/User/M3508.c ****             stuck_flag = 1;
+  37:Src/User/M3508.c ****         }
+  38:Src/User/M3508.c ****         else if (NOT_STUCK_CONDITION)
+  39:Src/User/M3508.c ****         {
+  40:Src/User/M3508.c ****             stuck_tick = 0;
+  41:Src/User/M3508.c ****             stuck_flag = 0;
+  42:Src/User/M3508.c ****         }
+  43:Src/User/M3508.c ****         else if (stuck_flag == 1 && HAL_GetTick() - stuck_tick > STUCK_TIMEOUT)
+  44:Src/User/M3508.c ****         {
+  45:Src/User/M3508.c ****             left_position = motor_data[0].accumulated_position;
+  46:Src/User/M3508.c ****             calibrate_flag = 1;
+  47:Src/User/M3508.c ****             stuck_flag = 0;
+  48:Src/User/M3508.c ****             stuck_tick = 0;
+  49:Src/User/M3508.c ****         }
+  50:Src/User/M3508.c ****     }
+  51:Src/User/M3508.c ****     else if (calibrate_flag == 1)
+  52:Src/User/M3508.c ****     {
+  53:Src/User/M3508.c ****         set_motor_speed(-CALIBRATE_SPEED);
+  54:Src/User/M3508.c ****         static uint32_t stuck_tick;
+  55:Src/User/M3508.c ****         static uint8_t stuck_flag = 0;
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc6nc4sS.s 			page 4
+
+
+  56:Src/User/M3508.c ****         if (STUCK_CONDITION && stuck_flag == 0)
+  57:Src/User/M3508.c ****         {
+  58:Src/User/M3508.c ****             stuck_tick = HAL_GetTick();
+  59:Src/User/M3508.c ****             stuck_flag = 1;
+  60:Src/User/M3508.c ****         }
+  61:Src/User/M3508.c ****         else if (NOT_STUCK_CONDITION)
+  62:Src/User/M3508.c ****         {
+  63:Src/User/M3508.c ****             stuck_tick = 0;
+  64:Src/User/M3508.c ****             stuck_flag = 0;
+  65:Src/User/M3508.c ****         }
+  66:Src/User/M3508.c ****         else if (stuck_flag == 1 && HAL_GetTick() - stuck_tick > STUCK_TIMEOUT)
+  67:Src/User/M3508.c ****         {
+  68:Src/User/M3508.c ****             right_position = motor_data[0].accumulated_position;
+  69:Src/User/M3508.c ****             calibrate_flag = 2;
+  70:Src/User/M3508.c ****             stuck_flag = 0;
+  71:Src/User/M3508.c ****             stuck_tick = 0;
+  72:Src/User/M3508.c ****         }
+  73:Src/User/M3508.c ****     }
+  74:Src/User/M3508.c ****     else if (calibrate_flag == 2)
+  75:Src/User/M3508.c ****     {
+  76:Src/User/M3508.c ****         // set_motor_speed(0);
+  77:Src/User/M3508.c ****         if (ABS(left_position - right_position) > ANGLE2ENCODER(CALIBRATED_ANGLE))
+  78:Src/User/M3508.c ****         {
+  79:Src/User/M3508.c ****             calibrate_flag = 3;
+  80:Src/User/M3508.c ****             // angle_range = ABS(ENCODER2ANGLE((right_position - left_position) / 2));
+  81:Src/User/M3508.c ****         }
+  82:Src/User/M3508.c ****         else
+  83:Src/User/M3508.c ****         {
+  84:Src/User/M3508.c ****             calibrate_flag = 0;
+  85:Src/User/M3508.c ****             left_position = 0;
+  86:Src/User/M3508.c ****             right_position = 0;
+  87:Src/User/M3508.c ****         }
+  88:Src/User/M3508.c ****     }
+  89:Src/User/M3508.c ****     else if (calibrate_flag == 3)
+  90:Src/User/M3508.c ****     {
+  91:Src/User/M3508.c **** #ifdef DEBUG
+  92:Src/User/M3508.c ****         // M3508_position = (left_position + right_position) / 2;
+  93:Src/User/M3508.c ****         set_motor_angle((throttle[LEFT_THROTTLE] - 1100) * ABS(right_position - left_position) / 21
+  94:Src/User/M3508.c **** #else
+  95:Src/User/M3508.c ****         set_motor_angle((accAngle.angleY + IMU_OFF_SET) / IMU_RANGE * ABS((right_position - left_po
+  96:Src/User/M3508.c **** #endif
+  97:Src/User/M3508.c ****         M3508_speed = pid_calculate(&M3508_position_pid, motor_data[0].accumulated_position, M3508_
+  98:Src/User/M3508.c ****     }
+  99:Src/User/M3508.c ****     motor_data[0].target_current = pid_calculate(&M3508_speed_pid, motor_data[0].speed, M3508_speed
+ 100:Src/User/M3508.c ****     can_tx_data();
+ 101:Src/User/M3508.c **** }
+ 102:Src/User/M3508.c **** 
+ 103:Src/User/M3508.c **** void set_motor_angle(float a)
+ 104:Src/User/M3508.c **** {
+ 122              		.loc 1 104 0
+ 123              		.cfi_startproc
+ 124              		@ args = 0, pretend = 0, frame = 0
+ 125              		@ frame_needed = 0, uses_anonymous_args = 0
+ 126              		@ link register save eliminated.
+ 127              	.LVL3:
+ 105:Src/User/M3508.c ****     int32_t temp_position = (left_position + right_position) / 2 + a;
+ 128              		.loc 1 105 0
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc6nc4sS.s 			page 5
+
+
+ 129 0000 114B     		ldr	r3, .L14
+ 130 0002 1968     		ldr	r1, [r3]
+ 131 0004 114B     		ldr	r3, .L14+4
+ 132 0006 1A68     		ldr	r2, [r3]
+ 133 0008 8B18     		adds	r3, r1, r2
+ 134 000a 03EBD373 		add	r3, r3, r3, lsr #31
+ 135 000e 5B10     		asrs	r3, r3, #1
+ 136 0010 07EE903A 		vmov	s15, r3	@ int
+ 137 0014 F8EEE77A 		vcvt.f32.s32	s15, s15
+ 138 0018 37EE800A 		vadd.f32	s0, s15, s0
+ 139              	.LVL4:
+ 140 001c FDEEC07A 		vcvt.s32.f32	s15, s0
+ 141 0020 17EE903A 		vmov	r3, s15	@ int
+ 142              	.LVL5:
+ 106:Src/User/M3508.c ****     if (temp_position < right_position + M3508_POSITION_LIMIT)
+ 143              		.loc 1 106 0
+ 144 0024 02F6B832 		addw	r2, r2, #3000
+ 145 0028 9342     		cmp	r3, r2
+ 146 002a 07DB     		blt	.L12
+ 107:Src/User/M3508.c ****         M3508_position = right_position + M3508_POSITION_LIMIT;
+ 108:Src/User/M3508.c ****     else if (temp_position > left_position - M3508_POSITION_LIMIT)
+ 147              		.loc 1 108 0
+ 148 002c A1F6B831 		subw	r1, r1, #3000
+ 149 0030 8B42     		cmp	r3, r1
+ 150 0032 06DC     		bgt	.L13
+ 109:Src/User/M3508.c ****         M3508_position = left_position - M3508_POSITION_LIMIT;
+ 110:Src/User/M3508.c ****     else
+ 111:Src/User/M3508.c ****         M3508_position = temp_position;
+ 151              		.loc 1 111 0
+ 152 0034 064A     		ldr	r2, .L14+8
+ 153 0036 C2ED007A 		vstr.32	s15, [r2]	@ int
+ 154 003a 7047     		bx	lr
+ 155              	.L12:
+ 107:Src/User/M3508.c ****         M3508_position = right_position + M3508_POSITION_LIMIT;
+ 156              		.loc 1 107 0
+ 157 003c 044B     		ldr	r3, .L14+8
+ 158              	.LVL6:
+ 159 003e 1A60     		str	r2, [r3]
+ 160 0040 7047     		bx	lr
+ 161              	.LVL7:
+ 162              	.L13:
+ 109:Src/User/M3508.c ****         M3508_position = left_position - M3508_POSITION_LIMIT;
+ 163              		.loc 1 109 0
+ 164 0042 034B     		ldr	r3, .L14+8
+ 165              	.LVL8:
+ 166 0044 1960     		str	r1, [r3]
+ 167 0046 7047     		bx	lr
+ 168              	.L15:
+ 169              		.align	2
+ 170              	.L14:
+ 171 0048 00000000 		.word	left_position
+ 172 004c 00000000 		.word	right_position
+ 173 0050 00000000 		.word	M3508_position
+ 174              		.cfi_endproc
+ 175              	.LFE133:
+ 177              		.section	.text.M3508_update_control,"ax",%progbits
+ 178              		.align	1
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc6nc4sS.s 			page 6
+
+
+ 179              		.global	M3508_update_control
+ 180              		.syntax unified
+ 181              		.thumb
+ 182              		.thumb_func
+ 183              		.fpu fpv4-sp-d16
+ 185              	M3508_update_control:
+ 186              	.LFB132:
+  27:Src/User/M3508.c ****     if (calibrate_flag == 0)
+ 187              		.loc 1 27 0
+ 188              		.cfi_startproc
+ 189              		@ args = 0, pretend = 0, frame = 0
+ 190              		@ frame_needed = 0, uses_anonymous_args = 0
+ 191 0000 10B5     		push	{r4, lr}
+ 192              	.LCFI3:
+ 193              		.cfi_def_cfa_offset 8
+ 194              		.cfi_offset 4, -8
+ 195              		.cfi_offset 14, -4
+  28:Src/User/M3508.c ****     {
+ 196              		.loc 1 28 0
+ 197 0002 834B     		ldr	r3, .L39
+ 198 0004 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 199 0006 03B3     		cbz	r3, .L31
+  51:Src/User/M3508.c ****     {
+ 200              		.loc 1 51 0
+ 201 0008 012B     		cmp	r3, #1
+ 202 000a 5CD0     		beq	.L32
+  74:Src/User/M3508.c ****     {
+ 203              		.loc 1 74 0
+ 204 000c 022B     		cmp	r3, #2
+ 205 000e 00F09780 		beq	.L33
+  89:Src/User/M3508.c ****     {
+ 206              		.loc 1 89 0
+ 207 0012 032B     		cmp	r3, #3
+ 208 0014 00F0C480 		beq	.L34
+ 209              	.L19:
+  99:Src/User/M3508.c ****     can_tx_data();
+ 210              		.loc 1 99 0
+ 211 0018 7E4C     		ldr	r4, .L39+4
+ 212 001a B4F90A30 		ldrsh	r3, [r4, #10]
+ 213 001e 00EE103A 		vmov	s0, r3	@ int
+ 214 0022 7D4B     		ldr	r3, .L39+8
+ 215 0024 B3F90030 		ldrsh	r3, [r3]
+ 216 0028 00EE903A 		vmov	s1, r3	@ int
+ 217 002c F8EEE00A 		vcvt.f32.s32	s1, s1
+ 218 0030 B8EEC00A 		vcvt.f32.s32	s0, s0
+ 219 0034 7948     		ldr	r0, .L39+12
+ 220 0036 FFF7FEFF 		bl	pid_calculate
+ 221              	.LVL9:
+ 222 003a FDEEC07A 		vcvt.s32.f32	s15, s0
+ 223 003e 17EE903A 		vmov	r3, s15	@ int
+ 224 0042 2380     		strh	r3, [r4]	@ movhi
+ 100:Src/User/M3508.c **** }
+ 225              		.loc 1 100 0
+ 226 0044 FFF7FEFF 		bl	can_tx_data
+ 227              	.LVL10:
+ 228 0048 10BD     		pop	{r4, pc}
+ 229              	.L31:
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc6nc4sS.s 			page 7
+
+
+ 230              	.LBB2:
+  30:Src/User/M3508.c ****         static uint32_t stuck_tick;
+ 231              		.loc 1 30 0
+ 232 004a 4FF47A70 		mov	r0, #1000
+ 233 004e FFF7FEFF 		bl	set_motor_speed
+ 234              	.LVL11:
+  33:Src/User/M3508.c ****         {
+ 235              		.loc 1 33 0
+ 236 0052 704B     		ldr	r3, .L39+4
+ 237 0054 B3F90E30 		ldrsh	r3, [r3, #14]
+ 238 0058 002B     		cmp	r3, #0
+ 239 005a B8BF     		it	lt
+ 240 005c 5B42     		rsblt	r3, r3, #0
+ 241 005e B3F57A6F 		cmp	r3, #4000
+ 242 0062 02DD     		ble	.L18
+  33:Src/User/M3508.c ****         {
+ 243              		.loc 1 33 0 is_stmt 0 discriminator 1
+ 244 0064 6E4B     		ldr	r3, .L39+16
+ 245 0066 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 246 0068 FBB1     		cbz	r3, .L35
+ 247              	.L18:
+  38:Src/User/M3508.c ****         {
+ 248              		.loc 1 38 0 is_stmt 1
+ 249 006a 6A4B     		ldr	r3, .L39+4
+ 250 006c B3F90A30 		ldrsh	r3, [r3, #10]
+ 251 0070 002B     		cmp	r3, #0
+ 252 0072 B8BF     		it	lt
+ 253 0074 5B42     		rsblt	r3, r3, #0
+ 254 0076 642B     		cmp	r3, #100
+ 255 0078 1FDC     		bgt	.L36
+  43:Src/User/M3508.c ****         {
+ 256              		.loc 1 43 0
+ 257 007a 694B     		ldr	r3, .L39+16
+ 258 007c 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 259 007e 012B     		cmp	r3, #1
+ 260 0080 CAD1     		bne	.L19
+  43:Src/User/M3508.c ****         {
+ 261              		.loc 1 43 0 is_stmt 0 discriminator 1
+ 262 0082 FFF7FEFF 		bl	HAL_GetTick
+ 263              	.LVL12:
+ 264 0086 674B     		ldr	r3, .L39+20
+ 265 0088 1B68     		ldr	r3, [r3]
+ 266 008a C01A     		subs	r0, r0, r3
+ 267 008c 0A28     		cmp	r0, #10
+ 268 008e C3D9     		bls	.L19
+  45:Src/User/M3508.c ****             calibrate_flag = 1;
+ 269              		.loc 1 45 0 is_stmt 1
+ 270 0090 604B     		ldr	r3, .L39+4
+ 271 0092 5A68     		ldr	r2, [r3, #4]
+ 272 0094 644B     		ldr	r3, .L39+24
+ 273 0096 1A60     		str	r2, [r3]
+  46:Src/User/M3508.c ****             stuck_flag = 0;
+ 274              		.loc 1 46 0
+ 275 0098 0122     		movs	r2, #1
+ 276 009a 5D4B     		ldr	r3, .L39
+ 277 009c 1A70     		strb	r2, [r3]
+  47:Src/User/M3508.c ****             stuck_tick = 0;
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc6nc4sS.s 			page 8
+
+
+ 278              		.loc 1 47 0
+ 279 009e 0023     		movs	r3, #0
+ 280 00a0 5F4A     		ldr	r2, .L39+16
+ 281 00a2 1370     		strb	r3, [r2]
+  48:Src/User/M3508.c ****         }
+ 282              		.loc 1 48 0
+ 283 00a4 5F4A     		ldr	r2, .L39+20
+ 284 00a6 1360     		str	r3, [r2]
+ 285 00a8 B6E7     		b	.L19
+ 286              	.L35:
+  35:Src/User/M3508.c ****             stuck_flag = 1;
+ 287              		.loc 1 35 0
+ 288 00aa FFF7FEFF 		bl	HAL_GetTick
+ 289              	.LVL13:
+ 290 00ae 5D4B     		ldr	r3, .L39+20
+ 291 00b0 1860     		str	r0, [r3]
+  36:Src/User/M3508.c ****         }
+ 292              		.loc 1 36 0
+ 293 00b2 0122     		movs	r2, #1
+ 294 00b4 5A4B     		ldr	r3, .L39+16
+ 295 00b6 1A70     		strb	r2, [r3]
+ 296 00b8 AEE7     		b	.L19
+ 297              	.L36:
+  40:Src/User/M3508.c ****             stuck_flag = 0;
+ 298              		.loc 1 40 0
+ 299 00ba 0023     		movs	r3, #0
+ 300 00bc 594A     		ldr	r2, .L39+20
+ 301 00be 1360     		str	r3, [r2]
+  41:Src/User/M3508.c ****         }
+ 302              		.loc 1 41 0
+ 303 00c0 574A     		ldr	r2, .L39+16
+ 304 00c2 1370     		strb	r3, [r2]
+ 305 00c4 A8E7     		b	.L19
+ 306              	.L32:
+ 307              	.LBE2:
+ 308              	.LBB3:
+  53:Src/User/M3508.c ****         static uint32_t stuck_tick;
+ 309              		.loc 1 53 0
+ 310 00c6 5948     		ldr	r0, .L39+28
+ 311 00c8 FFF7FEFF 		bl	set_motor_speed
+ 312              	.LVL14:
+  56:Src/User/M3508.c ****         {
+ 313              		.loc 1 56 0
+ 314 00cc 514B     		ldr	r3, .L39+4
+ 315 00ce B3F90E30 		ldrsh	r3, [r3, #14]
+ 316 00d2 002B     		cmp	r3, #0
+ 317 00d4 B8BF     		it	lt
+ 318 00d6 5B42     		rsblt	r3, r3, #0
+ 319 00d8 B3F57A6F 		cmp	r3, #4000
+ 320 00dc 02DD     		ble	.L22
+  56:Src/User/M3508.c ****         {
+ 321              		.loc 1 56 0 is_stmt 0 discriminator 1
+ 322 00de 544B     		ldr	r3, .L39+32
+ 323 00e0 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 324 00e2 FBB1     		cbz	r3, .L37
+ 325              	.L22:
+  61:Src/User/M3508.c ****         {
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc6nc4sS.s 			page 9
+
+
+ 326              		.loc 1 61 0 is_stmt 1
+ 327 00e4 4B4B     		ldr	r3, .L39+4
+ 328 00e6 B3F90A30 		ldrsh	r3, [r3, #10]
+ 329 00ea 002B     		cmp	r3, #0
+ 330 00ec B8BF     		it	lt
+ 331 00ee 5B42     		rsblt	r3, r3, #0
+ 332 00f0 642B     		cmp	r3, #100
+ 333 00f2 1FDC     		bgt	.L38
+  66:Src/User/M3508.c ****         {
+ 334              		.loc 1 66 0
+ 335 00f4 4E4B     		ldr	r3, .L39+32
+ 336 00f6 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 337 00f8 012B     		cmp	r3, #1
+ 338 00fa 8DD1     		bne	.L19
+  66:Src/User/M3508.c ****         {
+ 339              		.loc 1 66 0 is_stmt 0 discriminator 1
+ 340 00fc FFF7FEFF 		bl	HAL_GetTick
+ 341              	.LVL15:
+ 342 0100 4C4B     		ldr	r3, .L39+36
+ 343 0102 1B68     		ldr	r3, [r3]
+ 344 0104 C31A     		subs	r3, r0, r3
+ 345 0106 0A2B     		cmp	r3, #10
+ 346 0108 86D9     		bls	.L19
+  68:Src/User/M3508.c ****             calibrate_flag = 2;
+ 347              		.loc 1 68 0 is_stmt 1
+ 348 010a 424B     		ldr	r3, .L39+4
+ 349 010c 5A68     		ldr	r2, [r3, #4]
+ 350 010e 4A4B     		ldr	r3, .L39+40
+ 351 0110 1A60     		str	r2, [r3]
+  69:Src/User/M3508.c ****             stuck_flag = 0;
+ 352              		.loc 1 69 0
+ 353 0112 0222     		movs	r2, #2
+ 354 0114 3E4B     		ldr	r3, .L39
+ 355 0116 1A70     		strb	r2, [r3]
+  70:Src/User/M3508.c ****             stuck_tick = 0;
+ 356              		.loc 1 70 0
+ 357 0118 0023     		movs	r3, #0
+ 358 011a 454A     		ldr	r2, .L39+32
+ 359 011c 1370     		strb	r3, [r2]
+  71:Src/User/M3508.c ****         }
+ 360              		.loc 1 71 0
+ 361 011e 454A     		ldr	r2, .L39+36
+ 362 0120 1360     		str	r3, [r2]
+ 363 0122 79E7     		b	.L19
+ 364              	.L37:
+  58:Src/User/M3508.c ****             stuck_flag = 1;
+ 365              		.loc 1 58 0
+ 366 0124 FFF7FEFF 		bl	HAL_GetTick
+ 367              	.LVL16:
+ 368 0128 424B     		ldr	r3, .L39+36
+ 369 012a 1860     		str	r0, [r3]
+  59:Src/User/M3508.c ****         }
+ 370              		.loc 1 59 0
+ 371 012c 0122     		movs	r2, #1
+ 372 012e 404B     		ldr	r3, .L39+32
+ 373 0130 1A70     		strb	r2, [r3]
+ 374 0132 71E7     		b	.L19
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc6nc4sS.s 			page 10
+
+
+ 375              	.L38:
+  63:Src/User/M3508.c ****             stuck_flag = 0;
+ 376              		.loc 1 63 0
+ 377 0134 0023     		movs	r3, #0
+ 378 0136 3F4A     		ldr	r2, .L39+36
+ 379 0138 1360     		str	r3, [r2]
+  64:Src/User/M3508.c ****         }
+ 380              		.loc 1 64 0
+ 381 013a 3D4A     		ldr	r2, .L39+32
+ 382 013c 1370     		strb	r3, [r2]
+ 383 013e 6BE7     		b	.L19
+ 384              	.L33:
+ 385              	.LBE3:
+  77:Src/User/M3508.c ****         {
+ 386              		.loc 1 77 0
+ 387 0140 394B     		ldr	r3, .L39+24
+ 388 0142 1B68     		ldr	r3, [r3]
+ 389 0144 3C4A     		ldr	r2, .L39+40
+ 390 0146 1268     		ldr	r2, [r2]
+ 391 0148 991A     		subs	r1, r3, r2
+ 392 014a 11D4     		bmi	.L25
+  77:Src/User/M3508.c ****         {
+ 393              		.loc 1 77 0 is_stmt 0 discriminator 1
+ 394 014c 07EE901A 		vmov	s15, r1	@ int
+ 395 0150 F8EEE77A 		vcvt.f32.s32	s15, s15
+ 396 0154 9FED397A 		vldr.32	s14, .L39+44
+ 397 0158 F4EEC77A 		vcmpe.f32	s15, s14
+ 398 015c F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 399 0160 CCBF     		ite	gt
+ 400 0162 0123     		movgt	r3, #1
+ 401 0164 0023     		movle	r3, #0
+ 402              	.L26:
+  77:Src/User/M3508.c ****         {
+ 403              		.loc 1 77 0 discriminator 4
+ 404 0166 9BB1     		cbz	r3, .L27
+  79:Src/User/M3508.c ****             // angle_range = ABS(ENCODER2ANGLE((right_position - left_position) / 2));
+ 405              		.loc 1 79 0 is_stmt 1
+ 406 0168 0322     		movs	r2, #3
+ 407 016a 294B     		ldr	r3, .L39
+ 408 016c 1A70     		strb	r2, [r3]
+ 409 016e 53E7     		b	.L19
+ 410              	.L25:
+  77:Src/User/M3508.c ****         {
+ 411              		.loc 1 77 0 discriminator 2
+ 412 0170 5B42     		negs	r3, r3
+ 413 0172 9B1A     		subs	r3, r3, r2
+ 414 0174 07EE903A 		vmov	s15, r3	@ int
+ 415 0178 F8EEE77A 		vcvt.f32.s32	s15, s15
+ 416 017c 9FED2F7A 		vldr.32	s14, .L39+44
+ 417 0180 F4EEC77A 		vcmpe.f32	s15, s14
+ 418 0184 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 419 0188 CCBF     		ite	gt
+ 420 018a 0123     		movgt	r3, #1
+ 421 018c 0023     		movle	r3, #0
+ 422 018e EAE7     		b	.L26
+ 423              	.L27:
+  84:Src/User/M3508.c ****             left_position = 0;
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc6nc4sS.s 			page 11
+
+
+ 424              		.loc 1 84 0
+ 425 0190 0023     		movs	r3, #0
+ 426 0192 1F4A     		ldr	r2, .L39
+ 427 0194 1370     		strb	r3, [r2]
+  85:Src/User/M3508.c ****             right_position = 0;
+ 428              		.loc 1 85 0
+ 429 0196 244A     		ldr	r2, .L39+24
+ 430 0198 1360     		str	r3, [r2]
+  86:Src/User/M3508.c ****         }
+ 431              		.loc 1 86 0
+ 432 019a 274A     		ldr	r2, .L39+40
+ 433 019c 1360     		str	r3, [r2]
+ 434 019e 3BE7     		b	.L19
+ 435              	.L34:
+  95:Src/User/M3508.c **** #endif
+ 436              		.loc 1 95 0
+ 437 01a0 274B     		ldr	r3, .L39+48
+ 438 01a2 93ED017A 		vldr.32	s14, [r3, #4]
+ 439 01a6 DFED277A 		vldr.32	s15, .L39+52
+ 440 01aa 87EE270A 		vdiv.f32	s0, s14, s15
+ 441 01ae 224B     		ldr	r3, .L39+40
+ 442 01b0 1968     		ldr	r1, [r3]
+ 443 01b2 1D4B     		ldr	r3, .L39+24
+ 444 01b4 1A68     		ldr	r2, [r3]
+ 445 01b6 8B1A     		subs	r3, r1, r2
+ 446 01b8 B3F1FF3F 		cmp	r3, #-1
+ 447 01bc 1EDB     		blt	.L28
+  95:Src/User/M3508.c **** #endif
+ 448              		.loc 1 95 0 is_stmt 0 discriminator 1
+ 449 01be 03EBD373 		add	r3, r3, r3, lsr #31
+ 450 01c2 5B10     		asrs	r3, r3, #1
+ 451 01c4 07EE903A 		vmov	s15, r3	@ int
+ 452 01c8 F8EEE77A 		vcvt.f32.s32	s15, s15
+ 453              	.L29:
+  95:Src/User/M3508.c **** #endif
+ 454              		.loc 1 95 0 discriminator 4
+ 455 01cc 27EE800A 		vmul.f32	s0, s15, s0
+ 456 01d0 FFF7FEFF 		bl	set_motor_angle
+ 457              	.LVL17:
+  97:Src/User/M3508.c ****     }
+ 458              		.loc 1 97 0 is_stmt 1 discriminator 4
+ 459 01d4 0F4B     		ldr	r3, .L39+4
+ 460 01d6 93ED010A 		vldr.32	s0, [r3, #4]	@ int
+ 461 01da 1B4B     		ldr	r3, .L39+56
+ 462 01dc D3ED000A 		vldr.32	s1, [r3]	@ int
+ 463 01e0 F8EEE00A 		vcvt.f32.s32	s1, s1
+ 464 01e4 B8EEC00A 		vcvt.f32.s32	s0, s0
+ 465 01e8 1848     		ldr	r0, .L39+60
+ 466 01ea FFF7FEFF 		bl	pid_calculate
+ 467              	.LVL18:
+ 468 01ee FDEEC07A 		vcvt.s32.f32	s15, s0
+ 469 01f2 17EE902A 		vmov	r2, s15	@ int
+ 470 01f6 084B     		ldr	r3, .L39+8
+ 471 01f8 1A80     		strh	r2, [r3]	@ movhi
+ 472 01fa 0DE7     		b	.L19
+ 473              	.L28:
+  95:Src/User/M3508.c **** #endif
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc6nc4sS.s 			page 12
+
+
+ 474              		.loc 1 95 0 discriminator 2
+ 475 01fc 521A     		subs	r2, r2, r1
+ 476 01fe 02EBD272 		add	r2, r2, r2, lsr #31
+ 477 0202 5210     		asrs	r2, r2, #1
+ 478 0204 07EE902A 		vmov	s15, r2	@ int
+ 479 0208 F8EEE77A 		vcvt.f32.s32	s15, s15
+ 480 020c DEE7     		b	.L29
+ 481              	.L40:
+ 482 020e 00BF     		.align	2
+ 483              	.L39:
+ 484 0210 00000000 		.word	.LANCHOR1
+ 485 0214 00000000 		.word	motor_data
+ 486 0218 00000000 		.word	.LANCHOR0
+ 487 021c 00000000 		.word	M3508_speed_pid
+ 488 0220 00000000 		.word	.LANCHOR2
+ 489 0224 00000000 		.word	.LANCHOR3
+ 490 0228 00000000 		.word	left_position
+ 491 022c 18FCFFFF 		.word	-1000
+ 492 0230 00000000 		.word	.LANCHOR4
+ 493 0234 00000000 		.word	.LANCHOR5
+ 494 0238 00000000 		.word	right_position
+ 495 023c 00004047 		.word	1195376640
+ 496 0240 00000000 		.word	accAngle
+ 497 0244 00007042 		.word	1114636288
+ 498 0248 00000000 		.word	M3508_position
+ 499 024c 00000000 		.word	M3508_position_pid
+ 500              		.cfi_endproc
+ 501              	.LFE132:
+ 503              		.global	angle_range
+ 504              		.comm	right_position,4,4
+ 505              		.comm	left_position,4,4
+ 506              		.global	calibrate_flag
+ 507              		.global	M3508_speed
+ 508              		.comm	M3508_position,4,4
+ 509              		.comm	M3508_position_pid,56,4
+ 510              		.comm	M3508_speed_pid,56,4
+ 511              		.section	.bss.M3508_speed,"aw",%nobits
+ 512              		.align	1
+ 513              		.set	.LANCHOR0,. + 0
+ 516              	M3508_speed:
+ 517 0000 0000     		.space	2
+ 518              		.section	.bss.angle_range,"aw",%nobits
+ 519              		.align	2
+ 522              	angle_range:
+ 523 0000 00000000 		.space	4
+ 524              		.section	.bss.calibrate_flag,"aw",%nobits
+ 525              		.set	.LANCHOR1,. + 0
+ 528              	calibrate_flag:
+ 529 0000 00       		.space	1
+ 530              		.section	.bss.stuck_flag.9053,"aw",%nobits
+ 531              		.set	.LANCHOR2,. + 0
+ 534              	stuck_flag.9053:
+ 535 0000 00       		.space	1
+ 536              		.section	.bss.stuck_flag.9055,"aw",%nobits
+ 537              		.set	.LANCHOR4,. + 0
+ 540              	stuck_flag.9055:
+ 541 0000 00       		.space	1
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc6nc4sS.s 			page 13
+
+
+ 542              		.section	.bss.stuck_tick.9052,"aw",%nobits
+ 543              		.align	2
+ 544              		.set	.LANCHOR3,. + 0
+ 547              	stuck_tick.9052:
+ 548 0000 00000000 		.space	4
+ 549              		.section	.bss.stuck_tick.9054,"aw",%nobits
+ 550              		.align	2
+ 551              		.set	.LANCHOR5,. + 0
+ 554              	stuck_tick.9054:
+ 555 0000 00000000 		.space	4
+ 556              		.text
+ 557              	.Letext0:
+ 558              		.file 2 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/machine/_defa
+ 559              		.file 3 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/sys/_stdint.h
+ 560              		.file 4 "Drivers/CMSIS/Include/core_cm4.h"
+ 561              		.file 5 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h"
+ 562              		.file 6 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h"
+ 563              		.file 7 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h"
+ 564              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
+ 565              		.file 9 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
+ 566              		.file 10 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h"
+ 567              		.file 11 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_can.h"
+ 568              		.file 12 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h"
+ 569              		.file 13 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h"
+ 570              		.file 14 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
+ 571              		.file 15 "Inc/can.h"
+ 572              		.file 16 "Inc/tim.h"
+ 573              		.file 17 "Inc/spi.h"
+ 574              		.file 18 "Inc/adc.h"
+ 575              		.file 19 "Inc/User/algorithm.h"
+ 576              		.file 20 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/sys/lock.h"
+ 577              		.file 21 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/sys/_types.h
+ 578              		.file 22 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/lib/gcc/arm-none-eabi/6.3.1/includ
+ 579              		.file 23 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/sys/reent.h"
+ 580              		.file 24 "Inc/User/WS2812B.h"
+ 581              		.file 25 "Inc/User/user_control.h"
+ 582              		.file 26 "Inc/User/user_main.h"
+ 583              		.file 27 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/stdlib.h"
+ 584              		.file 28 "Inc/User/motor_driver.h"
+ 585              		.file 29 "Inc/User/can_protocol.h"
+ 586              		.file 30 "Inc/User/MPU6050.h"
+ 587              		.file 31 "Inc/User/M3508.h"
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc6nc4sS.s 			page 14
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 M3508.c
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc6nc4sS.s:18     .text.M3508_init:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc6nc4sS.s:25     .text.M3508_init:0000000000000000 M3508_init
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc6nc4sS.s:73     .text.M3508_init:000000000000004c $d
+                            *COM*:0000000000000038 M3508_speed_pid
+                            *COM*:0000000000000038 M3508_position_pid
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc6nc4sS.s:86     .text.set_motor_speed:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc6nc4sS.s:93     .text.set_motor_speed:0000000000000000 set_motor_speed
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc6nc4sS.s:108    .text.set_motor_speed:0000000000000008 $d
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc6nc4sS.s:113    .text.set_motor_angle:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc6nc4sS.s:120    .text.set_motor_angle:0000000000000000 set_motor_angle
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc6nc4sS.s:171    .text.set_motor_angle:0000000000000048 $d
+                            *COM*:0000000000000004 left_position
+                            *COM*:0000000000000004 right_position
+                            *COM*:0000000000000004 M3508_position
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc6nc4sS.s:178    .text.M3508_update_control:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc6nc4sS.s:185    .text.M3508_update_control:0000000000000000 M3508_update_control
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc6nc4sS.s:484    .text.M3508_update_control:0000000000000210 $d
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc6nc4sS.s:522    .bss.angle_range:0000000000000000 angle_range
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc6nc4sS.s:528    .bss.calibrate_flag:0000000000000000 calibrate_flag
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc6nc4sS.s:516    .bss.M3508_speed:0000000000000000 M3508_speed
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc6nc4sS.s:512    .bss.M3508_speed:0000000000000000 $d
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc6nc4sS.s:519    .bss.angle_range:0000000000000000 $d
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc6nc4sS.s:529    .bss.calibrate_flag:0000000000000000 $d
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc6nc4sS.s:534    .bss.stuck_flag.9053:0000000000000000 stuck_flag.9053
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc6nc4sS.s:535    .bss.stuck_flag.9053:0000000000000000 $d
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc6nc4sS.s:540    .bss.stuck_flag.9055:0000000000000000 stuck_flag.9055
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc6nc4sS.s:541    .bss.stuck_flag.9055:0000000000000000 $d
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc6nc4sS.s:543    .bss.stuck_tick.9052:0000000000000000 $d
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc6nc4sS.s:547    .bss.stuck_tick.9052:0000000000000000 stuck_tick.9052
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc6nc4sS.s:550    .bss.stuck_tick.9054:0000000000000000 $d
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc6nc4sS.s:554    .bss.stuck_tick.9054:0000000000000000 stuck_tick.9054
+                     .debug_frame:0000000000000010 $d
+
+UNDEFINED SYMBOLS
+pid_init
+pid_calculate
+can_tx_data
+HAL_GetTick
+motor_data
+accAngle

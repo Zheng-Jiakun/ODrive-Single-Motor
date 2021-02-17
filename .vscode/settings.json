@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "user_control.h": "c",
+        "led.h": "c",
+        "m3508.h": "c"
+    }
+}

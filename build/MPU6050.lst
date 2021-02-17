@@ -1,0 +1,732 @@
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccUhU3o4.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"MPU6050.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.MPU6050_write_byte,"ax",%progbits
+  18              		.align	1
+  19              		.global	MPU6050_write_byte
+  20              		.syntax unified
+  21              		.thumb
+  22              		.thumb_func
+  23              		.fpu fpv4-sp-d16
+  25              	MPU6050_write_byte:
+  26              	.LFB131:
+  27              		.file 1 "Src/User/MPU6050.c"
+   1:Src/User/MPU6050.c **** #include "MPU6050.h"
+   2:Src/User/MPU6050.c **** #include "math.h"
+   3:Src/User/MPU6050.c **** 
+   4:Src/User/MPU6050.c **** struct ACCELSTRUCT accelStruct = {0, 0, 0};
+   5:Src/User/MPU6050.c **** struct GYROSTRUCT gyroStruct = {0, 0, 0};
+   6:Src/User/MPU6050.c **** 
+   7:Src/User/MPU6050.c **** ANGLESTRUCT accAngle, gyroAngle, filteredAngle;
+   8:Src/User/MPU6050.c **** 
+   9:Src/User/MPU6050.c **** #define GYRO_LSB 131.0f
+  10:Src/User/MPU6050.c **** #define ACCEL_LSB 16384.0f
+  11:Src/User/MPU6050.c **** #define G_value 9.8f
+  12:Src/User/MPU6050.c **** 
+  13:Src/User/MPU6050.c **** void MPU6050_init(void)
+  14:Src/User/MPU6050.c **** {
+  15:Src/User/MPU6050.c ****     iic_init();
+  16:Src/User/MPU6050.c **** 
+  17:Src/User/MPU6050.c ****     MPU6050_write_byte(MPU6050_RA_PWR_MGMT_1, 0x01); // exit sleeping mode, x axis of gyro as sampl
+  18:Src/User/MPU6050.c ****     MPU6050_write_byte(MPU6050_RA_SMPLRT_DIV, 0x04);     // clock dividor 4, 1k/4，sampling rate 2
+  19:Src/User/MPU6050.c ****     MPU6050_write_byte(MPU6050_RA_CONFIG, 2); // LPF, 100Hz cut off
+  20:Src/User/MPU6050.c ****     MPU6050_write_byte(MPU6050_RA_GYRO_CONFIG, 3 << 3);  // gyrosocpe range, 250dps
+  21:Src/User/MPU6050.c ****     MPU6050_write_byte(MPU6050_RA_ACCEL_CONFIG, 2 << 3); // accerometer range，2g。
+  22:Src/User/MPU6050.c ****     MPU6050_write_byte(MPU6050_RA_INT_PIN_CFG, 0x32); // high level interrupt signal, push-pull out
+  23:Src/User/MPU6050.c ****     MPU6050_write_byte(MPU6050_RA_INT_ENABLE, 0x01);  // use "data ready" interrupt
+  24:Src/User/MPU6050.c ****     MPU6050_write_byte(MPU6050_RA_USER_CTRL, 0x00);
+  25:Src/User/MPU6050.c **** }
+  26:Src/User/MPU6050.c **** 
+  27:Src/User/MPU6050.c **** void MPU6050_write_byte(uint8_t add, uint8_t val)
+  28:Src/User/MPU6050.c **** {
+  28              		.loc 1 28 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccUhU3o4.s 			page 2
+
+
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              	.LVL0:
+  33 0000 38B5     		push	{r3, r4, r5, lr}
+  34              	.LCFI0:
+  35              		.cfi_def_cfa_offset 16
+  36              		.cfi_offset 3, -16
+  37              		.cfi_offset 4, -12
+  38              		.cfi_offset 5, -8
+  39              		.cfi_offset 14, -4
+  40 0002 0546     		mov	r5, r0
+  41 0004 0C46     		mov	r4, r1
+  29:Src/User/MPU6050.c ****     iic_send_start();
+  42              		.loc 1 29 0
+  43 0006 FFF7FEFF 		bl	iic_send_start
+  44              	.LVL1:
+  30:Src/User/MPU6050.c **** 
+  31:Src/User/MPU6050.c ****     iic_send_byte(MPU6050_ADDRESS_AD0_LOW);
+  45              		.loc 1 31 0
+  46 000a D020     		movs	r0, #208
+  47 000c FFF7FEFF 		bl	iic_send_byte
+  48              	.LVL2:
+  32:Src/User/MPU6050.c ****     iic_wait_ack();
+  49              		.loc 1 32 0
+  50 0010 FFF7FEFF 		bl	iic_wait_ack
+  51              	.LVL3:
+  33:Src/User/MPU6050.c **** 
+  34:Src/User/MPU6050.c ****     iic_send_byte(add);
+  52              		.loc 1 34 0
+  53 0014 2846     		mov	r0, r5
+  54 0016 FFF7FEFF 		bl	iic_send_byte
+  55              	.LVL4:
+  35:Src/User/MPU6050.c ****     iic_wait_ack();
+  56              		.loc 1 35 0
+  57 001a FFF7FEFF 		bl	iic_wait_ack
+  58              	.LVL5:
+  36:Src/User/MPU6050.c **** 
+  37:Src/User/MPU6050.c ****     iic_send_byte(val);
+  59              		.loc 1 37 0
+  60 001e 2046     		mov	r0, r4
+  61 0020 FFF7FEFF 		bl	iic_send_byte
+  62              	.LVL6:
+  38:Src/User/MPU6050.c ****     iic_wait_ack();
+  63              		.loc 1 38 0
+  64 0024 FFF7FEFF 		bl	iic_wait_ack
+  65              	.LVL7:
+  39:Src/User/MPU6050.c **** 
+  40:Src/User/MPU6050.c ****     iic_send_stop();
+  66              		.loc 1 40 0
+  67 0028 FFF7FEFF 		bl	iic_send_stop
+  68              	.LVL8:
+  69 002c 38BD     		pop	{r3, r4, r5, pc}
+  70              		.cfi_endproc
+  71              	.LFE131:
+  73              		.section	.text.MPU6050_init,"ax",%progbits
+  74              		.align	1
+  75              		.global	MPU6050_init
+  76              		.syntax unified
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccUhU3o4.s 			page 3
+
+
+  77              		.thumb
+  78              		.thumb_func
+  79              		.fpu fpv4-sp-d16
+  81              	MPU6050_init:
+  82              	.LFB130:
+  14:Src/User/MPU6050.c ****     iic_init();
+  83              		.loc 1 14 0
+  84              		.cfi_startproc
+  85              		@ args = 0, pretend = 0, frame = 0
+  86              		@ frame_needed = 0, uses_anonymous_args = 0
+  87 0000 08B5     		push	{r3, lr}
+  88              	.LCFI1:
+  89              		.cfi_def_cfa_offset 8
+  90              		.cfi_offset 3, -8
+  91              		.cfi_offset 14, -4
+  15:Src/User/MPU6050.c **** 
+  92              		.loc 1 15 0
+  93 0002 FFF7FEFF 		bl	iic_init
+  94              	.LVL9:
+  17:Src/User/MPU6050.c ****     MPU6050_write_byte(MPU6050_RA_SMPLRT_DIV, 0x04);     // clock dividor 4, 1k/4，sampling rate 2
+  95              		.loc 1 17 0
+  96 0006 0121     		movs	r1, #1
+  97 0008 6B20     		movs	r0, #107
+  98 000a FFF7FEFF 		bl	MPU6050_write_byte
+  99              	.LVL10:
+  18:Src/User/MPU6050.c ****     MPU6050_write_byte(MPU6050_RA_CONFIG, 2); // LPF, 100Hz cut off
+ 100              		.loc 1 18 0
+ 101 000e 0421     		movs	r1, #4
+ 102 0010 1920     		movs	r0, #25
+ 103 0012 FFF7FEFF 		bl	MPU6050_write_byte
+ 104              	.LVL11:
+  19:Src/User/MPU6050.c ****     MPU6050_write_byte(MPU6050_RA_GYRO_CONFIG, 3 << 3);  // gyrosocpe range, 250dps
+ 105              		.loc 1 19 0
+ 106 0016 0221     		movs	r1, #2
+ 107 0018 1A20     		movs	r0, #26
+ 108 001a FFF7FEFF 		bl	MPU6050_write_byte
+ 109              	.LVL12:
+  20:Src/User/MPU6050.c ****     MPU6050_write_byte(MPU6050_RA_ACCEL_CONFIG, 2 << 3); // accerometer range，2g。
+ 110              		.loc 1 20 0
+ 111 001e 1821     		movs	r1, #24
+ 112 0020 1B20     		movs	r0, #27
+ 113 0022 FFF7FEFF 		bl	MPU6050_write_byte
+ 114              	.LVL13:
+  21:Src/User/MPU6050.c ****     MPU6050_write_byte(MPU6050_RA_INT_PIN_CFG, 0x32); // high level interrupt signal, push-pull out
+ 115              		.loc 1 21 0
+ 116 0026 1021     		movs	r1, #16
+ 117 0028 1C20     		movs	r0, #28
+ 118 002a FFF7FEFF 		bl	MPU6050_write_byte
+ 119              	.LVL14:
+  22:Src/User/MPU6050.c ****     MPU6050_write_byte(MPU6050_RA_INT_ENABLE, 0x01);  // use "data ready" interrupt
+ 120              		.loc 1 22 0
+ 121 002e 3221     		movs	r1, #50
+ 122 0030 3720     		movs	r0, #55
+ 123 0032 FFF7FEFF 		bl	MPU6050_write_byte
+ 124              	.LVL15:
+  23:Src/User/MPU6050.c ****     MPU6050_write_byte(MPU6050_RA_USER_CTRL, 0x00);
+ 125              		.loc 1 23 0
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccUhU3o4.s 			page 4
+
+
+ 126 0036 0121     		movs	r1, #1
+ 127 0038 3820     		movs	r0, #56
+ 128 003a FFF7FEFF 		bl	MPU6050_write_byte
+ 129              	.LVL16:
+  24:Src/User/MPU6050.c **** }
+ 130              		.loc 1 24 0
+ 131 003e 0021     		movs	r1, #0
+ 132 0040 6A20     		movs	r0, #106
+ 133 0042 FFF7FEFF 		bl	MPU6050_write_byte
+ 134              	.LVL17:
+ 135 0046 08BD     		pop	{r3, pc}
+ 136              		.cfi_endproc
+ 137              	.LFE130:
+ 139              		.section	.text.MPU6050_read_byte,"ax",%progbits
+ 140              		.align	1
+ 141              		.global	MPU6050_read_byte
+ 142              		.syntax unified
+ 143              		.thumb
+ 144              		.thumb_func
+ 145              		.fpu fpv4-sp-d16
+ 147              	MPU6050_read_byte:
+ 148              	.LFB132:
+  41:Src/User/MPU6050.c **** 
+  42:Src/User/MPU6050.c ****     // HAL_Delay(1);
+  43:Src/User/MPU6050.c **** }
+  44:Src/User/MPU6050.c **** 
+  45:Src/User/MPU6050.c **** void MPU6050_read_byte(uint8_t add, uint8_t *val)
+  46:Src/User/MPU6050.c **** {
+ 149              		.loc 1 46 0
+ 150              		.cfi_startproc
+ 151              		@ args = 0, pretend = 0, frame = 0
+ 152              		@ frame_needed = 0, uses_anonymous_args = 0
+ 153              	.LVL18:
+ 154 0000 38B5     		push	{r3, r4, r5, lr}
+ 155              	.LCFI2:
+ 156              		.cfi_def_cfa_offset 16
+ 157              		.cfi_offset 3, -16
+ 158              		.cfi_offset 4, -12
+ 159              		.cfi_offset 5, -8
+ 160              		.cfi_offset 14, -4
+ 161 0002 0546     		mov	r5, r0
+ 162 0004 0C46     		mov	r4, r1
+  47:Src/User/MPU6050.c ****     iic_send_start();
+ 163              		.loc 1 47 0
+ 164 0006 FFF7FEFF 		bl	iic_send_start
+ 165              	.LVL19:
+  48:Src/User/MPU6050.c **** 
+  49:Src/User/MPU6050.c ****     iic_send_byte(MPU6050_ADDRESS_AD0_LOW);
+ 166              		.loc 1 49 0
+ 167 000a D020     		movs	r0, #208
+ 168 000c FFF7FEFF 		bl	iic_send_byte
+ 169              	.LVL20:
+  50:Src/User/MPU6050.c ****     iic_wait_ack();
+ 170              		.loc 1 50 0
+ 171 0010 FFF7FEFF 		bl	iic_wait_ack
+ 172              	.LVL21:
+  51:Src/User/MPU6050.c **** 
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccUhU3o4.s 			page 5
+
+
+  52:Src/User/MPU6050.c ****     iic_send_byte(add);
+ 173              		.loc 1 52 0
+ 174 0014 2846     		mov	r0, r5
+ 175 0016 FFF7FEFF 		bl	iic_send_byte
+ 176              	.LVL22:
+  53:Src/User/MPU6050.c ****     iic_wait_ack();
+ 177              		.loc 1 53 0
+ 178 001a FFF7FEFF 		bl	iic_wait_ack
+ 179              	.LVL23:
+  54:Src/User/MPU6050.c **** 
+  55:Src/User/MPU6050.c ****     iic_send_start();
+ 180              		.loc 1 55 0
+ 181 001e FFF7FEFF 		bl	iic_send_start
+ 182              	.LVL24:
+  56:Src/User/MPU6050.c **** 
+  57:Src/User/MPU6050.c ****     iic_send_byte(MPU6050_ADDRESS_AD0_LOW + 1);
+ 183              		.loc 1 57 0
+ 184 0022 D120     		movs	r0, #209
+ 185 0024 FFF7FEFF 		bl	iic_send_byte
+ 186              	.LVL25:
+  58:Src/User/MPU6050.c ****     iic_wait_ack();
+ 187              		.loc 1 58 0
+ 188 0028 FFF7FEFF 		bl	iic_wait_ack
+ 189              	.LVL26:
+  59:Src/User/MPU6050.c **** 
+  60:Src/User/MPU6050.c ****     iic_read_byte(val);
+ 190              		.loc 1 60 0
+ 191 002c 2046     		mov	r0, r4
+ 192 002e FFF7FEFF 		bl	iic_read_byte
+ 193              	.LVL27:
+  61:Src/User/MPU6050.c ****     iic_send_nack();
+ 194              		.loc 1 61 0
+ 195 0032 FFF7FEFF 		bl	iic_send_nack
+ 196              	.LVL28:
+  62:Src/User/MPU6050.c **** 
+  63:Src/User/MPU6050.c ****     iic_send_stop();
+ 197              		.loc 1 63 0
+ 198 0036 FFF7FEFF 		bl	iic_send_stop
+ 199              	.LVL29:
+ 200 003a 38BD     		pop	{r3, r4, r5, pc}
+ 201              		.cfi_endproc
+ 202              	.LFE132:
+ 204              		.global	__aeabi_f2d
+ 205              		.global	__aeabi_dadd
+ 206              		.global	__aeabi_ddiv
+ 207              		.global	__aeabi_dmul
+ 208              		.global	__aeabi_d2f
+ 209              		.section	.text.MPU6050_update_data,"ax",%progbits
+ 210              		.align	1
+ 211              		.global	MPU6050_update_data
+ 212              		.syntax unified
+ 213              		.thumb
+ 214              		.thumb_func
+ 215              		.fpu fpv4-sp-d16
+ 217              	MPU6050_update_data:
+ 218              	.LFB133:
+  64:Src/User/MPU6050.c **** }
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccUhU3o4.s 			page 6
+
+
+  65:Src/User/MPU6050.c **** 
+  66:Src/User/MPU6050.c **** void MPU6050_update_data(void)
+  67:Src/User/MPU6050.c **** {
+ 219              		.loc 1 67 0
+ 220              		.cfi_startproc
+ 221              		@ args = 0, pretend = 0, frame = 8
+ 222              		@ frame_needed = 0, uses_anonymous_args = 0
+ 223 0000 2DE9F043 		push	{r4, r5, r6, r7, r8, r9, lr}
+ 224              	.LCFI3:
+ 225              		.cfi_def_cfa_offset 28
+ 226              		.cfi_offset 4, -28
+ 227              		.cfi_offset 5, -24
+ 228              		.cfi_offset 6, -20
+ 229              		.cfi_offset 7, -16
+ 230              		.cfi_offset 8, -12
+ 231              		.cfi_offset 9, -8
+ 232              		.cfi_offset 14, -4
+ 233 0004 2DED028B 		vpush.64	{d8}
+ 234              	.LCFI4:
+ 235              		.cfi_def_cfa_offset 36
+ 236              		.cfi_offset 80, -36
+ 237              		.cfi_offset 81, -32
+ 238 0008 83B0     		sub	sp, sp, #12
+ 239              	.LCFI5:
+ 240              		.cfi_def_cfa_offset 48
+  68:Src/User/MPU6050.c ****     uint8_t data_H, data_L;
+  69:Src/User/MPU6050.c ****     MPU6050_read_byte(MPU6050_RA_ACCEL_XOUT_H, &data_H);
+ 241              		.loc 1 69 0
+ 242 000a 0DF10701 		add	r1, sp, #7
+ 243 000e 3B20     		movs	r0, #59
+ 244 0010 FFF7FEFF 		bl	MPU6050_read_byte
+ 245              	.LVL30:
+  70:Src/User/MPU6050.c ****     MPU6050_read_byte(MPU6050_RA_ACCEL_XOUT_L, &data_L);
+ 246              		.loc 1 70 0
+ 247 0014 0DF10601 		add	r1, sp, #6
+ 248 0018 3C20     		movs	r0, #60
+ 249 001a FFF7FEFF 		bl	MPU6050_read_byte
+ 250              	.LVL31:
+  71:Src/User/MPU6050.c ****     accelStruct.accelZ = (int16_t)(data_H << 8 | data_L);
+ 251              		.loc 1 71 0
+ 252 001e 9DF80720 		ldrb	r2, [sp, #7]	@ zero_extendqisi2
+ 253 0022 9DF80630 		ldrb	r3, [sp, #6]	@ zero_extendqisi2
+ 254 0026 43EA0223 		orr	r3, r3, r2, lsl #8
+ 255 002a 1BB2     		sxth	r3, r3
+ 256 002c 864C     		ldr	r4, .L9+16
+ 257 002e 07EE903A 		vmov	s15, r3	@ int
+ 258 0032 F8EEE77A 		vcvt.f32.s32	s15, s15
+ 259 0036 C4ED027A 		vstr.32	s15, [r4, #8]
+  72:Src/User/MPU6050.c **** 
+  73:Src/User/MPU6050.c ****     MPU6050_read_byte(MPU6050_RA_ACCEL_YOUT_H, &data_H);
+ 260              		.loc 1 73 0
+ 261 003a 0DF10701 		add	r1, sp, #7
+ 262 003e 3D20     		movs	r0, #61
+ 263 0040 FFF7FEFF 		bl	MPU6050_read_byte
+ 264              	.LVL32:
+  74:Src/User/MPU6050.c ****     MPU6050_read_byte(MPU6050_RA_ACCEL_YOUT_L, &data_L);
+ 265              		.loc 1 74 0
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccUhU3o4.s 			page 7
+
+
+ 266 0044 0DF10601 		add	r1, sp, #6
+ 267 0048 3E20     		movs	r0, #62
+ 268 004a FFF7FEFF 		bl	MPU6050_read_byte
+ 269              	.LVL33:
+  75:Src/User/MPU6050.c ****     accelStruct.accelY = (int16_t)(data_H << 8 | data_L);
+ 270              		.loc 1 75 0
+ 271 004e 9DF80720 		ldrb	r2, [sp, #7]	@ zero_extendqisi2
+ 272 0052 9DF80630 		ldrb	r3, [sp, #6]	@ zero_extendqisi2
+ 273 0056 43EA0223 		orr	r3, r3, r2, lsl #8
+ 274 005a 1BB2     		sxth	r3, r3
+ 275 005c 07EE903A 		vmov	s15, r3	@ int
+ 276 0060 F8EEE77A 		vcvt.f32.s32	s15, s15
+ 277 0064 C4ED017A 		vstr.32	s15, [r4, #4]
+  76:Src/User/MPU6050.c **** 
+  77:Src/User/MPU6050.c ****     MPU6050_read_byte(MPU6050_RA_ACCEL_ZOUT_H, &data_H);
+ 278              		.loc 1 77 0
+ 279 0068 0DF10701 		add	r1, sp, #7
+ 280 006c 3F20     		movs	r0, #63
+ 281 006e FFF7FEFF 		bl	MPU6050_read_byte
+ 282              	.LVL34:
+  78:Src/User/MPU6050.c ****     MPU6050_read_byte(MPU6050_RA_ACCEL_ZOUT_L, &data_L);
+ 283              		.loc 1 78 0
+ 284 0072 0DF10601 		add	r1, sp, #6
+ 285 0076 4020     		movs	r0, #64
+ 286 0078 FFF7FEFF 		bl	MPU6050_read_byte
+ 287              	.LVL35:
+  79:Src/User/MPU6050.c ****     accelStruct.accelX = (int16_t)(data_H << 8 | data_L);
+ 288              		.loc 1 79 0
+ 289 007c 9DF80720 		ldrb	r2, [sp, #7]	@ zero_extendqisi2
+ 290 0080 9DF80630 		ldrb	r3, [sp, #6]	@ zero_extendqisi2
+ 291 0084 43EA0223 		orr	r3, r3, r2, lsl #8
+ 292 0088 1BB2     		sxth	r3, r3
+ 293 008a 07EE903A 		vmov	s15, r3	@ int
+ 294 008e F8EEE77A 		vcvt.f32.s32	s15, s15
+ 295 0092 C4ED007A 		vstr.32	s15, [r4]
+  80:Src/User/MPU6050.c **** 
+  81:Src/User/MPU6050.c ****     MPU6050_read_byte(MPU6050_RA_GYRO_XOUT_H, &data_H);
+ 296              		.loc 1 81 0
+ 297 0096 0DF10701 		add	r1, sp, #7
+ 298 009a 4320     		movs	r0, #67
+ 299 009c FFF7FEFF 		bl	MPU6050_read_byte
+ 300              	.LVL36:
+  82:Src/User/MPU6050.c ****     MPU6050_read_byte(MPU6050_RA_GYRO_XOUT_L, &data_L);
+ 301              		.loc 1 82 0
+ 302 00a0 0DF10601 		add	r1, sp, #6
+ 303 00a4 4420     		movs	r0, #68
+ 304 00a6 FFF7FEFF 		bl	MPU6050_read_byte
+ 305              	.LVL37:
+  83:Src/User/MPU6050.c ****     gyroStruct.gyroX = (int16_t)(data_H << 8 | data_L);// + 1.40f;
+ 306              		.loc 1 83 0
+ 307 00aa 9DF80720 		ldrb	r2, [sp, #7]	@ zero_extendqisi2
+ 308 00ae 9DF80630 		ldrb	r3, [sp, #6]	@ zero_extendqisi2
+ 309 00b2 43EA0223 		orr	r3, r3, r2, lsl #8
+ 310 00b6 1BB2     		sxth	r3, r3
+ 311 00b8 644D     		ldr	r5, .L9+20
+ 312 00ba 07EE903A 		vmov	s15, r3	@ int
+ 313 00be F8EEE77A 		vcvt.f32.s32	s15, s15
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccUhU3o4.s 			page 8
+
+
+ 314 00c2 C5ED007A 		vstr.32	s15, [r5]
+  84:Src/User/MPU6050.c **** 
+  85:Src/User/MPU6050.c ****     MPU6050_read_byte(MPU6050_RA_GYRO_YOUT_H, &data_H);
+ 315              		.loc 1 85 0
+ 316 00c6 0DF10701 		add	r1, sp, #7
+ 317 00ca 4520     		movs	r0, #69
+ 318 00cc FFF7FEFF 		bl	MPU6050_read_byte
+ 319              	.LVL38:
+  86:Src/User/MPU6050.c ****     MPU6050_read_byte(MPU6050_RA_GYRO_YOUT_L, &data_L);
+ 320              		.loc 1 86 0
+ 321 00d0 0DF10601 		add	r1, sp, #6
+ 322 00d4 4620     		movs	r0, #70
+ 323 00d6 FFF7FEFF 		bl	MPU6050_read_byte
+ 324              	.LVL39:
+  87:Src/User/MPU6050.c ****     gyroStruct.gyroY = (int16_t)(data_H << 8 | data_L);
+ 325              		.loc 1 87 0
+ 326 00da 9DF80720 		ldrb	r2, [sp, #7]	@ zero_extendqisi2
+ 327 00de 9DF80630 		ldrb	r3, [sp, #6]	@ zero_extendqisi2
+ 328 00e2 43EA0223 		orr	r3, r3, r2, lsl #8
+ 329 00e6 1BB2     		sxth	r3, r3
+ 330 00e8 07EE903A 		vmov	s15, r3	@ int
+ 331 00ec F8EEE77A 		vcvt.f32.s32	s15, s15
+ 332 00f0 C5ED017A 		vstr.32	s15, [r5, #4]
+  88:Src/User/MPU6050.c **** 
+  89:Src/User/MPU6050.c ****     MPU6050_read_byte(MPU6050_RA_GYRO_ZOUT_H, &data_H);
+ 333              		.loc 1 89 0
+ 334 00f4 0DF10701 		add	r1, sp, #7
+ 335 00f8 4720     		movs	r0, #71
+ 336 00fa FFF7FEFF 		bl	MPU6050_read_byte
+ 337              	.LVL40:
+  90:Src/User/MPU6050.c ****     MPU6050_read_byte(MPU6050_RA_GYRO_ZOUT_L, &data_L);
+ 338              		.loc 1 90 0
+ 339 00fe 0DF10601 		add	r1, sp, #6
+ 340 0102 4820     		movs	r0, #72
+ 341 0104 FFF7FEFF 		bl	MPU6050_read_byte
+ 342              	.LVL41:
+  91:Src/User/MPU6050.c ****     gyroStruct.gyroZ = (int16_t)(data_H << 8 | data_L);// + 2.20f;
+ 343              		.loc 1 91 0
+ 344 0108 9DF80720 		ldrb	r2, [sp, #7]	@ zero_extendqisi2
+ 345 010c 9DF80630 		ldrb	r3, [sp, #6]	@ zero_extendqisi2
+ 346 0110 43EA0223 		orr	r3, r3, r2, lsl #8
+ 347 0114 1BB2     		sxth	r3, r3
+ 348 0116 07EE903A 		vmov	s15, r3	@ int
+ 349 011a F8EEE77A 		vcvt.f32.s32	s15, s15
+ 350 011e C5ED027A 		vstr.32	s15, [r5, #8]
+  92:Src/User/MPU6050.c **** 
+  93:Src/User/MPU6050.c ****     // static uint32_t preivous_tick;
+  94:Src/User/MPU6050.c ****     // static float elapsed_tick;
+  95:Src/User/MPU6050.c ****     // elapsed_tick = (HAL_GetTick() - preivous_tick) / 1000.0f;
+  96:Src/User/MPU6050.c ****     // preivous_tick = HAL_GetTick();
+  97:Src/User/MPU6050.c **** 
+  98:Src/User/MPU6050.c ****     // gyroAngle.angleX += gyroStruct.gyroX * elapsed_tick;
+  99:Src/User/MPU6050.c ****     // gyroAngle.angleY += gyroStruct.gyroY * elapsed_tick;
+ 100:Src/User/MPU6050.c **** 
+ 101:Src/User/MPU6050.c ****     // static float x_temp = 0.0f, y_temp = 0.0f;
+ 102:Src/User/MPU6050.c ****     // static uint8_t filter_cnt = 0;
+ 103:Src/User/MPU6050.c ****     // x_temp += (atan(accelStruct.accelY / sqrt(pow(accelStruct.accelX, 2) + pow(accelStruct.accel
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccUhU3o4.s 			page 9
+
+
+ 104:Src/User/MPU6050.c ****     // y_temp += (atan(-accelStruct.accelX / sqrt(pow(accelStruct.accelY, 2) + pow(accelStruct.acce
+ 105:Src/User/MPU6050.c **** 
+ 106:Src/User/MPU6050.c ****     // if (filter_cnt >= MEAN_FILTER_SIZE)
+ 107:Src/User/MPU6050.c ****     // {
+ 108:Src/User/MPU6050.c ****     //     accAngle.angleX = x_temp / (float)MEAN_FILTER_SIZE;
+ 109:Src/User/MPU6050.c ****     //     accAngle.angleY = y_temp / (float)MEAN_FILTER_SIZE;
+ 110:Src/User/MPU6050.c ****     //     x_temp = 0;
+ 111:Src/User/MPU6050.c ****     //     y_temp = 0;
+ 112:Src/User/MPU6050.c ****     //     filter_cnt = 0;
+ 113:Src/User/MPU6050.c ****     // }
+ 114:Src/User/MPU6050.c ****     // filter_cnt++;
+ 115:Src/User/MPU6050.c **** 
+ 116:Src/User/MPU6050.c ****     accAngle.angleX = (atan(accelStruct.accelY / sqrt(pow(accelStruct.accelX, 2) + pow(accelStruct.
+ 351              		.loc 1 116 0
+ 352 0122 6068     		ldr	r0, [r4, #4]	@ float
+ 353 0124 FFF7FEFF 		bl	__aeabi_f2d
+ 354              	.LVL42:
+ 355 0128 0646     		mov	r6, r0
+ 356 012a 0F46     		mov	r7, r1
+ 357 012c 9FED428B 		vldr.64	d8, .L9
+ 358 0130 2068     		ldr	r0, [r4]	@ float
+ 359 0132 FFF7FEFF 		bl	__aeabi_f2d
+ 360              	.LVL43:
+ 361 0136 B0EE481A 		vmov.f32	s2, s16
+ 362 013a F0EE681A 		vmov.f32	s3, s17
+ 363 013e 41EC100B 		vmov	d0, r0, r1
+ 364 0142 FFF7FEFF 		bl	pow
+ 365              	.LVL44:
+ 366 0146 59EC108B 		vmov	r8, r9, d0
+ 367 014a A068     		ldr	r0, [r4, #8]	@ float
+ 368 014c FFF7FEFF 		bl	__aeabi_f2d
+ 369              	.LVL45:
+ 370 0150 B0EE481A 		vmov.f32	s2, s16
+ 371 0154 F0EE681A 		vmov.f32	s3, s17
+ 372 0158 41EC100B 		vmov	d0, r0, r1
+ 373 015c FFF7FEFF 		bl	pow
+ 374              	.LVL46:
+ 375 0160 53EC102B 		vmov	r2, r3, d0
+ 376 0164 4046     		mov	r0, r8
+ 377 0166 4946     		mov	r1, r9
+ 378 0168 FFF7FEFF 		bl	__aeabi_dadd
+ 379              	.LVL47:
+ 380 016c 41EC100B 		vmov	d0, r0, r1
+ 381 0170 FFF7FEFF 		bl	sqrt
+ 382              	.LVL48:
+ 383 0174 53EC102B 		vmov	r2, r3, d0
+ 384 0178 3046     		mov	r0, r6
+ 385 017a 3946     		mov	r1, r7
+ 386 017c FFF7FEFF 		bl	__aeabi_ddiv
+ 387              	.LVL49:
+ 388 0180 41EC100B 		vmov	d0, r0, r1
+ 389 0184 FFF7FEFF 		bl	atan
+ 390              	.LVL50:
+ 391 0188 0022     		movs	r2, #0
+ 392 018a 314B     		ldr	r3, .L9+24
+ 393 018c 51EC100B 		vmov	r0, r1, d0
+ 394 0190 FFF7FEFF 		bl	__aeabi_dmul
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccUhU3o4.s 			page 10
+
+
+ 395              	.LVL51:
+ 396 0194 2AA3     		adr	r3, .L9+8
+ 397 0196 D3E90023 		ldrd	r2, [r3]
+ 398 019a FFF7FEFF 		bl	__aeabi_ddiv
+ 399              	.LVL52:
+ 400 019e FFF7FEFF 		bl	__aeabi_d2f
+ 401              	.LVL53:
+ 402 01a2 2C4D     		ldr	r5, .L9+28
+ 403 01a4 2860     		str	r0, [r5]	@ float
+ 117:Src/User/MPU6050.c ****     accAngle.angleY = (atan(-accelStruct.accelX / sqrt(pow(accelStruct.accelY, 2) + pow(accelStruct
+ 404              		.loc 1 117 0
+ 405 01a6 2068     		ldr	r0, [r4]	@ float
+ 406 01a8 80F00040 		eor	r0, r0, #-2147483648
+ 407 01ac FFF7FEFF 		bl	__aeabi_f2d
+ 408              	.LVL54:
+ 409 01b0 0646     		mov	r6, r0
+ 410 01b2 0F46     		mov	r7, r1
+ 411 01b4 6068     		ldr	r0, [r4, #4]	@ float
+ 412 01b6 FFF7FEFF 		bl	__aeabi_f2d
+ 413              	.LVL55:
+ 414 01ba B0EE481A 		vmov.f32	s2, s16
+ 415 01be F0EE681A 		vmov.f32	s3, s17
+ 416 01c2 41EC100B 		vmov	d0, r0, r1
+ 417 01c6 FFF7FEFF 		bl	pow
+ 418              	.LVL56:
+ 419 01ca 59EC108B 		vmov	r8, r9, d0
+ 420 01ce A068     		ldr	r0, [r4, #8]	@ float
+ 421 01d0 FFF7FEFF 		bl	__aeabi_f2d
+ 422              	.LVL57:
+ 423 01d4 B0EE481A 		vmov.f32	s2, s16
+ 424 01d8 F0EE681A 		vmov.f32	s3, s17
+ 425 01dc 41EC100B 		vmov	d0, r0, r1
+ 426 01e0 FFF7FEFF 		bl	pow
+ 427              	.LVL58:
+ 428 01e4 53EC102B 		vmov	r2, r3, d0
+ 429 01e8 4046     		mov	r0, r8
+ 430 01ea 4946     		mov	r1, r9
+ 431 01ec FFF7FEFF 		bl	__aeabi_dadd
+ 432              	.LVL59:
+ 433 01f0 41EC100B 		vmov	d0, r0, r1
+ 434 01f4 FFF7FEFF 		bl	sqrt
+ 435              	.LVL60:
+ 436 01f8 53EC102B 		vmov	r2, r3, d0
+ 437 01fc 3046     		mov	r0, r6
+ 438 01fe 3946     		mov	r1, r7
+ 439 0200 FFF7FEFF 		bl	__aeabi_ddiv
+ 440              	.LVL61:
+ 441 0204 41EC100B 		vmov	d0, r0, r1
+ 442 0208 FFF7FEFF 		bl	atan
+ 443              	.LVL62:
+ 444 020c 0022     		movs	r2, #0
+ 445 020e 104B     		ldr	r3, .L9+24
+ 446 0210 51EC100B 		vmov	r0, r1, d0
+ 447 0214 FFF7FEFF 		bl	__aeabi_dmul
+ 448              	.LVL63:
+ 449 0218 09A3     		adr	r3, .L9+8
+ 450 021a D3E90023 		ldrd	r2, [r3]
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccUhU3o4.s 			page 11
+
+
+ 451 021e FFF7FEFF 		bl	__aeabi_ddiv
+ 452              	.LVL64:
+ 453 0222 FFF7FEFF 		bl	__aeabi_d2f
+ 454              	.LVL65:
+ 455 0226 6860     		str	r0, [r5, #4]	@ float
+ 118:Src/User/MPU6050.c **** 
+ 119:Src/User/MPU6050.c ****     // filteredAngle.angleX = gyroAngle.angleX * 0.96f + accAngle.angleX * 0.04f;
+ 120:Src/User/MPU6050.c ****     // filteredAngle.angleY = gyroAngle.angleY * 0.96f + accAngle.angleY * 0.04f;
+ 121:Src/User/MPU6050.c **** }
+ 456              		.loc 1 121 0
+ 457 0228 03B0     		add	sp, sp, #12
+ 458              	.LCFI6:
+ 459              		.cfi_def_cfa_offset 36
+ 460              		@ sp needed
+ 461 022a BDEC028B 		vldm	sp!, {d8}
+ 462              	.LCFI7:
+ 463              		.cfi_restore 80
+ 464              		.cfi_restore 81
+ 465              		.cfi_def_cfa_offset 28
+ 466 022e BDE8F083 		pop	{r4, r5, r6, r7, r8, r9, pc}
+ 467              	.L10:
+ 468 0232 00BFAFF3 		.align	3
+ 468      0080
+ 469              	.L9:
+ 470 0238 00000000 		.word	0
+ 471 023c 00000040 		.word	1073741824
+ 472 0240 182D4454 		.word	1413754136
+ 473 0244 FB210940 		.word	1074340347
+ 474 0248 00000000 		.word	.LANCHOR0
+ 475 024c 00000000 		.word	.LANCHOR1
+ 476 0250 00806640 		.word	1080459264
+ 477 0254 00000000 		.word	accAngle
+ 478              		.cfi_endproc
+ 479              	.LFE133:
+ 481              		.comm	filteredAngle,12,4
+ 482              		.comm	gyroAngle,12,4
+ 483              		.comm	accAngle,12,4
+ 484              		.global	gyroStruct
+ 485              		.global	accelStruct
+ 486              		.section	.bss.accelStruct,"aw",%nobits
+ 487              		.align	2
+ 488              		.set	.LANCHOR0,. + 0
+ 491              	accelStruct:
+ 492 0000 00000000 		.space	12
+ 492      00000000 
+ 492      00000000 
+ 493              		.section	.bss.gyroStruct,"aw",%nobits
+ 494              		.align	2
+ 495              		.set	.LANCHOR1,. + 0
+ 498              	gyroStruct:
+ 499 0000 00000000 		.space	12
+ 499      00000000 
+ 499      00000000 
+ 500              		.text
+ 501              	.Letext0:
+ 502              		.file 2 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/machine/_defa
+ 503              		.file 3 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/sys/_stdint.h
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccUhU3o4.s 			page 12
+
+
+ 504              		.file 4 "Drivers/CMSIS/Include/core_cm4.h"
+ 505              		.file 5 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h"
+ 506              		.file 6 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h"
+ 507              		.file 7 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h"
+ 508              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
+ 509              		.file 9 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
+ 510              		.file 10 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h"
+ 511              		.file 11 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_can.h"
+ 512              		.file 12 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h"
+ 513              		.file 13 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h"
+ 514              		.file 14 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
+ 515              		.file 15 "Inc/can.h"
+ 516              		.file 16 "Inc/tim.h"
+ 517              		.file 17 "Inc/spi.h"
+ 518              		.file 18 "Inc/adc.h"
+ 519              		.file 19 "Inc/User/algorithm.h"
+ 520              		.file 20 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/sys/lock.h"
+ 521              		.file 21 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/sys/_types.h
+ 522              		.file 22 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/lib/gcc/arm-none-eabi/6.3.1/includ
+ 523              		.file 23 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/sys/reent.h"
+ 524              		.file 24 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/stdlib.h"
+ 525              		.file 25 "Inc/User/motor_driver.h"
+ 526              		.file 26 "Inc/User/can_protocol.h"
+ 527              		.file 27 "Inc/User/WS2812B.h"
+ 528              		.file 28 "Inc/User/M3508.h"
+ 529              		.file 29 "Inc/User/user_control.h"
+ 530              		.file 30 "Inc/User/user_main.h"
+ 531              		.file 31 "Inc/User/MPU6050.h"
+ 532              		.file 32 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/math.h"
+ 533              		.file 33 "Inc/iic.h"
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccUhU3o4.s 			page 13
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 MPU6050.c
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccUhU3o4.s:18     .text.MPU6050_write_byte:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccUhU3o4.s:25     .text.MPU6050_write_byte:0000000000000000 MPU6050_write_byte
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccUhU3o4.s:74     .text.MPU6050_init:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccUhU3o4.s:81     .text.MPU6050_init:0000000000000000 MPU6050_init
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccUhU3o4.s:140    .text.MPU6050_read_byte:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccUhU3o4.s:147    .text.MPU6050_read_byte:0000000000000000 MPU6050_read_byte
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccUhU3o4.s:210    .text.MPU6050_update_data:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccUhU3o4.s:217    .text.MPU6050_update_data:0000000000000000 MPU6050_update_data
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccUhU3o4.s:470    .text.MPU6050_update_data:0000000000000238 $d
+                            *COM*:000000000000000c accAngle
+                            *COM*:000000000000000c filteredAngle
+                            *COM*:000000000000000c gyroAngle
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccUhU3o4.s:498    .bss.gyroStruct:0000000000000000 gyroStruct
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccUhU3o4.s:491    .bss.accelStruct:0000000000000000 accelStruct
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccUhU3o4.s:487    .bss.accelStruct:0000000000000000 $d
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccUhU3o4.s:494    .bss.gyroStruct:0000000000000000 $d
+                     .debug_frame:0000000000000010 $d
+
+UNDEFINED SYMBOLS
+iic_send_start
+iic_send_byte
+iic_wait_ack
+iic_send_stop
+iic_init
+iic_read_byte
+iic_send_nack
+__aeabi_f2d
+__aeabi_dadd
+__aeabi_ddiv
+__aeabi_dmul
+__aeabi_d2f
+pow
+sqrt
+atan

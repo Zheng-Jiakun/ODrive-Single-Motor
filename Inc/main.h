@@ -60,13 +60,23 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 #define M1_SPI_CS_Pin GPIO_PIN_13
 #define M1_SPI_CS_GPIO_Port GPIOC
+#define IMU_SCL_Pin GPIO_PIN_0
+#define IMU_SCL_GPIO_Port GPIOA
+#define IMU_SDA_Pin GPIO_PIN_1
+#define IMU_SDA_GPIO_Port GPIOA
+#define GPIO_6_Pin GPIO_PIN_2
+#define GPIO_6_GPIO_Port GPIOB
 #define EN_GATE_Pin GPIO_PIN_12
 #define EN_GATE_GPIO_Port GPIOB
 #define M1_HALL_C_Pin GPIO_PIN_9
 #define M1_HALL_C_GPIO_Port GPIOC
 #define M1_HALL_C_EXTI_IRQn EXTI9_5_IRQn
+#define GPIO_7_Pin GPIO_PIN_15
+#define GPIO_7_GPIO_Port GPIOA
 #define nFAULT_Pin GPIO_PIN_2
 #define nFAULT_GPIO_Port GPIOD
+#define BEEP_Pin GPIO_PIN_3
+#define BEEP_GPIO_Port GPIOB
 #define M1_HALL_A_Pin GPIO_PIN_4
 #define M1_HALL_A_GPIO_Port GPIOB
 #define M1_HALL_A_EXTI_IRQn EXTI4_IRQn

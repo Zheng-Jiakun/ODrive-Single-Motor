@@ -19,6 +19,7 @@ build/user_main.o: Src/User/user_main.c Inc/User/user_main.h Inc/main.h \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc_ex.h \
+ Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_can.h \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h \
@@ -27,8 +28,10 @@ build/user_main.o: Src/User/user_main.c Inc/User/user_main.h Inc/main.h \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
- Inc/User/motor_driver.h Inc/tim.h Inc/main.h Inc/spi.h Inc/adc.h \
- Inc/User/algorithm.h Inc/User/user_main.h Inc/User/algorithm.h
+ Inc/User/can_protocol.h Inc/can.h Inc/main.h Inc/tim.h \
+ Inc/User/motor_driver.h Inc/spi.h Inc/adc.h Inc/User/algorithm.h \
+ Inc/User/user_main.h Inc/User/LED.h Inc/User/WS2812B.h Inc/dma.h \
+ Inc/User/M3508.h Inc/User/MPU6050.h Inc/iic.h Inc/User/user_control.h
 
 Inc/User/user_main.h:
 
@@ -78,6 +81,8 @@ Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h:
 
 Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc_ex.h:
 
+Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_can.h:
+
 Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h:
 
 Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h:
@@ -94,11 +99,15 @@ Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:
 
 Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h:
 
-Inc/User/motor_driver.h:
+Inc/User/can_protocol.h:
+
+Inc/can.h:
+
+Inc/main.h:
 
 Inc/tim.h:
 
-Inc/main.h:
+Inc/User/motor_driver.h:
 
 Inc/spi.h:
 
@@ -108,4 +117,16 @@ Inc/User/algorithm.h:
 
 Inc/User/user_main.h:
 
-Inc/User/algorithm.h:
+Inc/User/LED.h:
+
+Inc/User/WS2812B.h:
+
+Inc/dma.h:
+
+Inc/User/M3508.h:
+
+Inc/User/MPU6050.h:
+
+Inc/iic.h:
+
+Inc/User/user_control.h:

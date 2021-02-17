@@ -1,0 +1,701 @@
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"user_control.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.wait_for_system_start,"ax",%progbits
+  18              		.align	1
+  19              		.global	wait_for_system_start
+  20              		.syntax unified
+  21              		.thumb
+  22              		.thumb_func
+  23              		.fpu fpv4-sp-d16
+  25              	wait_for_system_start:
+  26              	.LFB130:
+  27              		.file 1 "Src/User/user_control.c"
+   1:Src/User/user_control.c **** #include "user_control.h"
+   2:Src/User/user_control.c **** 
+   3:Src/User/user_control.c **** uint16_t throttle[THROTTLE_NUM] = {};
+   4:Src/User/user_control.c **** 
+   5:Src/User/user_control.c **** uint8_t wait_for_system_start()
+   6:Src/User/user_control.c **** {
+  28              		.loc 1 6 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32 0000 10B5     		push	{r4, lr}
+  33              	.LCFI0:
+  34              		.cfi_def_cfa_offset 8
+  35              		.cfi_offset 4, -8
+  36              		.cfi_offset 14, -4
+   7:Src/User/user_control.c ****     static uint8_t triggered_flag = 0;
+   8:Src/User/user_control.c ****     static uint32_t triggered_tick = 0;
+   9:Src/User/user_control.c ****     if (throttle[LEFT_THROTTLE] > THROTTLE_ON && throttle[RIGHT_THROTTLE] > THROTTLE_ON)
+  37              		.loc 1 9 0
+  38 0002 1B4B     		ldr	r3, .L9
+  39 0004 1B88     		ldrh	r3, [r3]
+  40 0006 B3F5FA6F 		cmp	r3, #2000
+  41 000a 2AD9     		bls	.L2
+  42              		.loc 1 9 0 is_stmt 0 discriminator 1
+  43 000c 184B     		ldr	r3, .L9
+  44 000e 5B88     		ldrh	r3, [r3, #2]
+  45 0010 B3F5FA6F 		cmp	r3, #2000
+  46 0014 25D9     		bls	.L2
+  10:Src/User/user_control.c ****     {
+  11:Src/User/user_control.c ****         if (triggered_flag == 0)
+  47              		.loc 1 11 0 is_stmt 1
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s 			page 2
+
+
+  48 0016 174B     		ldr	r3, .L9+4
+  49 0018 1C78     		ldrb	r4, [r3]	@ zero_extendqisi2
+  50 001a 1CB1     		cbz	r4, .L7
+  12:Src/User/user_control.c ****         {
+  13:Src/User/user_control.c ****             triggered_tick = HAL_GetTick();
+  14:Src/User/user_control.c ****             triggered_flag = 1;
+  15:Src/User/user_control.c ****         }
+  16:Src/User/user_control.c ****         else if (triggered_flag == 1 && HAL_GetTick() - triggered_tick > THROTTLE_HOLD_TIME)
+  51              		.loc 1 16 0
+  52 001c 012C     		cmp	r4, #1
+  53 001e 09D0     		beq	.L8
+  17:Src/User/user_control.c ****         {
+  18:Src/User/user_control.c ****             HAL_GPIO_TogglePin(BEEP_GPIO_Port, BEEP_Pin);
+  19:Src/User/user_control.c ****             HAL_Delay(500);
+  20:Src/User/user_control.c ****             HAL_GPIO_TogglePin(BEEP_GPIO_Port, BEEP_Pin);
+  21:Src/User/user_control.c ****             // HAL_GPIO_WritePin(BEEP_GPIO_Port, BEEP_Pin, GPIO_PIN_RESET);
+  22:Src/User/user_control.c ****             return 0;
+  23:Src/User/user_control.c ****         }
+  24:Src/User/user_control.c ****     }
+  25:Src/User/user_control.c ****     else //if (throttle[LEFT_THROTTLE] <= THROTTLE_ON || throttle[RIGHT_THROTTLE] <= THROTTLE_ON)
+  26:Src/User/user_control.c ****     {
+  27:Src/User/user_control.c ****         triggered_flag = 0;
+  28:Src/User/user_control.c ****         return 1;
+  29:Src/User/user_control.c ****     }
+  30:Src/User/user_control.c ****     return 1;
+  54              		.loc 1 30 0
+  55 0020 0124     		movs	r4, #1
+  56 0022 22E0     		b	.L4
+  57              	.L7:
+  13:Src/User/user_control.c ****             triggered_flag = 1;
+  58              		.loc 1 13 0
+  59 0024 FFF7FEFF 		bl	HAL_GetTick
+  60              	.LVL0:
+  61 0028 134B     		ldr	r3, .L9+8
+  62 002a 1860     		str	r0, [r3]
+  14:Src/User/user_control.c ****         }
+  63              		.loc 1 14 0
+  64 002c 0124     		movs	r4, #1
+  65 002e 114B     		ldr	r3, .L9+4
+  66 0030 1C70     		strb	r4, [r3]
+  67 0032 1AE0     		b	.L4
+  68              	.L8:
+  16:Src/User/user_control.c ****         {
+  69              		.loc 1 16 0 discriminator 1
+  70 0034 FFF7FEFF 		bl	HAL_GetTick
+  71              	.LVL1:
+  72 0038 0F4B     		ldr	r3, .L9+8
+  73 003a 1B68     		ldr	r3, [r3]
+  74 003c C01A     		subs	r0, r0, r3
+  75 003e B0F57A7F 		cmp	r0, #1000
+  76 0042 12D9     		bls	.L4
+  18:Src/User/user_control.c ****             HAL_Delay(500);
+  77              		.loc 1 18 0
+  78 0044 0D4C     		ldr	r4, .L9+12
+  79 0046 0821     		movs	r1, #8
+  80 0048 2046     		mov	r0, r4
+  81 004a FFF7FEFF 		bl	HAL_GPIO_TogglePin
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s 			page 3
+
+
+  82              	.LVL2:
+  19:Src/User/user_control.c ****             HAL_GPIO_TogglePin(BEEP_GPIO_Port, BEEP_Pin);
+  83              		.loc 1 19 0
+  84 004e 4FF4FA70 		mov	r0, #500
+  85 0052 FFF7FEFF 		bl	HAL_Delay
+  86              	.LVL3:
+  20:Src/User/user_control.c ****             // HAL_GPIO_WritePin(BEEP_GPIO_Port, BEEP_Pin, GPIO_PIN_RESET);
+  87              		.loc 1 20 0
+  88 0056 0821     		movs	r1, #8
+  89 0058 2046     		mov	r0, r4
+  90 005a FFF7FEFF 		bl	HAL_GPIO_TogglePin
+  91              	.LVL4:
+  22:Src/User/user_control.c ****         }
+  92              		.loc 1 22 0
+  93 005e 0024     		movs	r4, #0
+  94 0060 03E0     		b	.L4
+  95              	.L2:
+  27:Src/User/user_control.c ****         return 1;
+  96              		.loc 1 27 0
+  97 0062 0022     		movs	r2, #0
+  98 0064 034B     		ldr	r3, .L9+4
+  99 0066 1A70     		strb	r2, [r3]
+  28:Src/User/user_control.c ****     }
+ 100              		.loc 1 28 0
+ 101 0068 0124     		movs	r4, #1
+ 102              	.L4:
+  31:Src/User/user_control.c **** }
+ 103              		.loc 1 31 0
+ 104 006a 2046     		mov	r0, r4
+ 105 006c 10BD     		pop	{r4, pc}
+ 106              	.L10:
+ 107 006e 00BF     		.align	2
+ 108              	.L9:
+ 109 0070 00000000 		.word	.LANCHOR0
+ 110 0074 00000000 		.word	.LANCHOR1
+ 111 0078 00000000 		.word	.LANCHOR2
+ 112 007c 00040240 		.word	1073873920
+ 113              		.cfi_endproc
+ 114              	.LFE130:
+ 116              		.section	.text.check_system_halt,"ax",%progbits
+ 117              		.align	1
+ 118              		.global	check_system_halt
+ 119              		.syntax unified
+ 120              		.thumb
+ 121              		.thumb_func
+ 122              		.fpu fpv4-sp-d16
+ 124              	check_system_halt:
+ 125              	.LFB131:
+  32:Src/User/user_control.c **** 
+  33:Src/User/user_control.c **** uint8_t check_system_halt()
+  34:Src/User/user_control.c **** {
+ 126              		.loc 1 34 0
+ 127              		.cfi_startproc
+ 128              		@ args = 0, pretend = 0, frame = 0
+ 129              		@ frame_needed = 0, uses_anonymous_args = 0
+ 130 0000 10B5     		push	{r4, lr}
+ 131              	.LCFI1:
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s 			page 4
+
+
+ 132              		.cfi_def_cfa_offset 8
+ 133              		.cfi_offset 4, -8
+ 134              		.cfi_offset 14, -4
+  35:Src/User/user_control.c ****     static uint8_t triggered_flag = 0;
+  36:Src/User/user_control.c ****     static uint32_t triggered_tick = 0;
+  37:Src/User/user_control.c ****     if (throttle[LEFT_THROTTLE] > THROTTLE_ON && throttle[RIGHT_THROTTLE] > THROTTLE_ON)
+ 135              		.loc 1 37 0
+ 136 0002 1B4B     		ldr	r3, .L19
+ 137 0004 1B88     		ldrh	r3, [r3]
+ 138 0006 B3F5FA6F 		cmp	r3, #2000
+ 139 000a 2AD9     		bls	.L12
+ 140              		.loc 1 37 0 is_stmt 0 discriminator 1
+ 141 000c 184B     		ldr	r3, .L19
+ 142 000e 5B88     		ldrh	r3, [r3, #2]
+ 143 0010 B3F5FA6F 		cmp	r3, #2000
+ 144 0014 25D9     		bls	.L12
+  38:Src/User/user_control.c ****     {
+  39:Src/User/user_control.c ****         if (triggered_flag == 0)
+ 145              		.loc 1 39 0 is_stmt 1
+ 146 0016 174B     		ldr	r3, .L19+4
+ 147 0018 1C78     		ldrb	r4, [r3]	@ zero_extendqisi2
+ 148 001a 1CB1     		cbz	r4, .L17
+  40:Src/User/user_control.c ****         {
+  41:Src/User/user_control.c ****             triggered_tick = HAL_GetTick();
+  42:Src/User/user_control.c ****             triggered_flag = 1;
+  43:Src/User/user_control.c ****         }
+  44:Src/User/user_control.c ****         else if (triggered_flag == 1 && HAL_GetTick() - triggered_tick > THROTTLE_HOLD_TIME)
+ 149              		.loc 1 44 0
+ 150 001c 012C     		cmp	r4, #1
+ 151 001e 09D0     		beq	.L18
+  45:Src/User/user_control.c ****         {
+  46:Src/User/user_control.c ****             HAL_GPIO_TogglePin(BEEP_GPIO_Port, BEEP_Pin);
+  47:Src/User/user_control.c ****             HAL_Delay(500);
+  48:Src/User/user_control.c ****             HAL_GPIO_TogglePin(BEEP_GPIO_Port, BEEP_Pin);
+  49:Src/User/user_control.c ****             // HAL_GPIO_WritePin(BEEP_GPIO_Port, BEEP_Pin, GPIO_PIN_RESET);
+  50:Src/User/user_control.c ****             return 0;
+  51:Src/User/user_control.c ****         }
+  52:Src/User/user_control.c ****     }
+  53:Src/User/user_control.c ****     else //if (throttle[LEFT_THROTTLE] <= THROTTLE_ON || throttle[RIGHT_THROTTLE] <= THROTTLE_ON)
+  54:Src/User/user_control.c ****     {
+  55:Src/User/user_control.c ****         triggered_flag = 0;
+  56:Src/User/user_control.c ****         return 1;
+  57:Src/User/user_control.c ****     }
+  58:Src/User/user_control.c ****     return 1;
+ 152              		.loc 1 58 0
+ 153 0020 0124     		movs	r4, #1
+ 154 0022 22E0     		b	.L14
+ 155              	.L17:
+  41:Src/User/user_control.c ****             triggered_flag = 1;
+ 156              		.loc 1 41 0
+ 157 0024 FFF7FEFF 		bl	HAL_GetTick
+ 158              	.LVL5:
+ 159 0028 134B     		ldr	r3, .L19+8
+ 160 002a 1860     		str	r0, [r3]
+  42:Src/User/user_control.c ****         }
+ 161              		.loc 1 42 0
+ 162 002c 0124     		movs	r4, #1
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s 			page 5
+
+
+ 163 002e 114B     		ldr	r3, .L19+4
+ 164 0030 1C70     		strb	r4, [r3]
+ 165 0032 1AE0     		b	.L14
+ 166              	.L18:
+  44:Src/User/user_control.c ****         {
+ 167              		.loc 1 44 0 discriminator 1
+ 168 0034 FFF7FEFF 		bl	HAL_GetTick
+ 169              	.LVL6:
+ 170 0038 0F4B     		ldr	r3, .L19+8
+ 171 003a 1B68     		ldr	r3, [r3]
+ 172 003c C01A     		subs	r0, r0, r3
+ 173 003e B0F57A7F 		cmp	r0, #1000
+ 174 0042 12D9     		bls	.L14
+  46:Src/User/user_control.c ****             HAL_Delay(500);
+ 175              		.loc 1 46 0
+ 176 0044 0D4C     		ldr	r4, .L19+12
+ 177 0046 0821     		movs	r1, #8
+ 178 0048 2046     		mov	r0, r4
+ 179 004a FFF7FEFF 		bl	HAL_GPIO_TogglePin
+ 180              	.LVL7:
+  47:Src/User/user_control.c ****             HAL_GPIO_TogglePin(BEEP_GPIO_Port, BEEP_Pin);
+ 181              		.loc 1 47 0
+ 182 004e 4FF4FA70 		mov	r0, #500
+ 183 0052 FFF7FEFF 		bl	HAL_Delay
+ 184              	.LVL8:
+  48:Src/User/user_control.c ****             // HAL_GPIO_WritePin(BEEP_GPIO_Port, BEEP_Pin, GPIO_PIN_RESET);
+ 185              		.loc 1 48 0
+ 186 0056 0821     		movs	r1, #8
+ 187 0058 2046     		mov	r0, r4
+ 188 005a FFF7FEFF 		bl	HAL_GPIO_TogglePin
+ 189              	.LVL9:
+  50:Src/User/user_control.c ****         }
+ 190              		.loc 1 50 0
+ 191 005e 0024     		movs	r4, #0
+ 192 0060 03E0     		b	.L14
+ 193              	.L12:
+  55:Src/User/user_control.c ****         return 1;
+ 194              		.loc 1 55 0
+ 195 0062 0022     		movs	r2, #0
+ 196 0064 034B     		ldr	r3, .L19+4
+ 197 0066 1A70     		strb	r2, [r3]
+  56:Src/User/user_control.c ****     }
+ 198              		.loc 1 56 0
+ 199 0068 0124     		movs	r4, #1
+ 200              	.L14:
+  59:Src/User/user_control.c **** }
+ 201              		.loc 1 59 0
+ 202 006a 2046     		mov	r0, r4
+ 203 006c 10BD     		pop	{r4, pc}
+ 204              	.L20:
+ 205 006e 00BF     		.align	2
+ 206              	.L19:
+ 207 0070 00000000 		.word	.LANCHOR0
+ 208 0074 00000000 		.word	.LANCHOR3
+ 209 0078 00000000 		.word	.LANCHOR4
+ 210 007c 00040240 		.word	1073873920
+ 211              		.cfi_endproc
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s 			page 6
+
+
+ 212              	.LFE131:
+ 214              		.section	.text.user_control_init,"ax",%progbits
+ 215              		.align	1
+ 216              		.global	user_control_init
+ 217              		.syntax unified
+ 218              		.thumb
+ 219              		.thumb_func
+ 220              		.fpu fpv4-sp-d16
+ 222              	user_control_init:
+ 223              	.LFB132:
+  60:Src/User/user_control.c **** 
+  61:Src/User/user_control.c **** void user_control_init()
+  62:Src/User/user_control.c **** {
+ 224              		.loc 1 62 0
+ 225              		.cfi_startproc
+ 226              		@ args = 0, pretend = 0, frame = 0
+ 227              		@ frame_needed = 0, uses_anonymous_args = 0
+ 228 0000 08B5     		push	{r3, lr}
+ 229              	.LCFI2:
+ 230              		.cfi_def_cfa_offset 8
+ 231              		.cfi_offset 3, -8
+ 232              		.cfi_offset 14, -4
+  63:Src/User/user_control.c ****     HAL_ADC_Start_DMA(&hadc1, (uint32_t *)throttle, THROTTLE_NUM);
+ 233              		.loc 1 63 0
+ 234 0002 0222     		movs	r2, #2
+ 235 0004 0249     		ldr	r1, .L23
+ 236 0006 0348     		ldr	r0, .L23+4
+ 237 0008 FFF7FEFF 		bl	HAL_ADC_Start_DMA
+ 238              	.LVL10:
+ 239 000c 08BD     		pop	{r3, pc}
+ 240              	.L24:
+ 241 000e 00BF     		.align	2
+ 242              	.L23:
+ 243 0010 00000000 		.word	.LANCHOR0
+ 244 0014 00000000 		.word	hadc1
+ 245              		.cfi_endproc
+ 246              	.LFE132:
+ 248              		.section	.text.user_update_throttle,"ax",%progbits
+ 249              		.align	1
+ 250              		.global	user_update_throttle
+ 251              		.syntax unified
+ 252              		.thumb
+ 253              		.thumb_func
+ 254              		.fpu fpv4-sp-d16
+ 256              	user_update_throttle:
+ 257              	.LFB133:
+  64:Src/User/user_control.c **** }
+  65:Src/User/user_control.c **** 
+  66:Src/User/user_control.c **** void user_update_throttle()
+  67:Src/User/user_control.c **** {
+ 258              		.loc 1 67 0
+ 259              		.cfi_startproc
+ 260              		@ args = 0, pretend = 0, frame = 0
+ 261              		@ frame_needed = 0, uses_anonymous_args = 0
+ 262              		@ link register save eliminated.
+ 263              	.LVL11:
+  68:Src/User/user_control.c ****     int8_t left = 0, right = 0;
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s 			page 7
+
+
+  69:Src/User/user_control.c ****     left = (throttle[LEFT_THROTTLE] - 1100) * SPEED_UP_LIMIT / 2100;
+ 264              		.loc 1 69 0
+ 265 0000 1F4B     		ldr	r3, .L36
+ 266 0002 1A88     		ldrh	r2, [r3]
+ 267 0004 A2F24C41 		subw	r1, r2, #1100
+ 268 0008 6422     		movs	r2, #100
+ 269 000a 02FB01F2 		mul	r2, r2, r1
+ 270 000e 1D49     		ldr	r1, .L36+4
+ 271 0010 81FB0231 		smull	r3, r1, r1, r2
+ 272 0014 D317     		asrs	r3, r2, #31
+ 273 0016 C3EBA123 		rsb	r3, r3, r1, asr #10
+ 274 001a 59B2     		sxtb	r1, r3
+ 275              	.LVL12:
+  70:Src/User/user_control.c ****     if (left < 0)
+ 276              		.loc 1 70 0
+ 277 001c 0029     		cmp	r1, #0
+ 278 001e 1FDB     		blt	.L32
+  71:Src/User/user_control.c ****         left = 0;
+  72:Src/User/user_control.c ****     else if (left > SPEED_UP_LIMIT)
+ 279              		.loc 1 72 0
+ 280 0020 6429     		cmp	r1, #100
+ 281 0022 1FDC     		bgt	.L33
+ 282              	.LVL13:
+ 283              	.L26:
+  73:Src/User/user_control.c ****         left = SPEED_UP_LIMIT;
+  74:Src/User/user_control.c **** 
+  75:Src/User/user_control.c ****     right = (throttle[RIGHT_THROTTLE] - 1100) * SPEED_UP_LIMIT / 2100;
+ 284              		.loc 1 75 0
+ 285 0024 164B     		ldr	r3, .L36
+ 286 0026 5A88     		ldrh	r2, [r3, #2]
+ 287 0028 A2F24C43 		subw	r3, r2, #1100
+ 288 002c 6422     		movs	r2, #100
+ 289 002e 02FB03F2 		mul	r2, r2, r3
+ 290 0032 1448     		ldr	r0, .L36+4
+ 291 0034 80FB0230 		smull	r3, r0, r0, r2
+ 292 0038 D317     		asrs	r3, r2, #31
+ 293 003a C3EBA023 		rsb	r3, r3, r0, asr #10
+ 294 003e 5BB2     		sxtb	r3, r3
+ 295              	.LVL14:
+  76:Src/User/user_control.c ****     if (right < 0)
+ 296              		.loc 1 76 0
+ 297 0040 002B     		cmp	r3, #0
+ 298 0042 11DB     		blt	.L34
+  77:Src/User/user_control.c ****         right = 0;
+  78:Src/User/user_control.c ****     else if (right > SPEED_UP_LIMIT)
+ 299              		.loc 1 78 0
+ 300 0044 642B     		cmp	r3, #100
+ 301 0046 11DC     		bgt	.L35
+ 302              	.LVL15:
+ 303              	.L27:
+  79:Src/User/user_control.c ****         right = SPEED_UP_LIMIT;
+  80:Src/User/user_control.c **** 
+  81:Src/User/user_control.c ****     if (right < 95)
+ 304              		.loc 1 81 0
+ 305 0048 5E2B     		cmp	r3, #94
+ 306 004a 15DC     		bgt	.L28
+  82:Src/User/user_control.c ****     {
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s 			page 8
+
+
+  83:Src/User/user_control.c ****         if (left - right > 0)
+ 307              		.loc 1 83 0
+ 308 004c CA1A     		subs	r2, r1, r3
+ 309 004e 002A     		cmp	r2, #0
+ 310 0050 0EDD     		ble	.L29
+  84:Src/User/user_control.c ****             motor.pwm = -(left - right);
+ 311              		.loc 1 84 0
+ 312 0052 5B1A     		subs	r3, r3, r1
+ 313              	.LVL16:
+ 314 0054 0C4A     		ldr	r2, .L36+8
+ 315 0056 1370     		strb	r3, [r2]
+ 316              	.L30:
+  85:Src/User/user_control.c ****         else
+  86:Src/User/user_control.c ****             motor.pwm = 0;
+  87:Src/User/user_control.c ****         braking_flag = 0;
+ 317              		.loc 1 87 0
+ 318 0058 0022     		movs	r2, #0
+ 319 005a 0C4B     		ldr	r3, .L36+12
+ 320 005c 1A70     		strb	r2, [r3]
+ 321 005e 7047     		bx	lr
+ 322              	.LVL17:
+ 323              	.L32:
+  71:Src/User/user_control.c ****     else if (left > SPEED_UP_LIMIT)
+ 324              		.loc 1 71 0
+ 325 0060 0021     		movs	r1, #0
+ 326              	.LVL18:
+ 327 0062 DFE7     		b	.L26
+ 328              	.LVL19:
+ 329              	.L33:
+  73:Src/User/user_control.c **** 
+ 330              		.loc 1 73 0
+ 331 0064 6421     		movs	r1, #100
+ 332              	.LVL20:
+ 333 0066 DDE7     		b	.L26
+ 334              	.LVL21:
+ 335              	.L34:
+  77:Src/User/user_control.c ****     else if (right > SPEED_UP_LIMIT)
+ 336              		.loc 1 77 0
+ 337 0068 0023     		movs	r3, #0
+ 338              	.LVL22:
+ 339 006a EDE7     		b	.L27
+ 340              	.LVL23:
+ 341              	.L35:
+  79:Src/User/user_control.c **** 
+ 342              		.loc 1 79 0
+ 343 006c 6423     		movs	r3, #100
+ 344              	.LVL24:
+ 345 006e EBE7     		b	.L27
+ 346              	.LVL25:
+ 347              	.L29:
+  86:Src/User/user_control.c ****         braking_flag = 0;
+ 348              		.loc 1 86 0
+ 349 0070 0022     		movs	r2, #0
+ 350 0072 054B     		ldr	r3, .L36+8
+ 351              	.LVL26:
+ 352 0074 1A70     		strb	r2, [r3]
+ 353 0076 EFE7     		b	.L30
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s 			page 9
+
+
+ 354              	.LVL27:
+ 355              	.L28:
+  88:Src/User/user_control.c ****     }
+  89:Src/User/user_control.c ****     else
+  90:Src/User/user_control.c ****         braking_flag = 1;
+ 356              		.loc 1 90 0
+ 357 0078 0122     		movs	r2, #1
+ 358 007a 044B     		ldr	r3, .L36+12
+ 359              	.LVL28:
+ 360 007c 1A70     		strb	r2, [r3]
+ 361 007e 7047     		bx	lr
+ 362              	.L37:
+ 363              		.align	2
+ 364              	.L36:
+ 365 0080 00000000 		.word	.LANCHOR0
+ 366 0084 179AD47C 		.word	2094307863
+ 367 0088 00000000 		.word	motor
+ 368 008c 00000000 		.word	braking_flag
+ 369              		.cfi_endproc
+ 370              	.LFE133:
+ 372              		.section	.text.LED_control,"ax",%progbits
+ 373              		.align	1
+ 374              		.global	LED_control
+ 375              		.syntax unified
+ 376              		.thumb
+ 377              		.thumb_func
+ 378              		.fpu fpv4-sp-d16
+ 380              	LED_control:
+ 381              	.LFB134:
+  91:Src/User/user_control.c **** }
+  92:Src/User/user_control.c **** 
+  93:Src/User/user_control.c **** void LED_control()
+  94:Src/User/user_control.c **** {
+ 382              		.loc 1 94 0
+ 383              		.cfi_startproc
+ 384              		@ args = 0, pretend = 0, frame = 0
+ 385              		@ frame_needed = 0, uses_anonymous_args = 0
+ 386 0000 08B5     		push	{r3, lr}
+ 387              	.LCFI3:
+ 388              		.cfi_def_cfa_offset 8
+ 389              		.cfi_offset 3, -8
+ 390              		.cfi_offset 14, -4
+  95:Src/User/user_control.c ****     if (braking_flag)
+ 391              		.loc 1 95 0
+ 392 0002 114B     		ldr	r3, .L53
+ 393 0004 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 394 0006 9BB9     		cbnz	r3, .L50
+  96:Src/User/user_control.c ****     {
+  97:Src/User/user_control.c ****         motor.pwm = 0;
+  98:Src/User/user_control.c ****         LED_stop();
+  99:Src/User/user_control.c ****     }
+ 100:Src/User/user_control.c ****     else if (accAngle.angleY < -TURN_ANGLE)
+ 395              		.loc 1 100 0
+ 396 0008 104B     		ldr	r3, .L53+4
+ 397 000a D3ED017A 		vldr.32	s15, [r3, #4]
+ 398 000e BAEE007A 		vmov.f32	s14, #-8.0e+0
+ 399 0012 F4EEC77A 		vcmpe.f32	s15, s14
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s 			page 10
+
+
+ 400 0016 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 401 001a 0FD4     		bmi	.L51
+ 101:Src/User/user_control.c ****     {
+ 102:Src/User/user_control.c ****         LED_left();
+ 103:Src/User/user_control.c ****     }
+ 104:Src/User/user_control.c ****     else if (accAngle.angleY > TURN_ANGLE)
+ 402              		.loc 1 104 0
+ 403 001c B2EE007A 		vmov.f32	s14, #8.0e+0
+ 404 0020 F4EEC77A 		vcmpe.f32	s15, s14
+ 405 0024 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 406 0028 0BDC     		bgt	.L52
+ 105:Src/User/user_control.c ****     {
+ 106:Src/User/user_control.c ****         LED_right();
+ 107:Src/User/user_control.c ****     }
+ 108:Src/User/user_control.c ****     else
+ 109:Src/User/user_control.c ****     {
+ 110:Src/User/user_control.c ****         LED_go();
+ 407              		.loc 1 110 0
+ 408 002a FFF7FEFF 		bl	LED_go
+ 409              	.LVL29:
+ 410 002e 08BD     		pop	{r3, pc}
+ 411              	.L50:
+  97:Src/User/user_control.c ****         LED_stop();
+ 412              		.loc 1 97 0
+ 413 0030 0022     		movs	r2, #0
+ 414 0032 074B     		ldr	r3, .L53+8
+ 415 0034 1A70     		strb	r2, [r3]
+  98:Src/User/user_control.c ****     }
+ 416              		.loc 1 98 0
+ 417 0036 FFF7FEFF 		bl	LED_stop
+ 418              	.LVL30:
+ 419 003a 08BD     		pop	{r3, pc}
+ 420              	.L51:
+ 102:Src/User/user_control.c ****     }
+ 421              		.loc 1 102 0
+ 422 003c FFF7FEFF 		bl	LED_left
+ 423              	.LVL31:
+ 424 0040 08BD     		pop	{r3, pc}
+ 425              	.L52:
+ 106:Src/User/user_control.c ****     }
+ 426              		.loc 1 106 0
+ 427 0042 FFF7FEFF 		bl	LED_right
+ 428              	.LVL32:
+ 429 0046 08BD     		pop	{r3, pc}
+ 430              	.L54:
+ 431              		.align	2
+ 432              	.L53:
+ 433 0048 00000000 		.word	braking_flag
+ 434 004c 00000000 		.word	accAngle
+ 435 0050 00000000 		.word	motor
+ 436              		.cfi_endproc
+ 437              	.LFE134:
+ 439              		.global	throttle
+ 440              		.section	.bss.throttle,"aw",%nobits
+ 441              		.align	2
+ 442              		.set	.LANCHOR0,. + 0
+ 445              	throttle:
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s 			page 11
+
+
+ 446 0000 00000000 		.space	4
+ 447              		.section	.bss.triggered_flag.9040,"aw",%nobits
+ 448              		.set	.LANCHOR1,. + 0
+ 451              	triggered_flag.9040:
+ 452 0000 00       		.space	1
+ 453              		.section	.bss.triggered_flag.9044,"aw",%nobits
+ 454              		.set	.LANCHOR3,. + 0
+ 457              	triggered_flag.9044:
+ 458 0000 00       		.space	1
+ 459              		.section	.bss.triggered_tick.9041,"aw",%nobits
+ 460              		.align	2
+ 461              		.set	.LANCHOR2,. + 0
+ 464              	triggered_tick.9041:
+ 465 0000 00000000 		.space	4
+ 466              		.section	.bss.triggered_tick.9045,"aw",%nobits
+ 467              		.align	2
+ 468              		.set	.LANCHOR4,. + 0
+ 471              	triggered_tick.9045:
+ 472 0000 00000000 		.space	4
+ 473              		.text
+ 474              	.Letext0:
+ 475              		.file 2 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/machine/_defa
+ 476              		.file 3 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/sys/_stdint.h
+ 477              		.file 4 "Drivers/CMSIS/Include/core_cm4.h"
+ 478              		.file 5 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h"
+ 479              		.file 6 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h"
+ 480              		.file 7 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h"
+ 481              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
+ 482              		.file 9 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
+ 483              		.file 10 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h"
+ 484              		.file 11 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_can.h"
+ 485              		.file 12 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h"
+ 486              		.file 13 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h"
+ 487              		.file 14 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
+ 488              		.file 15 "Inc/adc.h"
+ 489              		.file 16 "Inc/tim.h"
+ 490              		.file 17 "Inc/spi.h"
+ 491              		.file 18 "Inc/User/algorithm.h"
+ 492              		.file 19 "Inc/can.h"
+ 493              		.file 20 "Inc/User/can_protocol.h"
+ 494              		.file 21 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/sys/lock.h"
+ 495              		.file 22 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/sys/_types.h
+ 496              		.file 23 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/lib/gcc/arm-none-eabi/6.3.1/includ
+ 497              		.file 24 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/sys/reent.h"
+ 498              		.file 25 "Inc/User/WS2812B.h"
+ 499              		.file 26 "Inc/User/MPU6050.h"
+ 500              		.file 27 "Inc/User/M3508.h"
+ 501              		.file 28 "Inc/User/user_main.h"
+ 502              		.file 29 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/stdlib.h"
+ 503              		.file 30 "Inc/User/motor_driver.h"
+ 504              		.file 31 "Inc/User/user_control.h"
+ 505              		.file 32 "Inc/User/LED.h"
+ 506              		.file 33 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h"
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s 			page 12
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 user_control.c
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s:18     .text.wait_for_system_start:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s:25     .text.wait_for_system_start:0000000000000000 wait_for_system_start
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s:109    .text.wait_for_system_start:0000000000000070 $d
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s:117    .text.check_system_halt:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s:124    .text.check_system_halt:0000000000000000 check_system_halt
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s:207    .text.check_system_halt:0000000000000070 $d
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s:215    .text.user_control_init:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s:222    .text.user_control_init:0000000000000000 user_control_init
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s:243    .text.user_control_init:0000000000000010 $d
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s:249    .text.user_update_throttle:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s:256    .text.user_update_throttle:0000000000000000 user_update_throttle
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s:365    .text.user_update_throttle:0000000000000080 $d
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s:373    .text.LED_control:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s:380    .text.LED_control:0000000000000000 LED_control
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s:433    .text.LED_control:0000000000000048 $d
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s:445    .bss.throttle:0000000000000000 throttle
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s:441    .bss.throttle:0000000000000000 $d
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s:451    .bss.triggered_flag.9040:0000000000000000 triggered_flag.9040
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s:452    .bss.triggered_flag.9040:0000000000000000 $d
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s:457    .bss.triggered_flag.9044:0000000000000000 triggered_flag.9044
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s:458    .bss.triggered_flag.9044:0000000000000000 $d
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s:460    .bss.triggered_tick.9041:0000000000000000 $d
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s:464    .bss.triggered_tick.9041:0000000000000000 triggered_tick.9041
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s:467    .bss.triggered_tick.9045:0000000000000000 $d
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s:471    .bss.triggered_tick.9045:0000000000000000 triggered_tick.9045
+                     .debug_frame:0000000000000010 $d
+
+UNDEFINED SYMBOLS
+HAL_GetTick
+HAL_GPIO_TogglePin
+HAL_Delay
+HAL_ADC_Start_DMA
+hadc1
+motor
+braking_flag
+LED_go
+LED_stop
+LED_left
+LED_right
+accAngle

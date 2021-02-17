@@ -1,0 +1,616 @@
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccpb7qqF.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"can_protocol.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.can_init,"ax",%progbits
+  18              		.align	1
+  19              		.global	can_init
+  20              		.syntax unified
+  21              		.thumb
+  22              		.thumb_func
+  23              		.fpu fpv4-sp-d16
+  25              	can_init:
+  26              	.LFB130:
+  27              		.file 1 "Src/User/can_protocol.c"
+   1:Src/User/can_protocol.c **** #include "can_protocol.h"
+   2:Src/User/can_protocol.c **** #include <string.h>
+   3:Src/User/can_protocol.c **** 
+   4:Src/User/can_protocol.c **** HAL_StatusTypeDef CanRxState, CanTxState;
+   5:Src/User/can_protocol.c **** 
+   6:Src/User/can_protocol.c **** CAN_RxHeaderTypeDef CanRxHeader;
+   7:Src/User/can_protocol.c **** uint8_t CanRxData[8];
+   8:Src/User/can_protocol.c **** 
+   9:Src/User/can_protocol.c **** CAN_TxHeaderTypeDef CanTxHeader;
+  10:Src/User/can_protocol.c **** uint8_t CanTxData[8];
+  11:Src/User/can_protocol.c **** uint32_t TxMailBox = CAN_TX_MAILBOX0;
+  12:Src/User/can_protocol.c **** 
+  13:Src/User/can_protocol.c **** MotorDataTypeDef motor_data[4];
+  14:Src/User/can_protocol.c **** 
+  15:Src/User/can_protocol.c **** void can_init()
+  16:Src/User/can_protocol.c **** {
+  28              		.loc 1 16 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 40
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32 0000 10B5     		push	{r4, lr}
+  33              	.LCFI0:
+  34              		.cfi_def_cfa_offset 8
+  35              		.cfi_offset 4, -8
+  36              		.cfi_offset 14, -4
+  37 0002 8AB0     		sub	sp, sp, #40
+  38              	.LCFI1:
+  39              		.cfi_def_cfa_offset 48
+  17:Src/User/can_protocol.c ****     CAN_FilterTypeDef Canfilter;
+  18:Src/User/can_protocol.c ****     Canfilter.FilterIdHigh = 0x201 << 5;
+  40              		.loc 1 18 0
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccpb7qqF.s 			page 2
+
+
+  41 0004 44F22003 		movw	r3, #16416
+  42 0008 0093     		str	r3, [sp]
+  19:Src/User/can_protocol.c ****     Canfilter.FilterIdLow = 0x202 << 5;
+  43              		.loc 1 19 0
+  44 000a 44F24003 		movw	r3, #16448
+  45 000e 0193     		str	r3, [sp, #4]
+  20:Src/User/can_protocol.c ****     Canfilter.FilterMaskIdHigh = 0x203 << 5;
+  46              		.loc 1 20 0
+  47 0010 44F26003 		movw	r3, #16480
+  48 0014 0293     		str	r3, [sp, #8]
+  21:Src/User/can_protocol.c ****     Canfilter.FilterMaskIdLow = 0x204 << 5;
+  49              		.loc 1 21 0
+  50 0016 4FF48143 		mov	r3, #16512
+  51 001a 0393     		str	r3, [sp, #12]
+  22:Src/User/can_protocol.c ****     Canfilter.FilterFIFOAssignment = CAN_FILTER_FIFO0;
+  52              		.loc 1 22 0
+  53 001c 0023     		movs	r3, #0
+  54 001e 0493     		str	r3, [sp, #16]
+  23:Src/User/can_protocol.c ****     Canfilter.FilterBank = 0;
+  55              		.loc 1 23 0
+  56 0020 0593     		str	r3, [sp, #20]
+  24:Src/User/can_protocol.c ****     Canfilter.FilterMode = CAN_FILTERMODE_IDLIST;
+  57              		.loc 1 24 0
+  58 0022 0122     		movs	r2, #1
+  59 0024 0692     		str	r2, [sp, #24]
+  25:Src/User/can_protocol.c ****     Canfilter.FilterScale = CAN_FILTERSCALE_16BIT;
+  60              		.loc 1 25 0
+  61 0026 0793     		str	r3, [sp, #28]
+  26:Src/User/can_protocol.c ****     Canfilter.FilterActivation = CAN_FILTER_ENABLE;
+  62              		.loc 1 26 0
+  63 0028 0892     		str	r2, [sp, #32]
+  27:Src/User/can_protocol.c ****     Canfilter.SlaveStartFilterBank = 0; //meaningless for STM32F103C8
+  64              		.loc 1 27 0
+  65 002a 0993     		str	r3, [sp, #36]
+  28:Src/User/can_protocol.c **** 
+  29:Src/User/can_protocol.c ****     if (HAL_CAN_ConfigFilter(&hcan1, &Canfilter) != HAL_OK)
+  66              		.loc 1 29 0
+  67 002c 6946     		mov	r1, sp
+  68 002e 0848     		ldr	r0, .L5
+  69 0030 FFF7FEFF 		bl	HAL_CAN_ConfigFilter
+  70              	.LVL0:
+  71 0034 48B9     		cbnz	r0, .L4
+  72              	.L2:
+  30:Src/User/can_protocol.c ****     {
+  31:Src/User/can_protocol.c ****         Error_Handler();
+  32:Src/User/can_protocol.c ****     }
+  33:Src/User/can_protocol.c **** 
+  34:Src/User/can_protocol.c ****     HAL_CAN_Start(&hcan1);
+  73              		.loc 1 34 0
+  74 0036 064C     		ldr	r4, .L5
+  75 0038 2046     		mov	r0, r4
+  76 003a FFF7FEFF 		bl	HAL_CAN_Start
+  77              	.LVL1:
+  35:Src/User/can_protocol.c **** 
+  36:Src/User/can_protocol.c ****     HAL_CAN_ActivateNotification(&hcan1, CAN_IT_RX_FIFO0_MSG_PENDING);
+  78              		.loc 1 36 0
+  79 003e 0221     		movs	r1, #2
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccpb7qqF.s 			page 3
+
+
+  80 0040 2046     		mov	r0, r4
+  81 0042 FFF7FEFF 		bl	HAL_CAN_ActivateNotification
+  82              	.LVL2:
+  37:Src/User/can_protocol.c **** }
+  83              		.loc 1 37 0
+  84 0046 0AB0     		add	sp, sp, #40
+  85              	.LCFI2:
+  86              		.cfi_remember_state
+  87              		.cfi_def_cfa_offset 8
+  88              		@ sp needed
+  89 0048 10BD     		pop	{r4, pc}
+  90              	.L4:
+  91              	.LCFI3:
+  92              		.cfi_restore_state
+  31:Src/User/can_protocol.c ****     }
+  93              		.loc 1 31 0
+  94 004a FFF7FEFF 		bl	Error_Handler
+  95              	.LVL3:
+  96 004e F2E7     		b	.L2
+  97              	.L6:
+  98              		.align	2
+  99              	.L5:
+ 100 0050 00000000 		.word	hcan1
+ 101              		.cfi_endproc
+ 102              	.LFE130:
+ 104              		.section	.text.update_speed,"ax",%progbits
+ 105              		.align	1
+ 106              		.global	update_speed
+ 107              		.syntax unified
+ 108              		.thumb
+ 109              		.thumb_func
+ 110              		.fpu fpv4-sp-d16
+ 112              	update_speed:
+ 113              	.LFB131:
+  38:Src/User/can_protocol.c **** 
+  39:Src/User/can_protocol.c **** void update_speed()
+  40:Src/User/can_protocol.c **** {
+ 114              		.loc 1 40 0
+ 115              		.cfi_startproc
+ 116              		@ args = 0, pretend = 0, frame = 0
+ 117              		@ frame_needed = 0, uses_anonymous_args = 0
+ 118              		@ link register save eliminated.
+ 119              	.LVL4:
+ 120              	.LBB2:
+  41:Src/User/can_protocol.c ****     for (uint8_t i = 0; i < 4; i++)
+ 121              		.loc 1 41 0
+ 122 0000 0023     		movs	r3, #0
+ 123              	.LVL5:
+ 124 0002 032B     		cmp	r3, #3
+ 125 0004 12D8     		bhi	.L13
+ 126              	.LBE2:
+  40:Src/User/can_protocol.c ****     for (uint8_t i = 0; i < 4; i++)
+ 127              		.loc 1 40 0
+ 128 0006 10B4     		push	{r4}
+ 129              	.LCFI4:
+ 130              		.cfi_def_cfa_offset 4
+ 131              		.cfi_offset 4, -4
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccpb7qqF.s 			page 4
+
+
+ 132              	.L9:
+ 133              	.LBB3:
+  42:Src/User/can_protocol.c ****     {
+  43:Src/User/can_protocol.c ****         CanTxData[2 * i] = motor_data[i].target_current >> 8;
+ 134              		.loc 1 43 0 discriminator 3
+ 135 0008 5A00     		lsls	r2, r3, #1
+ 136 000a D018     		adds	r0, r2, r3
+ 137 000c C100     		lsls	r1, r0, #3
+ 138 000e 0848     		ldr	r0, .L14
+ 139 0010 405E     		ldrsh	r0, [r0, r1]
+ 140 0012 0849     		ldr	r1, .L14+4
+ 141 0014 0412     		asrs	r4, r0, #8
+ 142 0016 01F81340 		strb	r4, [r1, r3, lsl #1]
+  44:Src/User/can_protocol.c ****         CanTxData[2 * i + 1] = motor_data[i].target_current;
+ 143              		.loc 1 44 0 discriminator 3
+ 144 001a 0132     		adds	r2, r2, #1
+ 145 001c 8854     		strb	r0, [r1, r2]
+  41:Src/User/can_protocol.c ****     {
+ 146              		.loc 1 41 0 discriminator 3
+ 147 001e 0133     		adds	r3, r3, #1
+ 148              	.LVL6:
+ 149 0020 DBB2     		uxtb	r3, r3
+ 150              	.LVL7:
+ 151 0022 032B     		cmp	r3, #3
+ 152 0024 F0D9     		bls	.L9
+ 153              	.LBE3:
+  45:Src/User/can_protocol.c ****     }
+  46:Src/User/can_protocol.c **** }
+ 154              		.loc 1 46 0
+ 155 0026 5DF8044B 		ldr	r4, [sp], #4
+ 156              	.LCFI5:
+ 157              		.cfi_restore 4
+ 158              		.cfi_def_cfa_offset 0
+ 159 002a 7047     		bx	lr
+ 160              	.L13:
+ 161 002c 7047     		bx	lr
+ 162              	.L15:
+ 163 002e 00BF     		.align	2
+ 164              	.L14:
+ 165 0030 00000000 		.word	motor_data
+ 166 0034 00000000 		.word	CanTxData
+ 167              		.cfi_endproc
+ 168              	.LFE131:
+ 170              		.section	.text.encoder_data_handler,"ax",%progbits
+ 171              		.align	1
+ 172              		.global	encoder_data_handler
+ 173              		.syntax unified
+ 174              		.thumb
+ 175              		.thumb_func
+ 176              		.fpu fpv4-sp-d16
+ 178              	encoder_data_handler:
+ 179              	.LFB132:
+  47:Src/User/can_protocol.c **** 
+  48:Src/User/can_protocol.c **** void encoder_data_handler()
+  49:Src/User/can_protocol.c **** {
+ 180              		.loc 1 49 0
+ 181              		.cfi_startproc
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccpb7qqF.s 			page 5
+
+
+ 182              		@ args = 0, pretend = 0, frame = 0
+ 183              		@ frame_needed = 0, uses_anonymous_args = 0
+ 184              		@ link register save eliminated.
+  50:Src/User/can_protocol.c ****     if (motor_data[0].position - motor_data[0].last_position > 5000)
+ 185              		.loc 1 50 0
+ 186 0000 0E4B     		ldr	r3, .L19
+ 187 0002 1A89     		ldrh	r2, [r3, #8]
+ 188 0004 9B8A     		ldrh	r3, [r3, #20]
+ 189 0006 D31A     		subs	r3, r2, r3
+ 190 0008 41F28831 		movw	r1, #5000
+ 191 000c 8B42     		cmp	r3, r1
+ 192 000e 04DD     		ble	.L17
+  51:Src/User/can_protocol.c ****         motor_data[0].round_count--;
+ 193              		.loc 1 51 0
+ 194 0010 0A48     		ldr	r0, .L19
+ 195 0012 B0F91210 		ldrsh	r1, [r0, #18]
+ 196 0016 0139     		subs	r1, r1, #1
+ 197 0018 4182     		strh	r1, [r0, #18]	@ movhi
+ 198              	.L17:
+  52:Src/User/can_protocol.c ****     if (motor_data[0].position - motor_data[0].last_position < -5000)
+ 199              		.loc 1 52 0
+ 200 001a 0949     		ldr	r1, .L19+4
+ 201 001c 8B42     		cmp	r3, r1
+ 202 001e 04DA     		bge	.L18
+  53:Src/User/can_protocol.c ****         motor_data[0].round_count++;
+ 203              		.loc 1 53 0
+ 204 0020 0649     		ldr	r1, .L19
+ 205 0022 B1F91230 		ldrsh	r3, [r1, #18]
+ 206 0026 0133     		adds	r3, r3, #1
+ 207 0028 4B82     		strh	r3, [r1, #18]	@ movhi
+ 208              	.L18:
+  54:Src/User/can_protocol.c **** 
+  55:Src/User/can_protocol.c ****     motor_data[0].accumulated_position = motor_data[0].round_count * 8192 + motor_data[0].position;
+ 209              		.loc 1 55 0
+ 210 002a 044B     		ldr	r3, .L19
+ 211 002c B3F91210 		ldrsh	r1, [r3, #18]
+ 212 0030 02EB4131 		add	r1, r2, r1, lsl #13
+ 213 0034 5960     		str	r1, [r3, #4]
+  56:Src/User/can_protocol.c **** 
+  57:Src/User/can_protocol.c ****     motor_data[0].last_position = motor_data[0].position;
+ 214              		.loc 1 57 0
+ 215 0036 9A82     		strh	r2, [r3, #20]	@ movhi
+ 216 0038 7047     		bx	lr
+ 217              	.L20:
+ 218 003a 00BF     		.align	2
+ 219              	.L19:
+ 220 003c 00000000 		.word	motor_data
+ 221 0040 78ECFFFF 		.word	-5000
+ 222              		.cfi_endproc
+ 223              	.LFE132:
+ 225              		.section	.text.feedback_decode,"ax",%progbits
+ 226              		.align	1
+ 227              		.global	feedback_decode
+ 228              		.syntax unified
+ 229              		.thumb
+ 230              		.thumb_func
+ 231              		.fpu fpv4-sp-d16
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccpb7qqF.s 			page 6
+
+
+ 233              	feedback_decode:
+ 234              	.LFB133:
+  58:Src/User/can_protocol.c **** }
+  59:Src/User/can_protocol.c **** 
+  60:Src/User/can_protocol.c **** void feedback_decode()
+  61:Src/User/can_protocol.c **** {
+ 235              		.loc 1 61 0
+ 236              		.cfi_startproc
+ 237              		@ args = 0, pretend = 0, frame = 0
+ 238              		@ frame_needed = 0, uses_anonymous_args = 0
+ 239 0000 70B5     		push	{r4, r5, r6, lr}
+ 240              	.LCFI6:
+ 241              		.cfi_def_cfa_offset 16
+ 242              		.cfi_offset 4, -16
+ 243              		.cfi_offset 5, -12
+ 244              		.cfi_offset 6, -8
+ 245              		.cfi_offset 14, -4
+  62:Src/User/can_protocol.c ****     uint8_t motor_id = CanRxHeader.StdId - 0x200 - 1;
+ 246              		.loc 1 62 0
+ 247 0002 104B     		ldr	r3, .L23
+ 248 0004 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 249 0006 013B     		subs	r3, r3, #1
+ 250 0008 DBB2     		uxtb	r3, r3
+ 251              	.LVL8:
+  63:Src/User/can_protocol.c ****     motor_data[motor_id].position = CanRxData[0] << 8 | CanRxData[1];
+ 252              		.loc 1 63 0
+ 253 000a 0F4A     		ldr	r2, .L23+4
+ 254 000c 1178     		ldrb	r1, [r2]	@ zero_extendqisi2
+ 255 000e 5478     		ldrb	r4, [r2, #1]	@ zero_extendqisi2
+ 256 0010 44EA0124 		orr	r4, r4, r1, lsl #8
+ 257 0014 0D4D     		ldr	r5, .L23+8
+ 258 0016 5800     		lsls	r0, r3, #1
+ 259 0018 C618     		adds	r6, r0, r3
+ 260 001a F100     		lsls	r1, r6, #3
+ 261 001c 2944     		add	r1, r1, r5
+ 262 001e 0C81     		strh	r4, [r1, #8]	@ movhi
+  64:Src/User/can_protocol.c ****     motor_data[motor_id].speed = CanRxData[2] << 8 | CanRxData[3];
+ 263              		.loc 1 64 0
+ 264 0020 9678     		ldrb	r6, [r2, #2]	@ zero_extendqisi2
+ 265 0022 D478     		ldrb	r4, [r2, #3]	@ zero_extendqisi2
+ 266 0024 44EA0624 		orr	r4, r4, r6, lsl #8
+ 267 0028 4C81     		strh	r4, [r1, #10]	@ movhi
+  65:Src/User/can_protocol.c ****     motor_data[motor_id].torque = CanRxData[4] << 8 | CanRxData[5];
+ 268              		.loc 1 65 0
+ 269 002a 1679     		ldrb	r6, [r2, #4]	@ zero_extendqisi2
+ 270 002c 5479     		ldrb	r4, [r2, #5]	@ zero_extendqisi2
+ 271 002e 44EA0624 		orr	r4, r4, r6, lsl #8
+ 272 0032 CC81     		strh	r4, [r1, #14]	@ movhi
+  66:Src/User/can_protocol.c ****     motor_data[motor_id].temperature = CanRxData[6] << 8 | CanRxData[7];
+ 273              		.loc 1 66 0
+ 274 0034 D179     		ldrb	r1, [r2, #7]	@ zero_extendqisi2
+ 275 0036 0344     		add	r3, r3, r0
+ 276              	.LVL9:
+ 277 0038 DA00     		lsls	r2, r3, #3
+ 278 003a AB18     		adds	r3, r5, r2
+ 279 003c 1974     		strb	r1, [r3, #16]
+  67:Src/User/can_protocol.c **** 
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccpb7qqF.s 			page 7
+
+
+  68:Src/User/can_protocol.c ****     encoder_data_handler();
+ 280              		.loc 1 68 0
+ 281 003e FFF7FEFF 		bl	encoder_data_handler
+ 282              	.LVL10:
+ 283 0042 70BD     		pop	{r4, r5, r6, pc}
+ 284              	.L24:
+ 285              		.align	2
+ 286              	.L23:
+ 287 0044 00000000 		.word	CanRxHeader
+ 288 0048 00000000 		.word	CanRxData
+ 289 004c 00000000 		.word	motor_data
+ 290              		.cfi_endproc
+ 291              	.LFE133:
+ 293              		.section	.text.can_rx_data,"ax",%progbits
+ 294              		.align	1
+ 295              		.global	can_rx_data
+ 296              		.syntax unified
+ 297              		.thumb
+ 298              		.thumb_func
+ 299              		.fpu fpv4-sp-d16
+ 301              	can_rx_data:
+ 302              	.LFB134:
+  69:Src/User/can_protocol.c **** }
+  70:Src/User/can_protocol.c **** 
+  71:Src/User/can_protocol.c **** void can_rx_data()
+  72:Src/User/can_protocol.c **** {
+ 303              		.loc 1 72 0
+ 304              		.cfi_startproc
+ 305              		@ args = 0, pretend = 0, frame = 0
+ 306              		@ frame_needed = 0, uses_anonymous_args = 0
+ 307 0000 08B5     		push	{r3, lr}
+ 308              	.LCFI7:
+ 309              		.cfi_def_cfa_offset 8
+ 310              		.cfi_offset 3, -8
+ 311              		.cfi_offset 14, -4
+  73:Src/User/can_protocol.c ****     if (HAL_CAN_GetRxFifoFillLevel(&hcan1, CAN_RX_FIFO0) > 0)
+ 312              		.loc 1 73 0
+ 313 0002 0021     		movs	r1, #0
+ 314 0004 0748     		ldr	r0, .L29
+ 315 0006 FFF7FEFF 		bl	HAL_CAN_GetRxFifoFillLevel
+ 316              	.LVL11:
+ 317 000a 10B9     		cbnz	r0, .L28
+ 318              	.L26:
+  74:Src/User/can_protocol.c ****     {
+  75:Src/User/can_protocol.c ****         CanRxState = HAL_CAN_GetRxMessage(&hcan1, CAN_RX_FIFO0, &CanRxHeader, CanRxData);
+  76:Src/User/can_protocol.c ****     }
+  77:Src/User/can_protocol.c ****     feedback_decode();
+ 319              		.loc 1 77 0
+ 320 000c FFF7FEFF 		bl	feedback_decode
+ 321              	.LVL12:
+ 322 0010 08BD     		pop	{r3, pc}
+ 323              	.L28:
+  75:Src/User/can_protocol.c ****     }
+ 324              		.loc 1 75 0
+ 325 0012 054B     		ldr	r3, .L29+4
+ 326 0014 054A     		ldr	r2, .L29+8
+ 327 0016 0021     		movs	r1, #0
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccpb7qqF.s 			page 8
+
+
+ 328 0018 0248     		ldr	r0, .L29
+ 329 001a FFF7FEFF 		bl	HAL_CAN_GetRxMessage
+ 330              	.LVL13:
+ 331 001e 044B     		ldr	r3, .L29+12
+ 332 0020 1870     		strb	r0, [r3]
+ 333 0022 F3E7     		b	.L26
+ 334              	.L30:
+ 335              		.align	2
+ 336              	.L29:
+ 337 0024 00000000 		.word	hcan1
+ 338 0028 00000000 		.word	CanRxData
+ 339 002c 00000000 		.word	CanRxHeader
+ 340 0030 00000000 		.word	CanRxState
+ 341              		.cfi_endproc
+ 342              	.LFE134:
+ 344              		.section	.text.can_tx_data,"ax",%progbits
+ 345              		.align	1
+ 346              		.global	can_tx_data
+ 347              		.syntax unified
+ 348              		.thumb
+ 349              		.thumb_func
+ 350              		.fpu fpv4-sp-d16
+ 352              	can_tx_data:
+ 353              	.LFB135:
+  78:Src/User/can_protocol.c **** }
+  79:Src/User/can_protocol.c **** 
+  80:Src/User/can_protocol.c **** void can_tx_data()
+  81:Src/User/can_protocol.c **** {
+ 354              		.loc 1 81 0
+ 355              		.cfi_startproc
+ 356              		@ args = 0, pretend = 0, frame = 0
+ 357              		@ frame_needed = 0, uses_anonymous_args = 0
+ 358 0000 08B5     		push	{r3, lr}
+ 359              	.LCFI8:
+ 360              		.cfi_def_cfa_offset 8
+ 361              		.cfi_offset 3, -8
+ 362              		.cfi_offset 14, -4
+  82:Src/User/can_protocol.c ****     update_speed();
+ 363              		.loc 1 82 0
+ 364 0002 FFF7FEFF 		bl	update_speed
+ 365              	.LVL14:
+  83:Src/User/can_protocol.c **** 
+  84:Src/User/can_protocol.c ****     // uint32_t start_tick = HAL_GetTick();
+  85:Src/User/can_protocol.c ****     // while (HAL_CAN_GetTxMailboxesFreeLevel(&hcan1) == 0)
+  86:Src/User/can_protocol.c ****     //     if (HAL_GetTick() - start_tick > 3000)
+  87:Src/User/can_protocol.c ****     //         return;
+  88:Src/User/can_protocol.c **** 
+  89:Src/User/can_protocol.c ****     if (HAL_CAN_GetTxMailboxesFreeLevel(&hcan1) != 0)
+ 366              		.loc 1 89 0
+ 367 0006 0B48     		ldr	r0, .L35
+ 368 0008 FFF7FEFF 		bl	HAL_CAN_GetTxMailboxesFreeLevel
+ 369              	.LVL15:
+ 370 000c 00B9     		cbnz	r0, .L34
+ 371              	.L31:
+ 372 000e 08BD     		pop	{r3, pc}
+ 373              	.L34:
+  90:Src/User/can_protocol.c ****     {
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccpb7qqF.s 			page 9
+
+
+  91:Src/User/can_protocol.c ****         CanTxHeader.StdId = 0x200;
+ 374              		.loc 1 91 0
+ 375 0010 0949     		ldr	r1, .L35+4
+ 376 0012 4FF40073 		mov	r3, #512
+ 377 0016 0B60     		str	r3, [r1]
+  92:Src/User/can_protocol.c ****         // CanTxHeader.ExtId = 0x0000;
+  93:Src/User/can_protocol.c ****         CanTxHeader.IDE = CAN_ID_STD;
+ 378              		.loc 1 93 0
+ 379 0018 0023     		movs	r3, #0
+ 380 001a 8B60     		str	r3, [r1, #8]
+  94:Src/User/can_protocol.c ****         CanTxHeader.RTR = CAN_RTR_DATA;
+ 381              		.loc 1 94 0
+ 382 001c CB60     		str	r3, [r1, #12]
+  95:Src/User/can_protocol.c ****         CanTxHeader.DLC = 8;
+ 383              		.loc 1 95 0
+ 384 001e 0823     		movs	r3, #8
+ 385 0020 0B61     		str	r3, [r1, #16]
+  96:Src/User/can_protocol.c ****         CanTxState = HAL_CAN_AddTxMessage(&hcan1, &CanTxHeader, CanTxData, &TxMailBox);
+ 386              		.loc 1 96 0
+ 387 0022 064B     		ldr	r3, .L35+8
+ 388 0024 064A     		ldr	r2, .L35+12
+ 389 0026 0348     		ldr	r0, .L35
+ 390 0028 FFF7FEFF 		bl	HAL_CAN_AddTxMessage
+ 391              	.LVL16:
+ 392 002c 054B     		ldr	r3, .L35+16
+ 393 002e 1870     		strb	r0, [r3]
+  97:Src/User/can_protocol.c ****     }
+  98:Src/User/can_protocol.c **** }
+ 394              		.loc 1 98 0
+ 395 0030 EDE7     		b	.L31
+ 396              	.L36:
+ 397 0032 00BF     		.align	2
+ 398              	.L35:
+ 399 0034 00000000 		.word	hcan1
+ 400 0038 00000000 		.word	CanTxHeader
+ 401 003c 00000000 		.word	.LANCHOR0
+ 402 0040 00000000 		.word	CanTxData
+ 403 0044 00000000 		.word	CanTxState
+ 404              		.cfi_endproc
+ 405              	.LFE135:
+ 407              		.comm	motor_data,96,4
+ 408              		.global	TxMailBox
+ 409              		.comm	CanTxData,8,4
+ 410              		.comm	CanTxHeader,24,4
+ 411              		.comm	CanRxData,8,4
+ 412              		.comm	CanRxHeader,28,4
+ 413              		.comm	CanTxState,1,1
+ 414              		.comm	CanRxState,1,1
+ 415              		.section	.data.TxMailBox,"aw",%progbits
+ 416              		.align	2
+ 417              		.set	.LANCHOR0,. + 0
+ 420              	TxMailBox:
+ 421 0000 01000000 		.word	1
+ 422              		.text
+ 423              	.Letext0:
+ 424              		.file 2 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/machine/_defa
+ 425              		.file 3 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/sys/_stdint.h
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccpb7qqF.s 			page 10
+
+
+ 426              		.file 4 "Drivers/CMSIS/Include/core_cm4.h"
+ 427              		.file 5 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h"
+ 428              		.file 6 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h"
+ 429              		.file 7 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h"
+ 430              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
+ 431              		.file 9 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
+ 432              		.file 10 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h"
+ 433              		.file 11 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_can.h"
+ 434              		.file 12 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h"
+ 435              		.file 13 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h"
+ 436              		.file 14 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
+ 437              		.file 15 "Inc/can.h"
+ 438              		.file 16 "Inc/tim.h"
+ 439              		.file 17 "Inc/spi.h"
+ 440              		.file 18 "Inc/adc.h"
+ 441              		.file 19 "Inc/User/algorithm.h"
+ 442              		.file 20 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/sys/lock.h"
+ 443              		.file 21 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/sys/_types.h
+ 444              		.file 22 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/lib/gcc/arm-none-eabi/6.3.1/includ
+ 445              		.file 23 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/sys/reent.h"
+ 446              		.file 24 "Inc/User/WS2812B.h"
+ 447              		.file 25 "Inc/User/MPU6050.h"
+ 448              		.file 26 "Inc/User/M3508.h"
+ 449              		.file 27 "Inc/User/user_control.h"
+ 450              		.file 28 "Inc/User/user_main.h"
+ 451              		.file 29 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/stdlib.h"
+ 452              		.file 30 "Inc/User/motor_driver.h"
+ 453              		.file 31 "Inc/User/can_protocol.h"
+ 454              		.file 32 "Inc/main.h"
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccpb7qqF.s 			page 11
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 can_protocol.c
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccpb7qqF.s:18     .text.can_init:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccpb7qqF.s:25     .text.can_init:0000000000000000 can_init
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccpb7qqF.s:100    .text.can_init:0000000000000050 $d
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccpb7qqF.s:105    .text.update_speed:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccpb7qqF.s:112    .text.update_speed:0000000000000000 update_speed
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccpb7qqF.s:165    .text.update_speed:0000000000000030 $d
+                            *COM*:0000000000000060 motor_data
+                            *COM*:0000000000000008 CanTxData
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccpb7qqF.s:171    .text.encoder_data_handler:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccpb7qqF.s:178    .text.encoder_data_handler:0000000000000000 encoder_data_handler
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccpb7qqF.s:220    .text.encoder_data_handler:000000000000003c $d
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccpb7qqF.s:226    .text.feedback_decode:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccpb7qqF.s:233    .text.feedback_decode:0000000000000000 feedback_decode
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccpb7qqF.s:287    .text.feedback_decode:0000000000000044 $d
+                            *COM*:000000000000001c CanRxHeader
+                            *COM*:0000000000000008 CanRxData
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccpb7qqF.s:294    .text.can_rx_data:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccpb7qqF.s:301    .text.can_rx_data:0000000000000000 can_rx_data
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccpb7qqF.s:337    .text.can_rx_data:0000000000000024 $d
+                            *COM*:0000000000000001 CanRxState
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccpb7qqF.s:345    .text.can_tx_data:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccpb7qqF.s:352    .text.can_tx_data:0000000000000000 can_tx_data
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccpb7qqF.s:399    .text.can_tx_data:0000000000000034 $d
+                            *COM*:0000000000000018 CanTxHeader
+                            *COM*:0000000000000001 CanTxState
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccpb7qqF.s:420    .data.TxMailBox:0000000000000000 TxMailBox
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccpb7qqF.s:416    .data.TxMailBox:0000000000000000 $d
+                     .debug_frame:0000000000000010 $d
+
+UNDEFINED SYMBOLS
+HAL_CAN_ConfigFilter
+HAL_CAN_Start
+HAL_CAN_ActivateNotification
+Error_Handler
+hcan1
+HAL_CAN_GetRxFifoFillLevel
+HAL_CAN_GetRxMessage
+HAL_CAN_GetTxMailboxesFreeLevel
+HAL_CAN_AddTxMessage

@@ -1,0 +1,368 @@
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccGEXjXP.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"WS2812B.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.WS2812_init,"ax",%progbits
+  18              		.align	1
+  19              		.global	WS2812_init
+  20              		.syntax unified
+  21              		.thumb
+  22              		.thumb_func
+  23              		.fpu fpv4-sp-d16
+  25              	WS2812_init:
+  26              	.LFB130:
+  27              		.file 1 "Src/User/WS2812B.c"
+   1:Src/User/WS2812B.c **** #include <WS2812B.h>
+   2:Src/User/WS2812B.c **** 
+   3:Src/User/WS2812B.c **** #define PREFIX_NUM      10
+   4:Src/User/WS2812B.c **** #define CODE_0          0xc0
+   5:Src/User/WS2812B.c **** #define CODE_1          0xf0
+   6:Src/User/WS2812B.c **** 
+   7:Src/User/WS2812B.c **** #define FRAME_SIZE (PREFIX_NUM + 24 * LED_NUM + 200)
+   8:Src/User/WS2812B.c **** 
+   9:Src/User/WS2812B.c **** color_t led_string[LED_NUM] = {0};
+  10:Src/User/WS2812B.c **** 
+  11:Src/User/WS2812B.c **** uint8_t DMADataBuf[FRAME_SIZE];
+  12:Src/User/WS2812B.c **** 
+  13:Src/User/WS2812B.c **** void WS2812_init()
+  14:Src/User/WS2812B.c **** {
+  28              		.loc 1 14 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32 0000 08B5     		push	{r3, lr}
+  33              	.LCFI0:
+  34              		.cfi_def_cfa_offset 8
+  35              		.cfi_offset 3, -8
+  36              		.cfi_offset 14, -4
+  15:Src/User/WS2812B.c ****     HAL_SPI_Transmit_DMA(&hspi3, DMADataBuf, FRAME_SIZE);
+  37              		.loc 1 15 0
+  38 0002 4FF4C972 		mov	r2, #402
+  39 0006 0249     		ldr	r1, .L3
+  40 0008 0248     		ldr	r0, .L3+4
+  41 000a FFF7FEFF 		bl	HAL_SPI_Transmit_DMA
+  42              	.LVL0:
+  43 000e 08BD     		pop	{r3, pc}
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccGEXjXP.s 			page 2
+
+
+  44              	.L4:
+  45              		.align	2
+  46              	.L3:
+  47 0010 00000000 		.word	DMADataBuf
+  48 0014 00000000 		.word	hspi3
+  49              		.cfi_endproc
+  50              	.LFE130:
+  52              		.section	.text.WS2812_update,"ax",%progbits
+  53              		.align	1
+  54              		.global	WS2812_update
+  55              		.syntax unified
+  56              		.thumb
+  57              		.thumb_func
+  58              		.fpu fpv4-sp-d16
+  60              	WS2812_update:
+  61              	.LFB131:
+  16:Src/User/WS2812B.c **** }
+  17:Src/User/WS2812B.c **** 
+  18:Src/User/WS2812B.c **** void WS2812_update()
+  19:Src/User/WS2812B.c **** {
+  62              		.loc 1 19 0
+  63              		.cfi_startproc
+  64              		@ args = 0, pretend = 0, frame = 0
+  65              		@ frame_needed = 0, uses_anonymous_args = 0
+  66              		@ link register save eliminated.
+  67              	.LVL1:
+  68              	.LBB2:
+  20:Src/User/WS2812B.c ****     // memset(DMADataBuf, 0, sizeof(DMADataBuf));
+  21:Src/User/WS2812B.c **** 
+  22:Src/User/WS2812B.c ****     for (uint16_t j = 0; j < LED_NUM; j++)
+  69              		.loc 1 22 0
+  70 0000 0023     		movs	r3, #0
+  71              	.LVL2:
+  72 0002 072B     		cmp	r3, #7
+  73 0004 6BD8     		bhi	.L23
+  74              	.LBE2:
+  19:Src/User/WS2812B.c ****     // memset(DMADataBuf, 0, sizeof(DMADataBuf));
+  75              		.loc 1 19 0
+  76 0006 10B4     		push	{r4}
+  77              	.LCFI1:
+  78              		.cfi_def_cfa_offset 4
+  79              		.cfi_offset 4, -4
+  80 0008 64E0     		b	.L19
+  81              	.LVL3:
+  82              	.L7:
+  83              	.LBB6:
+  84              	.LBB3:
+  23:Src/User/WS2812B.c ****     {
+  24:Src/User/WS2812B.c ****         for (uint8_t i = 0; i < 8; i++)
+  25:Src/User/WS2812B.c ****         {
+  26:Src/User/WS2812B.c ****             if (led_string[j].g & (0x80 >> i))
+  27:Src/User/WS2812B.c ****                 DMADataBuf[PREFIX_NUM + j * 24 + i] = CODE_1;
+  28:Src/User/WS2812B.c ****             else
+  29:Src/User/WS2812B.c ****                 DMADataBuf[PREFIX_NUM + j * 24 + i] = CODE_0;
+  85              		.loc 1 29 0
+  86 000a 03EB4300 		add	r0, r3, r3, lsl #1
+  87 000e C100     		lsls	r1, r0, #3
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccGEXjXP.s 			page 3
+
+
+  88 0010 0A31     		adds	r1, r1, #10
+  89 0012 1144     		add	r1, r1, r2
+  90 0014 C024     		movs	r4, #192
+  91 0016 3248     		ldr	r0, .L28
+  92 0018 4454     		strb	r4, [r0, r1]
+  93              	.L8:
+  24:Src/User/WS2812B.c ****         {
+  94              		.loc 1 24 0 discriminator 2
+  95 001a 0132     		adds	r2, r2, #1
+  96              	.LVL4:
+  97 001c D2B2     		uxtb	r2, r2
+  98              	.LVL5:
+  99              	.L18:
+  24:Src/User/WS2812B.c ****         {
+ 100              		.loc 1 24 0 is_stmt 0 discriminator 1
+ 101 001e 072A     		cmp	r2, #7
+ 102 0020 11D8     		bhi	.L24
+  26:Src/User/WS2812B.c ****                 DMADataBuf[PREFIX_NUM + j * 24 + i] = CODE_1;
+ 103              		.loc 1 26 0 is_stmt 1
+ 104 0022 03EB4300 		add	r0, r3, r3, lsl #1
+ 105 0026 2F49     		ldr	r1, .L28+4
+ 106 0028 0144     		add	r1, r1, r0
+ 107 002a 4878     		ldrb	r0, [r1, #1]	@ zero_extendqisi2
+ 108 002c 8021     		movs	r1, #128
+ 109 002e 1141     		asrs	r1, r1, r2
+ 110 0030 0842     		tst	r0, r1
+ 111 0032 EAD0     		beq	.L7
+  27:Src/User/WS2812B.c ****             else
+ 112              		.loc 1 27 0
+ 113 0034 03EB4300 		add	r0, r3, r3, lsl #1
+ 114 0038 C100     		lsls	r1, r0, #3
+ 115 003a 0A31     		adds	r1, r1, #10
+ 116 003c 1144     		add	r1, r1, r2
+ 117 003e F024     		movs	r4, #240
+ 118 0040 2748     		ldr	r0, .L28
+ 119 0042 4454     		strb	r4, [r0, r1]
+ 120 0044 E9E7     		b	.L8
+ 121              	.L24:
+ 122 0046 0022     		movs	r2, #0
+ 123              	.LVL6:
+ 124 0048 0AE0     		b	.L10
+ 125              	.LVL7:
+ 126              	.L11:
+ 127              	.LBE3:
+ 128              	.LBB4:
+  30:Src/User/WS2812B.c ****         }
+  31:Src/User/WS2812B.c ****         for (uint8_t i = 0; i < 8; i++)
+  32:Src/User/WS2812B.c ****         {
+  33:Src/User/WS2812B.c ****             if (led_string[j].r & (0x80 >> i))
+  34:Src/User/WS2812B.c ****                 DMADataBuf[PREFIX_NUM + j * 24 + i + 8] = CODE_1;
+  35:Src/User/WS2812B.c ****             else
+  36:Src/User/WS2812B.c ****                 DMADataBuf[PREFIX_NUM + j * 24 + i + 8] = CODE_0;
+ 129              		.loc 1 36 0
+ 130 004a 03EB4300 		add	r0, r3, r3, lsl #1
+ 131 004e C100     		lsls	r1, r0, #3
+ 132 0050 0A31     		adds	r1, r1, #10
+ 133 0052 1144     		add	r1, r1, r2
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccGEXjXP.s 			page 4
+
+
+ 134 0054 0831     		adds	r1, r1, #8
+ 135 0056 C024     		movs	r4, #192
+ 136 0058 2148     		ldr	r0, .L28
+ 137 005a 4454     		strb	r4, [r0, r1]
+ 138              	.L12:
+  31:Src/User/WS2812B.c ****         {
+ 139              		.loc 1 31 0 discriminator 2
+ 140 005c 0132     		adds	r2, r2, #1
+ 141              	.LVL8:
+ 142 005e D2B2     		uxtb	r2, r2
+ 143              	.LVL9:
+ 144              	.L10:
+  31:Src/User/WS2812B.c ****         {
+ 145              		.loc 1 31 0 is_stmt 0 discriminator 1
+ 146 0060 072A     		cmp	r2, #7
+ 147 0062 11D8     		bhi	.L25
+  33:Src/User/WS2812B.c ****                 DMADataBuf[PREFIX_NUM + j * 24 + i + 8] = CODE_1;
+ 148              		.loc 1 33 0 is_stmt 1
+ 149 0064 03EB4301 		add	r1, r3, r3, lsl #1
+ 150 0068 1E48     		ldr	r0, .L28+4
+ 151 006a 405C     		ldrb	r0, [r0, r1]	@ zero_extendqisi2
+ 152 006c 8021     		movs	r1, #128
+ 153 006e 1141     		asrs	r1, r1, r2
+ 154 0070 0842     		tst	r0, r1
+ 155 0072 EAD0     		beq	.L11
+  34:Src/User/WS2812B.c ****             else
+ 156              		.loc 1 34 0
+ 157 0074 03EB4300 		add	r0, r3, r3, lsl #1
+ 158 0078 C100     		lsls	r1, r0, #3
+ 159 007a 0A31     		adds	r1, r1, #10
+ 160 007c 1144     		add	r1, r1, r2
+ 161 007e 0831     		adds	r1, r1, #8
+ 162 0080 F024     		movs	r4, #240
+ 163 0082 1748     		ldr	r0, .L28
+ 164 0084 4454     		strb	r4, [r0, r1]
+ 165 0086 E9E7     		b	.L12
+ 166              	.L25:
+ 167 0088 0022     		movs	r2, #0
+ 168              	.LVL10:
+ 169 008a 0AE0     		b	.L14
+ 170              	.LVL11:
+ 171              	.L15:
+ 172              	.LBE4:
+ 173              	.LBB5:
+  37:Src/User/WS2812B.c ****         }
+  38:Src/User/WS2812B.c ****         for (uint8_t i = 0; i < 8; i++)
+  39:Src/User/WS2812B.c ****         {
+  40:Src/User/WS2812B.c ****             if (led_string[j].b & (0x80 >> i))
+  41:Src/User/WS2812B.c ****                 DMADataBuf[PREFIX_NUM + j * 24 + i + 16] = CODE_1;
+  42:Src/User/WS2812B.c ****             else
+  43:Src/User/WS2812B.c ****                 DMADataBuf[PREFIX_NUM + j * 24 + i + 16] = CODE_0;
+ 174              		.loc 1 43 0
+ 175 008c 03EB4300 		add	r0, r3, r3, lsl #1
+ 176 0090 C100     		lsls	r1, r0, #3
+ 177 0092 0A31     		adds	r1, r1, #10
+ 178 0094 1144     		add	r1, r1, r2
+ 179 0096 1031     		adds	r1, r1, #16
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccGEXjXP.s 			page 5
+
+
+ 180 0098 C024     		movs	r4, #192
+ 181 009a 1148     		ldr	r0, .L28
+ 182 009c 4454     		strb	r4, [r0, r1]
+ 183              	.L16:
+  38:Src/User/WS2812B.c ****         {
+ 184              		.loc 1 38 0 discriminator 2
+ 185 009e 0132     		adds	r2, r2, #1
+ 186              	.LVL12:
+ 187 00a0 D2B2     		uxtb	r2, r2
+ 188              	.LVL13:
+ 189              	.L14:
+  38:Src/User/WS2812B.c ****         {
+ 190              		.loc 1 38 0 is_stmt 0 discriminator 1
+ 191 00a2 072A     		cmp	r2, #7
+ 192 00a4 12D8     		bhi	.L26
+  40:Src/User/WS2812B.c ****                 DMADataBuf[PREFIX_NUM + j * 24 + i + 16] = CODE_1;
+ 193              		.loc 1 40 0 is_stmt 1
+ 194 00a6 03EB4300 		add	r0, r3, r3, lsl #1
+ 195 00aa 0E49     		ldr	r1, .L28+4
+ 196 00ac 0144     		add	r1, r1, r0
+ 197 00ae 8878     		ldrb	r0, [r1, #2]	@ zero_extendqisi2
+ 198 00b0 8021     		movs	r1, #128
+ 199 00b2 1141     		asrs	r1, r1, r2
+ 200 00b4 0842     		tst	r0, r1
+ 201 00b6 E9D0     		beq	.L15
+  41:Src/User/WS2812B.c ****             else
+ 202              		.loc 1 41 0
+ 203 00b8 03EB4300 		add	r0, r3, r3, lsl #1
+ 204 00bc C100     		lsls	r1, r0, #3
+ 205 00be 0A31     		adds	r1, r1, #10
+ 206 00c0 1144     		add	r1, r1, r2
+ 207 00c2 1031     		adds	r1, r1, #16
+ 208 00c4 F024     		movs	r4, #240
+ 209 00c6 0648     		ldr	r0, .L28
+ 210 00c8 4454     		strb	r4, [r0, r1]
+ 211 00ca E8E7     		b	.L16
+ 212              	.L26:
+ 213              	.LBE5:
+  22:Src/User/WS2812B.c ****     {
+ 214              		.loc 1 22 0 discriminator 2
+ 215 00cc 0133     		adds	r3, r3, #1
+ 216              	.LVL14:
+ 217 00ce 9BB2     		uxth	r3, r3
+ 218              	.LVL15:
+ 219 00d0 072B     		cmp	r3, #7
+ 220 00d2 01D8     		bhi	.L27
+ 221              	.LVL16:
+ 222              	.L19:
+ 223 00d4 0022     		movs	r2, #0
+ 224 00d6 A2E7     		b	.L18
+ 225              	.LVL17:
+ 226              	.L27:
+ 227              	.LBE6:
+  44:Src/User/WS2812B.c ****         }
+  45:Src/User/WS2812B.c ****     }
+  46:Src/User/WS2812B.c ****     // HAL_SPI_Transmit(&hspi3, DMADataBuf, FRAME_SIZE, 100);
+  47:Src/User/WS2812B.c **** }...
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccGEXjXP.s 			page 6
+
+
+ 228              		.loc 1 47 0
+ 229 00d8 5DF8044B 		ldr	r4, [sp], #4
+ 230              	.LCFI2:
+ 231              		.cfi_restore 4
+ 232              		.cfi_def_cfa_offset 0
+ 233 00dc 7047     		bx	lr
+ 234              	.LVL18:
+ 235              	.L23:
+ 236 00de 7047     		bx	lr
+ 237              	.L29:
+ 238              		.align	2
+ 239              	.L28:
+ 240 00e0 00000000 		.word	DMADataBuf
+ 241 00e4 00000000 		.word	.LANCHOR0
+ 242              		.cfi_endproc
+ 243              	.LFE131:
+ 245              		.comm	DMADataBuf,402,4
+ 246              		.global	led_string
+ 247              		.section	.bss.led_string,"aw",%nobits
+ 248              		.align	2
+ 249              		.set	.LANCHOR0,. + 0
+ 252              	led_string:
+ 253 0000 00000000 		.space	24
+ 253      00000000 
+ 253      00000000 
+ 253      00000000 
+ 253      00000000 
+ 254              		.text
+ 255              	.Letext0:
+ 256              		.file 2 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/machine/_defa
+ 257              		.file 3 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/sys/_stdint.h
+ 258              		.file 4 "Drivers/CMSIS/Include/core_cm4.h"
+ 259              		.file 5 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h"
+ 260              		.file 6 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h"
+ 261              		.file 7 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
+ 262              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
+ 263              		.file 9 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h"
+ 264              		.file 10 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h"
+ 265              		.file 11 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
+ 266              		.file 12 "Inc/tim.h"
+ 267              		.file 13 "Inc/spi.h"
+ 268              		.file 14 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/sys/lock.h"
+ 269              		.file 15 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/sys/_types.h
+ 270              		.file 16 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/lib/gcc/arm-none-eabi/6.3.1/includ
+ 271              		.file 17 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/sys/reent.h"
+ 272              		.file 18 "Inc/User/WS2812B.h"
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccGEXjXP.s 			page 7
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 WS2812B.c
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccGEXjXP.s:18     .text.WS2812_init:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccGEXjXP.s:25     .text.WS2812_init:0000000000000000 WS2812_init
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccGEXjXP.s:47     .text.WS2812_init:0000000000000010 $d
+                            *COM*:0000000000000192 DMADataBuf
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccGEXjXP.s:53     .text.WS2812_update:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccGEXjXP.s:60     .text.WS2812_update:0000000000000000 WS2812_update
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccGEXjXP.s:240    .text.WS2812_update:00000000000000e0 $d
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccGEXjXP.s:252    .bss.led_string:0000000000000000 led_string
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccGEXjXP.s:248    .bss.led_string:0000000000000000 $d
+                     .debug_frame:0000000000000010 $d
+
+UNDEFINED SYMBOLS
+HAL_SPI_Transmit_DMA
+hspi3

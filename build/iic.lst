@@ -1,0 +1,1089 @@
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccC4q9mx.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"iic.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.delay_us,"ax",%progbits
+  18              		.align	1
+  19              		.global	delay_us
+  20              		.syntax unified
+  21              		.thumb
+  22              		.thumb_func
+  23              		.fpu fpv4-sp-d16
+  25              	delay_us:
+  26              	.LFB130:
+  27              		.file 1 "Src/User/iic.c"
+   1:Src/User/iic.c **** #include "iic.h"
+   2:Src/User/iic.c **** #include "gpio.h"
+   3:Src/User/iic.c **** 
+   4:Src/User/iic.c **** IIC_GPIO_t IIC_GPIO;
+   5:Src/User/iic.c **** 
+   6:Src/User/iic.c **** #define IIC_SET_SCL() HAL_GPIO_WritePin(IIC_GPIO.SCL_GPIO_Port, IIC_GPIO.SCL_GPIO_Pin, GPIO_PIN_SET
+   7:Src/User/iic.c **** #define IIC_RESET_SCL() HAL_GPIO_WritePin(IIC_GPIO.SCL_GPIO_Port, IIC_GPIO.SCL_GPIO_Pin, GPIO_PIN_R
+   8:Src/User/iic.c **** #define IIC_SET_SDA() HAL_GPIO_WritePin(IIC_GPIO.SDA_GPIO_Port, IIC_GPIO.SDA_GPIO_Pin, GPIO_PIN_SET
+   9:Src/User/iic.c **** #define IIC_RESET_SDA() HAL_GPIO_WritePin(IIC_GPIO.SDA_GPIO_Port, IIC_GPIO.SDA_GPIO_Pin, GPIO_PIN_R
+  10:Src/User/iic.c **** #define IIC_READ_SDA() HAL_GPIO_ReadPin(IIC_GPIO.SDA_GPIO_Port, IIC_GPIO.SDA_GPIO_Pin)
+  11:Src/User/iic.c **** 
+  12:Src/User/iic.c **** void delay_us(uint16_t us)
+  13:Src/User/iic.c **** {
+  28              		.loc 1 13 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 8
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+  33              	.LVL0:
+  34 0000 82B0     		sub	sp, sp, #8
+  35              	.LCFI0:
+  36              		.cfi_def_cfa_offset 8
+  14:Src/User/iic.c **** 	volatile uint16_t tus = us * 10;
+  37              		.loc 1 14 0
+  38 0002 00EB8000 		add	r0, r0, r0, lsl #2
+  39              	.LVL1:
+  40 0006 4300     		lsls	r3, r0, #1
+  41 0008 9BB2     		uxth	r3, r3
+  42 000a ADF80630 		strh	r3, [sp, #6]	@ movhi
+  43              	.L2:
+  15:Src/User/iic.c **** 	while (tus--)
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccC4q9mx.s 			page 2
+
+
+  44              		.loc 1 15 0 discriminator 1
+  45 000e BDF80630 		ldrh	r3, [sp, #6]
+  46 0012 9BB2     		uxth	r3, r3
+  47 0014 5A1E     		subs	r2, r3, #1
+  48 0016 92B2     		uxth	r2, r2
+  49 0018 ADF80620 		strh	r2, [sp, #6]	@ movhi
+  50 001c 002B     		cmp	r3, #0
+  51 001e F6D1     		bne	.L2
+  16:Src/User/iic.c **** 		;
+  17:Src/User/iic.c **** }
+  52              		.loc 1 17 0
+  53 0020 02B0     		add	sp, sp, #8
+  54              	.LCFI1:
+  55              		.cfi_def_cfa_offset 0
+  56              		@ sp needed
+  57 0022 7047     		bx	lr
+  58              		.cfi_endproc
+  59              	.LFE130:
+  61              		.section	.text.iic_sda_out,"ax",%progbits
+  62              		.align	1
+  63              		.global	iic_sda_out
+  64              		.syntax unified
+  65              		.thumb
+  66              		.thumb_func
+  67              		.fpu fpv4-sp-d16
+  69              	iic_sda_out:
+  70              	.LFB131:
+  18:Src/User/iic.c **** 
+  19:Src/User/iic.c **** void iic_sda_out()
+  20:Src/User/iic.c **** {
+  71              		.loc 1 20 0
+  72              		.cfi_startproc
+  73              		@ args = 0, pretend = 0, frame = 24
+  74              		@ frame_needed = 0, uses_anonymous_args = 0
+  75 0000 00B5     		push	{lr}
+  76              	.LCFI2:
+  77              		.cfi_def_cfa_offset 4
+  78              		.cfi_offset 14, -4
+  79 0002 87B0     		sub	sp, sp, #28
+  80              	.LCFI3:
+  81              		.cfi_def_cfa_offset 32
+  21:Src/User/iic.c **** 	GPIO_InitTypeDef GPIO_InitStruct = {0};
+  82              		.loc 1 21 0
+  83 0004 0023     		movs	r3, #0
+  84 0006 0593     		str	r3, [sp, #20]
+  22:Src/User/iic.c **** 
+  23:Src/User/iic.c **** 	GPIO_InitStruct.Pin = IIC_GPIO.SDA_GPIO_Pin;
+  85              		.loc 1 23 0
+  86 0008 074B     		ldr	r3, .L6
+  87 000a 9A88     		ldrh	r2, [r3, #4]
+  88 000c 0192     		str	r2, [sp, #4]
+  24:Src/User/iic.c **** 	GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_OD;
+  89              		.loc 1 24 0
+  90 000e 1122     		movs	r2, #17
+  91 0010 0292     		str	r2, [sp, #8]
+  25:Src/User/iic.c **** 	GPIO_InitStruct.Pull = GPIO_PULLUP;
+  92              		.loc 1 25 0
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccC4q9mx.s 			page 3
+
+
+  93 0012 0122     		movs	r2, #1
+  94 0014 0392     		str	r2, [sp, #12]
+  26:Src/User/iic.c **** 	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+  95              		.loc 1 26 0
+  96 0016 0222     		movs	r2, #2
+  97 0018 0492     		str	r2, [sp, #16]
+  27:Src/User/iic.c **** 
+  28:Src/User/iic.c **** 	HAL_GPIO_Init(IIC_GPIO.SDA_GPIO_Port, &GPIO_InitStruct);
+  98              		.loc 1 28 0
+  99 001a 01A9     		add	r1, sp, #4
+ 100 001c 1868     		ldr	r0, [r3]
+ 101 001e FFF7FEFF 		bl	HAL_GPIO_Init
+ 102              	.LVL2:
+  29:Src/User/iic.c **** }
+ 103              		.loc 1 29 0
+ 104 0022 07B0     		add	sp, sp, #28
+ 105              	.LCFI4:
+ 106              		.cfi_def_cfa_offset 4
+ 107              		@ sp needed
+ 108 0024 5DF804FB 		ldr	pc, [sp], #4
+ 109              	.L7:
+ 110              		.align	2
+ 111              	.L6:
+ 112 0028 00000000 		.word	IIC_GPIO
+ 113              		.cfi_endproc
+ 114              	.LFE131:
+ 116              		.section	.text.iic_sda_in,"ax",%progbits
+ 117              		.align	1
+ 118              		.global	iic_sda_in
+ 119              		.syntax unified
+ 120              		.thumb
+ 121              		.thumb_func
+ 122              		.fpu fpv4-sp-d16
+ 124              	iic_sda_in:
+ 125              	.LFB132:
+  30:Src/User/iic.c **** 
+  31:Src/User/iic.c **** void iic_sda_in()
+  32:Src/User/iic.c **** {
+ 126              		.loc 1 32 0
+ 127              		.cfi_startproc
+ 128              		@ args = 0, pretend = 0, frame = 24
+ 129              		@ frame_needed = 0, uses_anonymous_args = 0
+ 130 0000 00B5     		push	{lr}
+ 131              	.LCFI5:
+ 132              		.cfi_def_cfa_offset 4
+ 133              		.cfi_offset 14, -4
+ 134 0002 87B0     		sub	sp, sp, #28
+ 135              	.LCFI6:
+ 136              		.cfi_def_cfa_offset 32
+  33:Src/User/iic.c **** 	GPIO_InitTypeDef GPIO_InitStruct = {0};
+ 137              		.loc 1 33 0
+ 138 0004 0023     		movs	r3, #0
+ 139 0006 0293     		str	r3, [sp, #8]
+ 140 0008 0593     		str	r3, [sp, #20]
+  34:Src/User/iic.c **** 
+  35:Src/User/iic.c **** 	GPIO_InitStruct.Pin = IIC_GPIO.SDA_GPIO_Pin;
+ 141              		.loc 1 35 0
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccC4q9mx.s 			page 4
+
+
+ 142 000a 074B     		ldr	r3, .L10
+ 143 000c 9A88     		ldrh	r2, [r3, #4]
+ 144 000e 0192     		str	r2, [sp, #4]
+  36:Src/User/iic.c **** 	GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  37:Src/User/iic.c **** 	GPIO_InitStruct.Pull = GPIO_PULLUP;
+ 145              		.loc 1 37 0
+ 146 0010 0122     		movs	r2, #1
+ 147 0012 0392     		str	r2, [sp, #12]
+  38:Src/User/iic.c **** 	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+ 148              		.loc 1 38 0
+ 149 0014 0222     		movs	r2, #2
+ 150 0016 0492     		str	r2, [sp, #16]
+  39:Src/User/iic.c **** 
+  40:Src/User/iic.c **** 	HAL_GPIO_Init(IIC_GPIO.SDA_GPIO_Port, &GPIO_InitStruct);
+ 151              		.loc 1 40 0
+ 152 0018 01A9     		add	r1, sp, #4
+ 153 001a 1868     		ldr	r0, [r3]
+ 154 001c FFF7FEFF 		bl	HAL_GPIO_Init
+ 155              	.LVL3:
+  41:Src/User/iic.c **** }
+ 156              		.loc 1 41 0
+ 157 0020 07B0     		add	sp, sp, #28
+ 158              	.LCFI7:
+ 159              		.cfi_def_cfa_offset 4
+ 160              		@ sp needed
+ 161 0022 5DF804FB 		ldr	pc, [sp], #4
+ 162              	.L11:
+ 163 0026 00BF     		.align	2
+ 164              	.L10:
+ 165 0028 00000000 		.word	IIC_GPIO
+ 166              		.cfi_endproc
+ 167              	.LFE132:
+ 169              		.section	.text.iic_config_sda,"ax",%progbits
+ 170              		.align	1
+ 171              		.global	iic_config_sda
+ 172              		.syntax unified
+ 173              		.thumb
+ 174              		.thumb_func
+ 175              		.fpu fpv4-sp-d16
+ 177              	iic_config_sda:
+ 178              	.LFB133:
+  42:Src/User/iic.c **** 
+  43:Src/User/iic.c **** void iic_config_sda(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin)
+  44:Src/User/iic.c **** {
+ 179              		.loc 1 44 0
+ 180              		.cfi_startproc
+ 181              		@ args = 0, pretend = 0, frame = 0
+ 182              		@ frame_needed = 0, uses_anonymous_args = 0
+ 183              		@ link register save eliminated.
+ 184              	.LVL4:
+  45:Src/User/iic.c **** 	IIC_GPIO.SDA_GPIO_Port = GPIOx;
+ 185              		.loc 1 45 0
+ 186 0000 014B     		ldr	r3, .L13
+ 187 0002 1860     		str	r0, [r3]
+  46:Src/User/iic.c **** 	IIC_GPIO.SDA_GPIO_Pin = GPIO_Pin;
+ 188              		.loc 1 46 0
+ 189 0004 9980     		strh	r1, [r3, #4]	@ movhi
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccC4q9mx.s 			page 5
+
+
+ 190 0006 7047     		bx	lr
+ 191              	.L14:
+ 192              		.align	2
+ 193              	.L13:
+ 194 0008 00000000 		.word	IIC_GPIO
+ 195              		.cfi_endproc
+ 196              	.LFE133:
+ 198              		.section	.text.iic_config_scl,"ax",%progbits
+ 199              		.align	1
+ 200              		.global	iic_config_scl
+ 201              		.syntax unified
+ 202              		.thumb
+ 203              		.thumb_func
+ 204              		.fpu fpv4-sp-d16
+ 206              	iic_config_scl:
+ 207              	.LFB134:
+  47:Src/User/iic.c **** }
+  48:Src/User/iic.c **** 
+  49:Src/User/iic.c **** void iic_config_scl(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin)
+  50:Src/User/iic.c **** {
+ 208              		.loc 1 50 0
+ 209              		.cfi_startproc
+ 210              		@ args = 0, pretend = 0, frame = 0
+ 211              		@ frame_needed = 0, uses_anonymous_args = 0
+ 212              		@ link register save eliminated.
+ 213              	.LVL5:
+  51:Src/User/iic.c **** 	IIC_GPIO.SCL_GPIO_Port = GPIOx;
+ 214              		.loc 1 51 0
+ 215 0000 014B     		ldr	r3, .L16
+ 216 0002 9860     		str	r0, [r3, #8]
+  52:Src/User/iic.c **** 	IIC_GPIO.SCL_GPIO_Pin = GPIO_Pin;
+ 217              		.loc 1 52 0
+ 218 0004 9981     		strh	r1, [r3, #12]	@ movhi
+ 219 0006 7047     		bx	lr
+ 220              	.L17:
+ 221              		.align	2
+ 222              	.L16:
+ 223 0008 00000000 		.word	IIC_GPIO
+ 224              		.cfi_endproc
+ 225              	.LFE134:
+ 227              		.section	.text.iic_init,"ax",%progbits
+ 228              		.align	1
+ 229              		.global	iic_init
+ 230              		.syntax unified
+ 231              		.thumb
+ 232              		.thumb_func
+ 233              		.fpu fpv4-sp-d16
+ 235              	iic_init:
+ 236              	.LFB135:
+  53:Src/User/iic.c **** }
+  54:Src/User/iic.c **** 
+  55:Src/User/iic.c **** void iic_init(void)
+  56:Src/User/iic.c **** {
+ 237              		.loc 1 56 0
+ 238              		.cfi_startproc
+ 239              		@ args = 0, pretend = 0, frame = 0
+ 240              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccC4q9mx.s 			page 6
+
+
+ 241 0000 10B5     		push	{r4, lr}
+ 242              	.LCFI8:
+ 243              		.cfi_def_cfa_offset 8
+ 244              		.cfi_offset 4, -8
+ 245              		.cfi_offset 14, -4
+  57:Src/User/iic.c **** 	iic_config_scl(IMU_SCL_GPIO_Port, IMU_SCL_Pin);
+ 246              		.loc 1 57 0
+ 247 0002 054C     		ldr	r4, .L20
+ 248 0004 0121     		movs	r1, #1
+ 249 0006 2046     		mov	r0, r4
+ 250 0008 FFF7FEFF 		bl	iic_config_scl
+ 251              	.LVL6:
+  58:Src/User/iic.c **** 	iic_config_sda(IMU_SDA_GPIO_Port, IMU_SDA_Pin);
+ 252              		.loc 1 58 0
+ 253 000c 0221     		movs	r1, #2
+ 254 000e 2046     		mov	r0, r4
+ 255 0010 FFF7FEFF 		bl	iic_config_sda
+ 256              	.LVL7:
+ 257 0014 10BD     		pop	{r4, pc}
+ 258              	.L21:
+ 259 0016 00BF     		.align	2
+ 260              	.L20:
+ 261 0018 00000240 		.word	1073872896
+ 262              		.cfi_endproc
+ 263              	.LFE135:
+ 265              		.section	.text.iic_send_start,"ax",%progbits
+ 266              		.align	1
+ 267              		.global	iic_send_start
+ 268              		.syntax unified
+ 269              		.thumb
+ 270              		.thumb_func
+ 271              		.fpu fpv4-sp-d16
+ 273              	iic_send_start:
+ 274              	.LFB136:
+  59:Src/User/iic.c **** }
+  60:Src/User/iic.c **** 
+  61:Src/User/iic.c **** void iic_send_start(void)
+  62:Src/User/iic.c **** {
+ 275              		.loc 1 62 0
+ 276              		.cfi_startproc
+ 277              		@ args = 0, pretend = 0, frame = 0
+ 278              		@ frame_needed = 0, uses_anonymous_args = 0
+ 279 0000 10B5     		push	{r4, lr}
+ 280              	.LCFI9:
+ 281              		.cfi_def_cfa_offset 8
+ 282              		.cfi_offset 4, -8
+ 283              		.cfi_offset 14, -4
+  63:Src/User/iic.c **** 	iic_sda_out();
+ 284              		.loc 1 63 0
+ 285 0002 FFF7FEFF 		bl	iic_sda_out
+ 286              	.LVL8:
+  64:Src/User/iic.c **** 	IIC_SET_SDA();
+ 287              		.loc 1 64 0
+ 288 0006 0F4C     		ldr	r4, .L24
+ 289 0008 0122     		movs	r2, #1
+ 290 000a A188     		ldrh	r1, [r4, #4]
+ 291 000c 2068     		ldr	r0, [r4]
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccC4q9mx.s 			page 7
+
+
+ 292 000e FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 293              	.LVL9:
+  65:Src/User/iic.c **** 	IIC_SET_SCL();
+ 294              		.loc 1 65 0
+ 295 0012 0122     		movs	r2, #1
+ 296 0014 A189     		ldrh	r1, [r4, #12]
+ 297 0016 A068     		ldr	r0, [r4, #8]
+ 298 0018 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 299              	.LVL10:
+  66:Src/User/iic.c **** 	delay_us(4);
+ 300              		.loc 1 66 0
+ 301 001c 0420     		movs	r0, #4
+ 302 001e FFF7FEFF 		bl	delay_us
+ 303              	.LVL11:
+  67:Src/User/iic.c **** 	IIC_RESET_SDA();
+ 304              		.loc 1 67 0
+ 305 0022 0022     		movs	r2, #0
+ 306 0024 A188     		ldrh	r1, [r4, #4]
+ 307 0026 2068     		ldr	r0, [r4]
+ 308 0028 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 309              	.LVL12:
+  68:Src/User/iic.c **** 	delay_us(4);
+ 310              		.loc 1 68 0
+ 311 002c 0420     		movs	r0, #4
+ 312 002e FFF7FEFF 		bl	delay_us
+ 313              	.LVL13:
+  69:Src/User/iic.c **** 	IIC_RESET_SCL();
+ 314              		.loc 1 69 0
+ 315 0032 0022     		movs	r2, #0
+ 316 0034 A189     		ldrh	r1, [r4, #12]
+ 317 0036 A068     		ldr	r0, [r4, #8]
+ 318 0038 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 319              	.LVL14:
+  70:Src/User/iic.c **** 	delay_us(2);
+ 320              		.loc 1 70 0
+ 321 003c 0220     		movs	r0, #2
+ 322 003e FFF7FEFF 		bl	delay_us
+ 323              	.LVL15:
+ 324 0042 10BD     		pop	{r4, pc}
+ 325              	.L25:
+ 326              		.align	2
+ 327              	.L24:
+ 328 0044 00000000 		.word	IIC_GPIO
+ 329              		.cfi_endproc
+ 330              	.LFE136:
+ 332              		.section	.text.iic_send_stop,"ax",%progbits
+ 333              		.align	1
+ 334              		.global	iic_send_stop
+ 335              		.syntax unified
+ 336              		.thumb
+ 337              		.thumb_func
+ 338              		.fpu fpv4-sp-d16
+ 340              	iic_send_stop:
+ 341              	.LFB137:
+  71:Src/User/iic.c **** }
+  72:Src/User/iic.c **** 
+  73:Src/User/iic.c **** void iic_send_stop(void)
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccC4q9mx.s 			page 8
+
+
+  74:Src/User/iic.c **** {
+ 342              		.loc 1 74 0
+ 343              		.cfi_startproc
+ 344              		@ args = 0, pretend = 0, frame = 0
+ 345              		@ frame_needed = 0, uses_anonymous_args = 0
+ 346 0000 10B5     		push	{r4, lr}
+ 347              	.LCFI10:
+ 348              		.cfi_def_cfa_offset 8
+ 349              		.cfi_offset 4, -8
+ 350              		.cfi_offset 14, -4
+  75:Src/User/iic.c **** 	iic_sda_out();
+ 351              		.loc 1 75 0
+ 352 0002 FFF7FEFF 		bl	iic_sda_out
+ 353              	.LVL16:
+  76:Src/User/iic.c **** 	IIC_RESET_SCL();
+ 354              		.loc 1 76 0
+ 355 0006 0F4C     		ldr	r4, .L28
+ 356 0008 0022     		movs	r2, #0
+ 357 000a A189     		ldrh	r1, [r4, #12]
+ 358 000c A068     		ldr	r0, [r4, #8]
+ 359 000e FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 360              	.LVL17:
+  77:Src/User/iic.c **** 	IIC_RESET_SDA();
+ 361              		.loc 1 77 0
+ 362 0012 0022     		movs	r2, #0
+ 363 0014 A188     		ldrh	r1, [r4, #4]
+ 364 0016 2068     		ldr	r0, [r4]
+ 365 0018 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 366              	.LVL18:
+  78:Src/User/iic.c **** 	delay_us(4);
+ 367              		.loc 1 78 0
+ 368 001c 0420     		movs	r0, #4
+ 369 001e FFF7FEFF 		bl	delay_us
+ 370              	.LVL19:
+  79:Src/User/iic.c **** 	IIC_SET_SCL();
+ 371              		.loc 1 79 0
+ 372 0022 0122     		movs	r2, #1
+ 373 0024 A189     		ldrh	r1, [r4, #12]
+ 374 0026 A068     		ldr	r0, [r4, #8]
+ 375 0028 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 376              	.LVL20:
+  80:Src/User/iic.c **** 	delay_us(4);
+ 377              		.loc 1 80 0
+ 378 002c 0420     		movs	r0, #4
+ 379 002e FFF7FEFF 		bl	delay_us
+ 380              	.LVL21:
+  81:Src/User/iic.c **** 	IIC_SET_SDA();
+ 381              		.loc 1 81 0
+ 382 0032 0122     		movs	r2, #1
+ 383 0034 A188     		ldrh	r1, [r4, #4]
+ 384 0036 2068     		ldr	r0, [r4]
+ 385 0038 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 386              	.LVL22:
+  82:Src/User/iic.c **** 	delay_us(4);
+ 387              		.loc 1 82 0
+ 388 003c 0420     		movs	r0, #4
+ 389 003e FFF7FEFF 		bl	delay_us
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccC4q9mx.s 			page 9
+
+
+ 390              	.LVL23:
+ 391 0042 10BD     		pop	{r4, pc}
+ 392              	.L29:
+ 393              		.align	2
+ 394              	.L28:
+ 395 0044 00000000 		.word	IIC_GPIO
+ 396              		.cfi_endproc
+ 397              	.LFE137:
+ 399              		.section	.text.iic_send_byte,"ax",%progbits
+ 400              		.align	1
+ 401              		.global	iic_send_byte
+ 402              		.syntax unified
+ 403              		.thumb
+ 404              		.thumb_func
+ 405              		.fpu fpv4-sp-d16
+ 407              	iic_send_byte:
+ 408              	.LFB138:
+  83:Src/User/iic.c **** }
+  84:Src/User/iic.c **** 
+  85:Src/User/iic.c **** void iic_send_byte(uint8_t dat)
+  86:Src/User/iic.c **** {
+ 409              		.loc 1 86 0
+ 410              		.cfi_startproc
+ 411              		@ args = 0, pretend = 0, frame = 0
+ 412              		@ frame_needed = 0, uses_anonymous_args = 0
+ 413              	.LVL24:
+ 414 0000 70B5     		push	{r4, r5, r6, lr}
+ 415              	.LCFI11:
+ 416              		.cfi_def_cfa_offset 16
+ 417              		.cfi_offset 4, -16
+ 418              		.cfi_offset 5, -12
+ 419              		.cfi_offset 6, -8
+ 420              		.cfi_offset 14, -4
+ 421 0002 0646     		mov	r6, r0
+  87:Src/User/iic.c **** 	iic_sda_out();
+ 422              		.loc 1 87 0
+ 423 0004 FFF7FEFF 		bl	iic_sda_out
+ 424              	.LVL25:
+  88:Src/User/iic.c **** 	IIC_RESET_SCL();
+ 425              		.loc 1 88 0
+ 426 0008 164B     		ldr	r3, .L37
+ 427 000a 0022     		movs	r2, #0
+ 428 000c 9989     		ldrh	r1, [r3, #12]
+ 429 000e 9868     		ldr	r0, [r3, #8]
+ 430 0010 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 431              	.LVL26:
+ 432              	.LBB2:
+  89:Src/User/iic.c **** 	for (uint8_t temp = 0x80; temp != 0; temp >>= 1)
+ 433              		.loc 1 89 0
+ 434 0014 8025     		movs	r5, #128
+ 435 0016 1AE0     		b	.L31
+ 436              	.LVL27:
+ 437              	.L32:
+  90:Src/User/iic.c **** 	{
+  91:Src/User/iic.c **** 		if ((temp & dat) == 0)
+  92:Src/User/iic.c **** 			IIC_RESET_SDA();
+  93:Src/User/iic.c **** 		else
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccC4q9mx.s 			page 10
+
+
+  94:Src/User/iic.c **** 			IIC_SET_SDA();
+ 438              		.loc 1 94 0
+ 439 0018 124B     		ldr	r3, .L37
+ 440 001a 0122     		movs	r2, #1
+ 441 001c 9988     		ldrh	r1, [r3, #4]
+ 442 001e 1868     		ldr	r0, [r3]
+ 443 0020 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 444              	.LVL28:
+ 445              	.L33:
+  95:Src/User/iic.c **** 		delay_us(2);
+ 446              		.loc 1 95 0 discriminator 2
+ 447 0024 0220     		movs	r0, #2
+ 448 0026 FFF7FEFF 		bl	delay_us
+ 449              	.LVL29:
+  96:Src/User/iic.c **** 		IIC_SET_SCL();
+ 450              		.loc 1 96 0 discriminator 2
+ 451 002a 0E4C     		ldr	r4, .L37
+ 452 002c 0122     		movs	r2, #1
+ 453 002e A189     		ldrh	r1, [r4, #12]
+ 454 0030 A068     		ldr	r0, [r4, #8]
+ 455 0032 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 456              	.LVL30:
+  97:Src/User/iic.c **** 		delay_us(2);
+ 457              		.loc 1 97 0 discriminator 2
+ 458 0036 0220     		movs	r0, #2
+ 459 0038 FFF7FEFF 		bl	delay_us
+ 460              	.LVL31:
+  98:Src/User/iic.c **** 		IIC_RESET_SCL();
+ 461              		.loc 1 98 0 discriminator 2
+ 462 003c 0022     		movs	r2, #0
+ 463 003e A189     		ldrh	r1, [r4, #12]
+ 464 0040 A068     		ldr	r0, [r4, #8]
+ 465 0042 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 466              	.LVL32:
+  99:Src/User/iic.c **** 		delay_us(2);
+ 467              		.loc 1 99 0 discriminator 2
+ 468 0046 0220     		movs	r0, #2
+ 469 0048 FFF7FEFF 		bl	delay_us
+ 470              	.LVL33:
+  89:Src/User/iic.c **** 	{
+ 471              		.loc 1 89 0 discriminator 2
+ 472 004c 6D08     		lsrs	r5, r5, #1
+ 473              	.LVL34:
+ 474              	.L31:
+  89:Src/User/iic.c **** 	{
+ 475              		.loc 1 89 0 is_stmt 0 discriminator 1
+ 476 004e 45B1     		cbz	r5, .L36
+  91:Src/User/iic.c **** 			IIC_RESET_SDA();
+ 477              		.loc 1 91 0 is_stmt 1
+ 478 0050 3542     		tst	r5, r6
+ 479 0052 E1D1     		bne	.L32
+  92:Src/User/iic.c **** 		else
+ 480              		.loc 1 92 0
+ 481 0054 034B     		ldr	r3, .L37
+ 482 0056 0022     		movs	r2, #0
+ 483 0058 9988     		ldrh	r1, [r3, #4]
+ 484 005a 1868     		ldr	r0, [r3]
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccC4q9mx.s 			page 11
+
+
+ 485 005c FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 486              	.LVL35:
+ 487 0060 E0E7     		b	.L33
+ 488              	.L36:
+ 489              	.LBE2:
+ 100:Src/User/iic.c **** 	}
+ 101:Src/User/iic.c **** }
+ 490              		.loc 1 101 0
+ 491 0062 70BD     		pop	{r4, r5, r6, pc}
+ 492              	.LVL36:
+ 493              	.L38:
+ 494              		.align	2
+ 495              	.L37:
+ 496 0064 00000000 		.word	IIC_GPIO
+ 497              		.cfi_endproc
+ 498              	.LFE138:
+ 500              		.section	.text.iic_read_byte,"ax",%progbits
+ 501              		.align	1
+ 502              		.global	iic_read_byte
+ 503              		.syntax unified
+ 504              		.thumb
+ 505              		.thumb_func
+ 506              		.fpu fpv4-sp-d16
+ 508              	iic_read_byte:
+ 509              	.LFB139:
+ 102:Src/User/iic.c **** 
+ 103:Src/User/iic.c **** void iic_read_byte(uint8_t *dat)
+ 104:Src/User/iic.c **** {
+ 510              		.loc 1 104 0
+ 511              		.cfi_startproc
+ 512              		@ args = 0, pretend = 0, frame = 0
+ 513              		@ frame_needed = 0, uses_anonymous_args = 0
+ 514              	.LVL37:
+ 515 0000 70B5     		push	{r4, r5, r6, lr}
+ 516              	.LCFI12:
+ 517              		.cfi_def_cfa_offset 16
+ 518              		.cfi_offset 4, -16
+ 519              		.cfi_offset 5, -12
+ 520              		.cfi_offset 6, -8
+ 521              		.cfi_offset 14, -4
+ 522 0002 0646     		mov	r6, r0
+ 105:Src/User/iic.c **** 	iic_sda_in();
+ 523              		.loc 1 105 0
+ 524 0004 FFF7FEFF 		bl	iic_sda_in
+ 525              	.LVL38:
+ 526              	.LBB3:
+ 106:Src/User/iic.c **** 	for (uint8_t temp = 0x80; temp != 0; temp >>= 1)
+ 527              		.loc 1 106 0
+ 528 0008 8025     		movs	r5, #128
+ 529 000a 06E0     		b	.L40
+ 530              	.LVL39:
+ 531              	.L46:
+ 107:Src/User/iic.c **** 	{
+ 108:Src/User/iic.c **** 		IIC_RESET_SCL();
+ 109:Src/User/iic.c **** 		delay_us(2);
+ 110:Src/User/iic.c **** 		IIC_SET_SCL();
+ 111:Src/User/iic.c **** 		if (IIC_READ_SDA() == GPIO_PIN_SET)
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccC4q9mx.s 			page 12
+
+
+ 112:Src/User/iic.c **** 			*dat |= temp;
+ 532              		.loc 1 112 0
+ 533 000c 3378     		ldrb	r3, [r6]	@ zero_extendqisi2
+ 534 000e 2B43     		orrs	r3, r3, r5
+ 535 0010 3370     		strb	r3, [r6]
+ 536              	.L42:
+ 113:Src/User/iic.c **** 		else
+ 114:Src/User/iic.c **** 			*dat &= ~temp;
+ 115:Src/User/iic.c **** 		delay_us(1);
+ 537              		.loc 1 115 0 discriminator 2
+ 538 0012 0120     		movs	r0, #1
+ 539 0014 FFF7FEFF 		bl	delay_us
+ 540              	.LVL40:
+ 106:Src/User/iic.c **** 	{
+ 541              		.loc 1 106 0 discriminator 2
+ 542 0018 6D08     		lsrs	r5, r5, #1
+ 543              	.LVL41:
+ 544              	.L40:
+ 106:Src/User/iic.c **** 	{
+ 545              		.loc 1 106 0 is_stmt 0 discriminator 1
+ 546 001a C5B1     		cbz	r5, .L45
+ 108:Src/User/iic.c **** 		delay_us(2);
+ 547              		.loc 1 108 0 is_stmt 1
+ 548 001c 0C4C     		ldr	r4, .L47
+ 549 001e 0022     		movs	r2, #0
+ 550 0020 A189     		ldrh	r1, [r4, #12]
+ 551 0022 A068     		ldr	r0, [r4, #8]
+ 552 0024 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 553              	.LVL42:
+ 109:Src/User/iic.c **** 		IIC_SET_SCL();
+ 554              		.loc 1 109 0
+ 555 0028 0220     		movs	r0, #2
+ 556 002a FFF7FEFF 		bl	delay_us
+ 557              	.LVL43:
+ 110:Src/User/iic.c **** 		if (IIC_READ_SDA() == GPIO_PIN_SET)
+ 558              		.loc 1 110 0
+ 559 002e 0122     		movs	r2, #1
+ 560 0030 A189     		ldrh	r1, [r4, #12]
+ 561 0032 A068     		ldr	r0, [r4, #8]
+ 562 0034 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 563              	.LVL44:
+ 111:Src/User/iic.c **** 			*dat |= temp;
+ 564              		.loc 1 111 0
+ 565 0038 A188     		ldrh	r1, [r4, #4]
+ 566 003a 2068     		ldr	r0, [r4]
+ 567 003c FFF7FEFF 		bl	HAL_GPIO_ReadPin
+ 568              	.LVL45:
+ 569 0040 0128     		cmp	r0, #1
+ 570 0042 E3D0     		beq	.L46
+ 114:Src/User/iic.c **** 		delay_us(1);
+ 571              		.loc 1 114 0
+ 572 0044 3378     		ldrb	r3, [r6]	@ zero_extendqisi2
+ 573 0046 23EA0503 		bic	r3, r3, r5
+ 574 004a 3370     		strb	r3, [r6]
+ 575 004c E1E7     		b	.L42
+ 576              	.L45:
+ 577              	.LBE3:
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccC4q9mx.s 			page 13
+
+
+ 116:Src/User/iic.c **** 	}
+ 117:Src/User/iic.c **** }
+ 578              		.loc 1 117 0
+ 579 004e 70BD     		pop	{r4, r5, r6, pc}
+ 580              	.LVL46:
+ 581              	.L48:
+ 582              		.align	2
+ 583              	.L47:
+ 584 0050 00000000 		.word	IIC_GPIO
+ 585              		.cfi_endproc
+ 586              	.LFE139:
+ 588              		.section	.text.iic_wait_ack,"ax",%progbits
+ 589              		.align	1
+ 590              		.global	iic_wait_ack
+ 591              		.syntax unified
+ 592              		.thumb
+ 593              		.thumb_func
+ 594              		.fpu fpv4-sp-d16
+ 596              	iic_wait_ack:
+ 597              	.LFB140:
+ 118:Src/User/iic.c **** 
+ 119:Src/User/iic.c **** uint8_t iic_wait_ack(void)
+ 120:Src/User/iic.c **** {
+ 598              		.loc 1 120 0
+ 599              		.cfi_startproc
+ 600              		@ args = 0, pretend = 0, frame = 0
+ 601              		@ frame_needed = 0, uses_anonymous_args = 0
+ 602 0000 10B5     		push	{r4, lr}
+ 603              	.LCFI13:
+ 604              		.cfi_def_cfa_offset 8
+ 605              		.cfi_offset 4, -8
+ 606              		.cfi_offset 14, -4
+ 607              	.LVL47:
+ 121:Src/User/iic.c **** 	uint16_t cnt = 0;
+ 122:Src/User/iic.c **** 	IIC_SET_SDA();
+ 608              		.loc 1 122 0
+ 609 0002 154C     		ldr	r4, .L55
+ 610 0004 0122     		movs	r2, #1
+ 611 0006 A188     		ldrh	r1, [r4, #4]
+ 612 0008 2068     		ldr	r0, [r4]
+ 613 000a FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 614              	.LVL48:
+ 123:Src/User/iic.c **** 	delay_us(1);
+ 615              		.loc 1 123 0
+ 616 000e 0120     		movs	r0, #1
+ 617 0010 FFF7FEFF 		bl	delay_us
+ 618              	.LVL49:
+ 124:Src/User/iic.c **** 	IIC_SET_SCL();
+ 619              		.loc 1 124 0
+ 620 0014 0122     		movs	r2, #1
+ 621 0016 A189     		ldrh	r1, [r4, #12]
+ 622 0018 A068     		ldr	r0, [r4, #8]
+ 623 001a FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 624              	.LVL50:
+ 125:Src/User/iic.c **** 	delay_us(1);
+ 625              		.loc 1 125 0
+ 626 001e 0120     		movs	r0, #1
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccC4q9mx.s 			page 14
+
+
+ 627 0020 FFF7FEFF 		bl	delay_us
+ 628              	.LVL51:
+ 126:Src/User/iic.c **** 	iic_sda_in();
+ 629              		.loc 1 126 0
+ 630 0024 FFF7FEFF 		bl	iic_sda_in
+ 631              	.LVL52:
+ 121:Src/User/iic.c **** 	IIC_SET_SDA();
+ 632              		.loc 1 121 0
+ 633 0028 0024     		movs	r4, #0
+ 634              	.LVL53:
+ 635              	.L50:
+ 127:Src/User/iic.c **** 	while (IIC_READ_SDA() == GPIO_PIN_SET)
+ 636              		.loc 1 127 0
+ 637 002a 0B4B     		ldr	r3, .L55
+ 638 002c 9988     		ldrh	r1, [r3, #4]
+ 639 002e 1868     		ldr	r0, [r3]
+ 640 0030 FFF7FEFF 		bl	HAL_GPIO_ReadPin
+ 641              	.LVL54:
+ 642 0034 0128     		cmp	r0, #1
+ 643 0036 07D1     		bne	.L54
+ 128:Src/User/iic.c **** 	{
+ 129:Src/User/iic.c **** 		cnt++;
+ 644              		.loc 1 129 0
+ 645 0038 0134     		adds	r4, r4, #1
+ 646              	.LVL55:
+ 647 003a A4B2     		uxth	r4, r4
+ 648              	.LVL56:
+ 130:Src/User/iic.c **** 		// delay_us(1);
+ 131:Src/User/iic.c **** 		if (cnt >= 250) //200us
+ 649              		.loc 1 131 0
+ 650 003c F92C     		cmp	r4, #249
+ 651 003e F4D9     		bls	.L50
+ 132:Src/User/iic.c **** 		{
+ 133:Src/User/iic.c **** 			iic_send_stop();
+ 652              		.loc 1 133 0
+ 653 0040 FFF7FEFF 		bl	iic_send_stop
+ 654              	.LVL57:
+ 134:Src/User/iic.c **** 			return 1;
+ 655              		.loc 1 134 0
+ 656 0044 0120     		movs	r0, #1
+ 657 0046 10BD     		pop	{r4, pc}
+ 658              	.LVL58:
+ 659              	.L54:
+ 135:Src/User/iic.c **** 		}
+ 136:Src/User/iic.c **** 	}
+ 137:Src/User/iic.c **** 	IIC_RESET_SCL();
+ 660              		.loc 1 137 0
+ 661 0048 034B     		ldr	r3, .L55
+ 662 004a 0022     		movs	r2, #0
+ 663 004c 9989     		ldrh	r1, [r3, #12]
+ 664 004e 9868     		ldr	r0, [r3, #8]
+ 665 0050 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 666              	.LVL59:
+ 138:Src/User/iic.c **** 	return 0;
+ 667              		.loc 1 138 0
+ 668 0054 0020     		movs	r0, #0
+ 139:Src/User/iic.c **** }
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccC4q9mx.s 			page 15
+
+
+ 669              		.loc 1 139 0
+ 670 0056 10BD     		pop	{r4, pc}
+ 671              	.LVL60:
+ 672              	.L56:
+ 673              		.align	2
+ 674              	.L55:
+ 675 0058 00000000 		.word	IIC_GPIO
+ 676              		.cfi_endproc
+ 677              	.LFE140:
+ 679              		.section	.text.iic_send_ack,"ax",%progbits
+ 680              		.align	1
+ 681              		.global	iic_send_ack
+ 682              		.syntax unified
+ 683              		.thumb
+ 684              		.thumb_func
+ 685              		.fpu fpv4-sp-d16
+ 687              	iic_send_ack:
+ 688              	.LFB141:
+ 140:Src/User/iic.c **** 
+ 141:Src/User/iic.c **** void iic_send_ack(void)
+ 142:Src/User/iic.c **** {
+ 689              		.loc 1 142 0
+ 690              		.cfi_startproc
+ 691              		@ args = 0, pretend = 0, frame = 0
+ 692              		@ frame_needed = 0, uses_anonymous_args = 0
+ 693 0000 10B5     		push	{r4, lr}
+ 694              	.LCFI14:
+ 695              		.cfi_def_cfa_offset 8
+ 696              		.cfi_offset 4, -8
+ 697              		.cfi_offset 14, -4
+ 143:Src/User/iic.c **** 	iic_sda_out();
+ 698              		.loc 1 143 0
+ 699 0002 FFF7FEFF 		bl	iic_sda_out
+ 700              	.LVL61:
+ 144:Src/User/iic.c **** 	IIC_RESET_SCL();
+ 701              		.loc 1 144 0
+ 702 0006 0E4C     		ldr	r4, .L59
+ 703 0008 0022     		movs	r2, #0
+ 704 000a A189     		ldrh	r1, [r4, #12]
+ 705 000c A068     		ldr	r0, [r4, #8]
+ 706 000e FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 707              	.LVL62:
+ 145:Src/User/iic.c **** 	IIC_RESET_SDA();
+ 708              		.loc 1 145 0
+ 709 0012 0022     		movs	r2, #0
+ 710 0014 A188     		ldrh	r1, [r4, #4]
+ 711 0016 2068     		ldr	r0, [r4]
+ 712 0018 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 713              	.LVL63:
+ 146:Src/User/iic.c **** 	delay_us(2);
+ 714              		.loc 1 146 0
+ 715 001c 0220     		movs	r0, #2
+ 716 001e FFF7FEFF 		bl	delay_us
+ 717              	.LVL64:
+ 147:Src/User/iic.c **** 	IIC_SET_SCL();
+ 718              		.loc 1 147 0
+ 719 0022 0122     		movs	r2, #1
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccC4q9mx.s 			page 16
+
+
+ 720 0024 A189     		ldrh	r1, [r4, #12]
+ 721 0026 A068     		ldr	r0, [r4, #8]
+ 722 0028 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 723              	.LVL65:
+ 148:Src/User/iic.c **** 	delay_us(2);
+ 724              		.loc 1 148 0
+ 725 002c 0220     		movs	r0, #2
+ 726 002e FFF7FEFF 		bl	delay_us
+ 727              	.LVL66:
+ 149:Src/User/iic.c **** 	IIC_RESET_SCL();
+ 728              		.loc 1 149 0
+ 729 0032 0022     		movs	r2, #0
+ 730 0034 A189     		ldrh	r1, [r4, #12]
+ 731 0036 A068     		ldr	r0, [r4, #8]
+ 732 0038 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 733              	.LVL67:
+ 734 003c 10BD     		pop	{r4, pc}
+ 735              	.L60:
+ 736 003e 00BF     		.align	2
+ 737              	.L59:
+ 738 0040 00000000 		.word	IIC_GPIO
+ 739              		.cfi_endproc
+ 740              	.LFE141:
+ 742              		.section	.text.iic_send_nack,"ax",%progbits
+ 743              		.align	1
+ 744              		.global	iic_send_nack
+ 745              		.syntax unified
+ 746              		.thumb
+ 747              		.thumb_func
+ 748              		.fpu fpv4-sp-d16
+ 750              	iic_send_nack:
+ 751              	.LFB142:
+ 150:Src/User/iic.c **** }
+ 151:Src/User/iic.c **** 
+ 152:Src/User/iic.c **** void iic_send_nack(void)
+ 153:Src/User/iic.c **** {
+ 752              		.loc 1 153 0
+ 753              		.cfi_startproc
+ 754              		@ args = 0, pretend = 0, frame = 0
+ 755              		@ frame_needed = 0, uses_anonymous_args = 0
+ 756 0000 10B5     		push	{r4, lr}
+ 757              	.LCFI15:
+ 758              		.cfi_def_cfa_offset 8
+ 759              		.cfi_offset 4, -8
+ 760              		.cfi_offset 14, -4
+ 154:Src/User/iic.c **** 	iic_sda_out();
+ 761              		.loc 1 154 0
+ 762 0002 FFF7FEFF 		bl	iic_sda_out
+ 763              	.LVL68:
+ 155:Src/User/iic.c **** 	IIC_RESET_SCL();
+ 764              		.loc 1 155 0
+ 765 0006 0E4C     		ldr	r4, .L63
+ 766 0008 0022     		movs	r2, #0
+ 767 000a A189     		ldrh	r1, [r4, #12]
+ 768 000c A068     		ldr	r0, [r4, #8]
+ 769 000e FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 770              	.LVL69:
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccC4q9mx.s 			page 17
+
+
+ 156:Src/User/iic.c **** 	IIC_SET_SDA();
+ 771              		.loc 1 156 0
+ 772 0012 0122     		movs	r2, #1
+ 773 0014 A188     		ldrh	r1, [r4, #4]
+ 774 0016 2068     		ldr	r0, [r4]
+ 775 0018 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 776              	.LVL70:
+ 157:Src/User/iic.c **** 	delay_us(2);
+ 777              		.loc 1 157 0
+ 778 001c 0220     		movs	r0, #2
+ 779 001e FFF7FEFF 		bl	delay_us
+ 780              	.LVL71:
+ 158:Src/User/iic.c **** 	IIC_SET_SCL();
+ 781              		.loc 1 158 0
+ 782 0022 0122     		movs	r2, #1
+ 783 0024 A189     		ldrh	r1, [r4, #12]
+ 784 0026 A068     		ldr	r0, [r4, #8]
+ 785 0028 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 786              	.LVL72:
+ 159:Src/User/iic.c **** 	delay_us(2);
+ 787              		.loc 1 159 0
+ 788 002c 0220     		movs	r0, #2
+ 789 002e FFF7FEFF 		bl	delay_us
+ 790              	.LVL73:
+ 160:Src/User/iic.c **** 	IIC_RESET_SCL();
+ 791              		.loc 1 160 0
+ 792 0032 0022     		movs	r2, #0
+ 793 0034 A189     		ldrh	r1, [r4, #12]
+ 794 0036 A068     		ldr	r0, [r4, #8]
+ 795 0038 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 796              	.LVL74:
+ 797 003c 10BD     		pop	{r4, pc}
+ 798              	.L64:
+ 799 003e 00BF     		.align	2
+ 800              	.L63:
+ 801 0040 00000000 		.word	IIC_GPIO
+ 802              		.cfi_endproc
+ 803              	.LFE142:
+ 805              		.comm	IIC_GPIO,16,4
+ 806              		.text
+ 807              	.Letext0:
+ 808              		.file 2 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/machine/_defa
+ 809              		.file 3 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/sys/_stdint.h
+ 810              		.file 4 "Drivers/CMSIS/Include/core_cm4.h"
+ 811              		.file 5 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h"
+ 812              		.file 6 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h"
+ 813              		.file 7 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h"
+ 814              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
+ 815              		.file 9 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h"
+ 816              		.file 10 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
+ 817              		.file 11 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h"
+ 818              		.file 12 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_can.h"
+ 819              		.file 13 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h"
+ 820              		.file 14 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h"
+ 821              		.file 15 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
+ 822              		.file 16 "Inc/can.h"
+ 823              		.file 17 "Inc/tim.h"
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccC4q9mx.s 			page 18
+
+
+ 824              		.file 18 "Inc/spi.h"
+ 825              		.file 19 "Inc/adc.h"
+ 826              		.file 20 "Inc/User/algorithm.h"
+ 827              		.file 21 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/sys/lock.h"
+ 828              		.file 22 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/sys/_types.h
+ 829              		.file 23 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/lib/gcc/arm-none-eabi/6.3.1/includ
+ 830              		.file 24 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/sys/reent.h"
+ 831              		.file 25 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/stdlib.h"
+ 832              		.file 26 "Inc/User/motor_driver.h"
+ 833              		.file 27 "Inc/User/can_protocol.h"
+ 834              		.file 28 "Inc/User/WS2812B.h"
+ 835              		.file 29 "Inc/User/MPU6050.h"
+ 836              		.file 30 "Inc/User/M3508.h"
+ 837              		.file 31 "Inc/User/user_control.h"
+ 838              		.file 32 "Inc/User/user_main.h"
+ 839              		.file 33 "Inc/iic.h"
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccC4q9mx.s 			page 19
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 iic.c
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccC4q9mx.s:18     .text.delay_us:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccC4q9mx.s:25     .text.delay_us:0000000000000000 delay_us
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccC4q9mx.s:62     .text.iic_sda_out:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccC4q9mx.s:69     .text.iic_sda_out:0000000000000000 iic_sda_out
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccC4q9mx.s:112    .text.iic_sda_out:0000000000000028 $d
+                            *COM*:0000000000000010 IIC_GPIO
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccC4q9mx.s:117    .text.iic_sda_in:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccC4q9mx.s:124    .text.iic_sda_in:0000000000000000 iic_sda_in
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccC4q9mx.s:165    .text.iic_sda_in:0000000000000028 $d
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccC4q9mx.s:170    .text.iic_config_sda:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccC4q9mx.s:177    .text.iic_config_sda:0000000000000000 iic_config_sda
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccC4q9mx.s:194    .text.iic_config_sda:0000000000000008 $d
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccC4q9mx.s:199    .text.iic_config_scl:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccC4q9mx.s:206    .text.iic_config_scl:0000000000000000 iic_config_scl
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccC4q9mx.s:223    .text.iic_config_scl:0000000000000008 $d
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccC4q9mx.s:228    .text.iic_init:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccC4q9mx.s:235    .text.iic_init:0000000000000000 iic_init
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccC4q9mx.s:261    .text.iic_init:0000000000000018 $d
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccC4q9mx.s:266    .text.iic_send_start:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccC4q9mx.s:273    .text.iic_send_start:0000000000000000 iic_send_start
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccC4q9mx.s:328    .text.iic_send_start:0000000000000044 $d
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccC4q9mx.s:333    .text.iic_send_stop:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccC4q9mx.s:340    .text.iic_send_stop:0000000000000000 iic_send_stop
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccC4q9mx.s:395    .text.iic_send_stop:0000000000000044 $d
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccC4q9mx.s:400    .text.iic_send_byte:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccC4q9mx.s:407    .text.iic_send_byte:0000000000000000 iic_send_byte
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccC4q9mx.s:496    .text.iic_send_byte:0000000000000064 $d
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccC4q9mx.s:501    .text.iic_read_byte:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccC4q9mx.s:508    .text.iic_read_byte:0000000000000000 iic_read_byte
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccC4q9mx.s:584    .text.iic_read_byte:0000000000000050 $d
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccC4q9mx.s:589    .text.iic_wait_ack:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccC4q9mx.s:596    .text.iic_wait_ack:0000000000000000 iic_wait_ack
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccC4q9mx.s:675    .text.iic_wait_ack:0000000000000058 $d
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccC4q9mx.s:680    .text.iic_send_ack:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccC4q9mx.s:687    .text.iic_send_ack:0000000000000000 iic_send_ack
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccC4q9mx.s:738    .text.iic_send_ack:0000000000000040 $d
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccC4q9mx.s:743    .text.iic_send_nack:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccC4q9mx.s:750    .text.iic_send_nack:0000000000000000 iic_send_nack
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccC4q9mx.s:801    .text.iic_send_nack:0000000000000040 $d
+                     .debug_frame:0000000000000010 $d
+
+UNDEFINED SYMBOLS
+HAL_GPIO_Init
+HAL_GPIO_WritePin
+HAL_GPIO_ReadPin
