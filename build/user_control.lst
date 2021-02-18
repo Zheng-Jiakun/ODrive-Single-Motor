@@ -1,4 +1,4 @@
-ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s 			page 1
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXeRDhz.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s 			page 1
   10:Src/User/user_control.c ****     {
   11:Src/User/user_control.c ****         if (triggered_flag == 0)
   47              		.loc 1 11 0 is_stmt 1
-ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s 			page 2
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXeRDhz.s 			page 2
 
 
   48 0016 174B     		ldr	r3, .L9+4
@@ -118,7 +118,7 @@ ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s 			page 1
   79 0046 0821     		movs	r1, #8
   80 0048 2046     		mov	r0, r4
   81 004a FFF7FEFF 		bl	HAL_GPIO_TogglePin
-ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s 			page 3
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXeRDhz.s 			page 3
 
 
   82              	.LVL2:
@@ -178,7 +178,7 @@ ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s 			page 1
  129              		@ frame_needed = 0, uses_anonymous_args = 0
  130 0000 10B5     		push	{r4, lr}
  131              	.LCFI1:
-ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s 			page 4
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXeRDhz.s 			page 4
 
 
  132              		.cfi_def_cfa_offset 8
@@ -238,7 +238,7 @@ ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s 			page 1
   42:Src/User/user_control.c ****         }
  161              		.loc 1 42 0
  162 002c 0124     		movs	r4, #1
-ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s 			page 5
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXeRDhz.s 			page 5
 
 
  163 002e 114B     		ldr	r3, .L19+4
@@ -298,7 +298,7 @@ ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s 			page 1
  209 0078 00000000 		.word	.LANCHOR4
  210 007c 00040240 		.word	1073873920
  211              		.cfi_endproc
-ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s 			page 6
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXeRDhz.s 			page 6
 
 
  212              	.LFE131:
@@ -358,7 +358,7 @@ ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s 			page 1
  262              		@ link register save eliminated.
  263              	.LVL11:
   68:Src/User/user_control.c ****     int8_t left = 0, right = 0;
-ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s 			page 7
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXeRDhz.s 			page 7
 
 
   69:Src/User/user_control.c ****     left = (throttle[LEFT_THROTTLE] - 1100) * SPEED_UP_LIMIT / 2100;
@@ -418,7 +418,7 @@ ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s 			page 1
  305 0048 5E2B     		cmp	r3, #94
  306 004a 15DC     		bgt	.L28
   82:Src/User/user_control.c ****     {
-ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s 			page 8
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXeRDhz.s 			page 8
 
 
   83:Src/User/user_control.c ****         if (left - right > 0)
@@ -478,7 +478,7 @@ ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s 			page 1
  351              	.LVL26:
  352 0074 1A70     		strb	r2, [r3]
  353 0076 EFE7     		b	.L30
-ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s 			page 9
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXeRDhz.s 			page 9
 
 
  354              	.LVL27:
@@ -525,165 +525,158 @@ ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s 			page 1
  390              		.cfi_offset 14, -4
   95:Src/User/user_control.c ****     if (braking_flag)
  391              		.loc 1 95 0
- 392 0002 114B     		ldr	r3, .L53
+ 392 0002 104B     		ldr	r3, .L53
  393 0004 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
  394 0006 9BB9     		cbnz	r3, .L50
   96:Src/User/user_control.c ****     {
-  97:Src/User/user_control.c ****         motor.pwm = 0;
-  98:Src/User/user_control.c ****         LED_stop();
-  99:Src/User/user_control.c ****     }
- 100:Src/User/user_control.c ****     else if (accAngle.angleY < -TURN_ANGLE)
- 395              		.loc 1 100 0
- 396 0008 104B     		ldr	r3, .L53+4
+  97:Src/User/user_control.c ****         LED_stop();
+  98:Src/User/user_control.c ****     }
+  99:Src/User/user_control.c ****     else if (accAngle.angleY < -TURN_ANGLE)
+ 395              		.loc 1 99 0
+ 396 0008 0F4B     		ldr	r3, .L53+4
  397 000a D3ED017A 		vldr.32	s15, [r3, #4]
  398 000e BAEE007A 		vmov.f32	s14, #-8.0e+0
  399 0012 F4EEC77A 		vcmpe.f32	s15, s14
-ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s 			page 10
-
-
  400 0016 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
- 401 001a 0FD4     		bmi	.L51
- 101:Src/User/user_control.c ****     {
- 102:Src/User/user_control.c ****         LED_left();
- 103:Src/User/user_control.c ****     }
- 104:Src/User/user_control.c ****     else if (accAngle.angleY > TURN_ANGLE)
- 402              		.loc 1 104 0
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXeRDhz.s 			page 10
+
+
+ 401 001a 0CD4     		bmi	.L51
+ 100:Src/User/user_control.c ****     {
+ 101:Src/User/user_control.c ****         LED_left();
+ 102:Src/User/user_control.c ****     }
+ 103:Src/User/user_control.c ****     else if (accAngle.angleY > TURN_ANGLE)
+ 402              		.loc 1 103 0
  403 001c B2EE007A 		vmov.f32	s14, #8.0e+0
  404 0020 F4EEC77A 		vcmpe.f32	s15, s14
  405 0024 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
- 406 0028 0BDC     		bgt	.L52
- 105:Src/User/user_control.c ****     {
- 106:Src/User/user_control.c ****         LED_right();
- 107:Src/User/user_control.c ****     }
- 108:Src/User/user_control.c ****     else
- 109:Src/User/user_control.c ****     {
- 110:Src/User/user_control.c ****         LED_go();
- 407              		.loc 1 110 0
+ 406 0028 08DC     		bgt	.L52
+ 104:Src/User/user_control.c ****     {
+ 105:Src/User/user_control.c ****         LED_right();
+ 106:Src/User/user_control.c ****     }
+ 107:Src/User/user_control.c ****     else
+ 108:Src/User/user_control.c ****     {
+ 109:Src/User/user_control.c ****         LED_go();
+ 407              		.loc 1 109 0
  408 002a FFF7FEFF 		bl	LED_go
  409              	.LVL29:
  410 002e 08BD     		pop	{r3, pc}
  411              	.L50:
-  97:Src/User/user_control.c ****         LED_stop();
+  97:Src/User/user_control.c ****     }
  412              		.loc 1 97 0
- 413 0030 0022     		movs	r2, #0
- 414 0032 074B     		ldr	r3, .L53+8
- 415 0034 1A70     		strb	r2, [r3]
-  98:Src/User/user_control.c ****     }
- 416              		.loc 1 98 0
- 417 0036 FFF7FEFF 		bl	LED_stop
- 418              	.LVL30:
- 419 003a 08BD     		pop	{r3, pc}
- 420              	.L51:
- 102:Src/User/user_control.c ****     }
- 421              		.loc 1 102 0
- 422 003c FFF7FEFF 		bl	LED_left
- 423              	.LVL31:
- 424 0040 08BD     		pop	{r3, pc}
- 425              	.L52:
- 106:Src/User/user_control.c ****     }
- 426              		.loc 1 106 0
- 427 0042 FFF7FEFF 		bl	LED_right
- 428              	.LVL32:
- 429 0046 08BD     		pop	{r3, pc}
- 430              	.L54:
- 431              		.align	2
- 432              	.L53:
- 433 0048 00000000 		.word	braking_flag
- 434 004c 00000000 		.word	accAngle
- 435 0050 00000000 		.word	motor
- 436              		.cfi_endproc
- 437              	.LFE134:
- 439              		.global	throttle
- 440              		.section	.bss.throttle,"aw",%nobits
- 441              		.align	2
- 442              		.set	.LANCHOR0,. + 0
- 445              	throttle:
-ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s 			page 11
+ 413 0030 FFF7FEFF 		bl	LED_stop
+ 414              	.LVL30:
+ 415 0034 08BD     		pop	{r3, pc}
+ 416              	.L51:
+ 101:Src/User/user_control.c ****     }
+ 417              		.loc 1 101 0
+ 418 0036 FFF7FEFF 		bl	LED_left
+ 419              	.LVL31:
+ 420 003a 08BD     		pop	{r3, pc}
+ 421              	.L52:
+ 105:Src/User/user_control.c ****     }
+ 422              		.loc 1 105 0
+ 423 003c FFF7FEFF 		bl	LED_right
+ 424              	.LVL32:
+ 425 0040 08BD     		pop	{r3, pc}
+ 426              	.L54:
+ 427 0042 00BF     		.align	2
+ 428              	.L53:
+ 429 0044 00000000 		.word	braking_flag
+ 430 0048 00000000 		.word	accAngle
+ 431              		.cfi_endproc
+ 432              	.LFE134:
+ 434              		.global	throttle
+ 435              		.section	.bss.throttle,"aw",%nobits
+ 436              		.align	2
+ 437              		.set	.LANCHOR0,. + 0
+ 440              	throttle:
+ 441 0000 00000000 		.space	4
+ 442              		.section	.bss.triggered_flag.9040,"aw",%nobits
+ 443              		.set	.LANCHOR1,. + 0
+ 446              	triggered_flag.9040:
+ 447 0000 00       		.space	1
+ 448              		.section	.bss.triggered_flag.9044,"aw",%nobits
+ 449              		.set	.LANCHOR3,. + 0
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXeRDhz.s 			page 11
 
 
- 446 0000 00000000 		.space	4
- 447              		.section	.bss.triggered_flag.9040,"aw",%nobits
- 448              		.set	.LANCHOR1,. + 0
- 451              	triggered_flag.9040:
- 452 0000 00       		.space	1
- 453              		.section	.bss.triggered_flag.9044,"aw",%nobits
- 454              		.set	.LANCHOR3,. + 0
- 457              	triggered_flag.9044:
- 458 0000 00       		.space	1
- 459              		.section	.bss.triggered_tick.9041,"aw",%nobits
- 460              		.align	2
- 461              		.set	.LANCHOR2,. + 0
- 464              	triggered_tick.9041:
- 465 0000 00000000 		.space	4
- 466              		.section	.bss.triggered_tick.9045,"aw",%nobits
- 467              		.align	2
- 468              		.set	.LANCHOR4,. + 0
- 471              	triggered_tick.9045:
- 472 0000 00000000 		.space	4
- 473              		.text
- 474              	.Letext0:
- 475              		.file 2 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/machine/_defa
- 476              		.file 3 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/sys/_stdint.h
- 477              		.file 4 "Drivers/CMSIS/Include/core_cm4.h"
- 478              		.file 5 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h"
- 479              		.file 6 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h"
- 480              		.file 7 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h"
- 481              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
- 482              		.file 9 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
- 483              		.file 10 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h"
- 484              		.file 11 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_can.h"
- 485              		.file 12 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h"
- 486              		.file 13 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h"
- 487              		.file 14 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
- 488              		.file 15 "Inc/adc.h"
- 489              		.file 16 "Inc/tim.h"
- 490              		.file 17 "Inc/spi.h"
- 491              		.file 18 "Inc/User/algorithm.h"
- 492              		.file 19 "Inc/can.h"
- 493              		.file 20 "Inc/User/can_protocol.h"
- 494              		.file 21 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/sys/lock.h"
- 495              		.file 22 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/sys/_types.h
- 496              		.file 23 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/lib/gcc/arm-none-eabi/6.3.1/includ
- 497              		.file 24 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/sys/reent.h"
- 498              		.file 25 "Inc/User/WS2812B.h"
- 499              		.file 26 "Inc/User/MPU6050.h"
- 500              		.file 27 "Inc/User/M3508.h"
- 501              		.file 28 "Inc/User/user_main.h"
- 502              		.file 29 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/stdlib.h"
- 503              		.file 30 "Inc/User/motor_driver.h"
- 504              		.file 31 "Inc/User/user_control.h"
- 505              		.file 32 "Inc/User/LED.h"
- 506              		.file 33 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h"
-ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s 			page 12
+ 452              	triggered_flag.9044:
+ 453 0000 00       		.space	1
+ 454              		.section	.bss.triggered_tick.9041,"aw",%nobits
+ 455              		.align	2
+ 456              		.set	.LANCHOR2,. + 0
+ 459              	triggered_tick.9041:
+ 460 0000 00000000 		.space	4
+ 461              		.section	.bss.triggered_tick.9045,"aw",%nobits
+ 462              		.align	2
+ 463              		.set	.LANCHOR4,. + 0
+ 466              	triggered_tick.9045:
+ 467 0000 00000000 		.space	4
+ 468              		.text
+ 469              	.Letext0:
+ 470              		.file 2 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/machine/_defa
+ 471              		.file 3 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/sys/_stdint.h
+ 472              		.file 4 "Drivers/CMSIS/Include/core_cm4.h"
+ 473              		.file 5 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h"
+ 474              		.file 6 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h"
+ 475              		.file 7 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h"
+ 476              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
+ 477              		.file 9 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
+ 478              		.file 10 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h"
+ 479              		.file 11 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_can.h"
+ 480              		.file 12 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h"
+ 481              		.file 13 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h"
+ 482              		.file 14 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
+ 483              		.file 15 "Inc/adc.h"
+ 484              		.file 16 "Inc/tim.h"
+ 485              		.file 17 "Inc/spi.h"
+ 486              		.file 18 "Inc/User/algorithm.h"
+ 487              		.file 19 "Inc/can.h"
+ 488              		.file 20 "Inc/User/can_protocol.h"
+ 489              		.file 21 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/sys/lock.h"
+ 490              		.file 22 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/sys/_types.h
+ 491              		.file 23 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/lib/gcc/arm-none-eabi/6.3.1/includ
+ 492              		.file 24 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/sys/reent.h"
+ 493              		.file 25 "Inc/User/WS2812B.h"
+ 494              		.file 26 "Inc/User/MPU6050.h"
+ 495              		.file 27 "Inc/User/M3508.h"
+ 496              		.file 28 "Inc/User/user_main.h"
+ 497              		.file 29 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/stdlib.h"
+ 498              		.file 30 "Inc/User/motor_driver.h"
+ 499              		.file 31 "Inc/User/user_control.h"
+ 500              		.file 32 "Inc/User/LED.h"
+ 501              		.file 33 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h"
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXeRDhz.s 			page 12
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 user_control.c
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s:18     .text.wait_for_system_start:0000000000000000 $t
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s:25     .text.wait_for_system_start:0000000000000000 wait_for_system_start
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s:109    .text.wait_for_system_start:0000000000000070 $d
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s:117    .text.check_system_halt:0000000000000000 $t
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s:124    .text.check_system_halt:0000000000000000 check_system_halt
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s:207    .text.check_system_halt:0000000000000070 $d
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s:215    .text.user_control_init:0000000000000000 $t
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s:222    .text.user_control_init:0000000000000000 user_control_init
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s:243    .text.user_control_init:0000000000000010 $d
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s:249    .text.user_update_throttle:0000000000000000 $t
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s:256    .text.user_update_throttle:0000000000000000 user_update_throttle
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s:365    .text.user_update_throttle:0000000000000080 $d
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s:373    .text.LED_control:0000000000000000 $t
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s:380    .text.LED_control:0000000000000000 LED_control
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s:433    .text.LED_control:0000000000000048 $d
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s:445    .bss.throttle:0000000000000000 throttle
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s:441    .bss.throttle:0000000000000000 $d
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s:451    .bss.triggered_flag.9040:0000000000000000 triggered_flag.9040
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s:452    .bss.triggered_flag.9040:0000000000000000 $d
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s:457    .bss.triggered_flag.9044:0000000000000000 triggered_flag.9044
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s:458    .bss.triggered_flag.9044:0000000000000000 $d
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s:460    .bss.triggered_tick.9041:0000000000000000 $d
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s:464    .bss.triggered_tick.9041:0000000000000000 triggered_tick.9041
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s:467    .bss.triggered_tick.9045:0000000000000000 $d
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccj5XAOs.s:471    .bss.triggered_tick.9045:0000000000000000 triggered_tick.9045
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXeRDhz.s:18     .text.wait_for_system_start:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXeRDhz.s:25     .text.wait_for_system_start:0000000000000000 wait_for_system_start
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXeRDhz.s:109    .text.wait_for_system_start:0000000000000070 $d
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXeRDhz.s:117    .text.check_system_halt:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXeRDhz.s:124    .text.check_system_halt:0000000000000000 check_system_halt
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXeRDhz.s:207    .text.check_system_halt:0000000000000070 $d
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXeRDhz.s:215    .text.user_control_init:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXeRDhz.s:222    .text.user_control_init:0000000000000000 user_control_init
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXeRDhz.s:243    .text.user_control_init:0000000000000010 $d
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXeRDhz.s:249    .text.user_update_throttle:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXeRDhz.s:256    .text.user_update_throttle:0000000000000000 user_update_throttle
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXeRDhz.s:365    .text.user_update_throttle:0000000000000080 $d
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXeRDhz.s:373    .text.LED_control:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXeRDhz.s:380    .text.LED_control:0000000000000000 LED_control
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXeRDhz.s:429    .text.LED_control:0000000000000044 $d
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXeRDhz.s:440    .bss.throttle:0000000000000000 throttle
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXeRDhz.s:436    .bss.throttle:0000000000000000 $d
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXeRDhz.s:446    .bss.triggered_flag.9040:0000000000000000 triggered_flag.9040
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXeRDhz.s:447    .bss.triggered_flag.9040:0000000000000000 $d
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXeRDhz.s:452    .bss.triggered_flag.9044:0000000000000000 triggered_flag.9044
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXeRDhz.s:453    .bss.triggered_flag.9044:0000000000000000 $d
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXeRDhz.s:455    .bss.triggered_tick.9041:0000000000000000 $d
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXeRDhz.s:459    .bss.triggered_tick.9041:0000000000000000 triggered_tick.9041
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXeRDhz.s:462    .bss.triggered_tick.9045:0000000000000000 $d
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXeRDhz.s:466    .bss.triggered_tick.9045:0000000000000000 triggered_tick.9045
                      .debug_frame:0000000000000010 $d
 
 UNDEFINED SYMBOLS

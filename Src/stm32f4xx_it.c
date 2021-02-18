@@ -274,11 +274,7 @@ void TIM6_DAC_IRQHandler(void)
   /* USER CODE END TIM6_DAC_IRQn 0 */
   HAL_TIM_IRQHandler(&htim6);
   /* USER CODE BEGIN TIM6_DAC_IRQn 1 */
-  motor_get_speed();
-  motor_check_0_speed();
-  if (braking_flag)
-    motor.pwm = 0;
-  // motor_speed_loop(0);
+
   // motor_position_loop(motor_position);
   /* USER CODE END TIM6_DAC_IRQn 1 */
 }
@@ -297,7 +293,11 @@ void TIM7_IRQHandler(void)
   M3508_update_control();
   can_tx_data();
 
+  motor_get_speed();
   motor_check_0_speed();
+  if (braking_flag)
+    motor.pwm = 0;
+  // motor_speed_loop(0);
 
   /* USER CODE END TIM7_IRQn 1 */
 }

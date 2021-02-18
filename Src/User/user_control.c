@@ -94,7 +94,6 @@ void LED_control()
 {
     if (braking_flag)
     {
-        motor.pwm = 0;
         LED_stop();
     }
     else if (accAngle.angleY < -TURN_ANGLE)

@@ -1,26 +1,26 @@
 
+OpenDocument="main.c", FilePath="/Volumes/exChange/STM32/ODriveSingleMotor/Src/main.c", Line=59
 OpenDocument="MPU6050.c", FilePath="/Volumes/exChange/STM32/ODriveSingleMotor/Src/User/MPU6050.c", Line=76
 OpenDocument="iic.c", FilePath="/Volumes/exChange/STM32/ODriveSingleMotor/Src/User/iic.c", Line=142
 OpenDocument="stm32f4xx_hal.c", FilePath="/Volumes/exChange/STM32/ODriveSingleMotor/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c", Line=314
-OpenDocument="user_control.c", FilePath="/Volumes/exChange/STM32/ODriveSingleMotor/Src/User/user_control.c", Line=66
+OpenDocument="user_control.c", FilePath="/Volumes/exChange/STM32/ODriveSingleMotor/Src/User/user_control.c", Line=47
 OpenDocument="WS2812B.h", FilePath="/Volumes/exChange/STM32/ODriveSingleMotor/Inc/User/WS2812B.h", Line=0
 OpenDocument="M3508.c", FilePath="/Volumes/exChange/STM32/ODriveSingleMotor/Src/User/M3508.c", Line=54
-OpenDocument="main.c", FilePath="/Volumes/exChange/STM32/ODriveSingleMotor/Src/main.c", Line=59
 OpenDocument="stm32f4xx_hal_gpio.c", FilePath="/Volumes/exChange/STM32/ODriveSingleMotor/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c", Line=412
 OpenDocument="motor_driver.c", FilePath="/Volumes/exChange/STM32/ODriveSingleMotor/Src/User/motor_driver.c", Line=9
 OpenDocument="stm32f4xx_hal_can.c", FilePath="/Volumes/exChange/STM32/ODriveSingleMotor/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_can.c", Line=1713
-OpenDocument="startup_stm32f405xx.s", FilePath="/Volumes/exChange/STM32/ODriveSingleMotor/startup_stm32f405xx.s", Line=54
+OpenDocument="startup_stm32f405xx.s", FilePath="/Volumes/exChange/STM32/ODriveSingleMotor/startup_stm32f405xx.s", Line=66
 OpenDocument="stm32f1xx_it.c", FilePath="/Volumes/exChange/STM32/YOOMO/Src/stm32f1xx_it.c", Line=80
 OpenDocument="startup_stm32f103xb.s", FilePath="/Volumes/exChange/STM32/YOOMO/startup_stm32f103xb.s", Line=55
 OpenToolbar="Debug", Floating=0, x=0, y=0
 OpenWindow="Source Files", DockArea=LEFT, x=0, y=0, w=300, h=652, FilterBarShown=1, ToolBarShown=0
-OpenWindow="Disassembly", DockArea=RIGHT, x=0, y=0, w=488, h=276, FilterBarShown=0, ToolBarShown=0, ExecCountersShown=0, InstEncodingsShown=0
+OpenWindow="Disassembly", DockArea=RIGHT, x=0, y=0, w=488, h=278, FilterBarShown=0, ToolBarShown=0, ExecCountersShown=0, InstEncodingsShown=0
 OpenWindow="Source", x=0, y=0, w=0, h=0, FilterBarShown=0, ToolBarShown=0, ExecCountersShown=0
 OpenWindow="Memory 1", DockArea=BOTTOM, x=2, y=0, w=360, h=260, FilterBarShown=0, ToolBarShown=0, EditorAddress=0x0
-OpenWindow="Watched Data", DockArea=RIGHT, x=0, y=1, w=488, h=375, FilterBarShown=0, ToolBarShown=0
+OpenWindow="Watched Data", DockArea=RIGHT, x=0, y=1, w=488, h=373, FilterBarShown=0, ToolBarShown=0
 OpenWindow="Data Graph", DockArea=BOTTOM, x=0, y=0, w=965, h=260, FilterBarShown=0, ToolBarShown=0, VisibleTab=0, SamplingFreq=0 Hz, ClearEvent=RESUME, LegendShown=0, UniformSampleSpacing=0, PinCursor=-1, TimePerDiv=2000
 OpenWindow="Console", DockArea=BOTTOM, x=1, y=0, w=593, h=260, FilterBarShown=0, ToolBarShown=0
-TableHeader="Watched Data", SortCol="Expression", SortOrder="ASCENDING", VisibleCols=["Expression";"Value";"Location";"Refresh"], ColWidths=[177;171;77;48]
+TableHeader="Watched Data", SortCol="Expression", SortOrder="ASCENDING", VisibleCols=["Expression";"Value";"Location";"Refresh"], ColWidths=[177;171;77;63]
 TableHeader="Source Files", SortCol="File", SortOrder="DESCENDING", VisibleCols=["File";"Status";"Size";"#Insts";"Path"], ColWidths=[173;62;49;49;626]
 TableHeader="Data Graph", SortCol="Index", SortOrder="ASCENDING", VisibleCols=["Index";"Time                    "], ColWidths=[98;49]
 TableHeader="Data Graph", SortCol="Expression", SortOrder="ASCENDING", VisibleCols=["Expression";"Type";"Value";"Min";"Max";"Average";"# Changes";"Min. Change";"Max. Change"], ColWidths=[98;43;46;36;39;60;73;84;486]

@@ -24,7 +24,6 @@ void LED_stop()
         led_string[i].g = 0;
         led_string[i].b = 0;
     }
-    WS2812_init();
     WS2812_update();
 }
 
@@ -36,7 +35,6 @@ void LED_go()
         led_string[i].g = 255;
         led_string[i].b = 255;
     }
-    WS2812_init();
     WS2812_update();
 }
 
@@ -48,7 +46,6 @@ void LED_left()
         led_string[i].g = 255;
         led_string[i].b = 0;
     }
-    WS2812_init();
     WS2812_update();
 }
 
@@ -60,7 +57,6 @@ void LED_right()
         led_string[i].g = 255;
         led_string[i].b = 0;
     }
-    WS2812_init();
     WS2812_update();
 }
 
