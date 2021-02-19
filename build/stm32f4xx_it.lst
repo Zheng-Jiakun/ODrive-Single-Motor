@@ -1,4 +1,4 @@
-ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXch5yR.s 			page 1
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccz7LsYT.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXch5yR.s 			page 1
   29:Src/stm32f4xx_it.c **** /* Private typedef -----------------------------------------------------------*/
   30:Src/stm32f4xx_it.c **** /* USER CODE BEGIN TD */
   31:Src/stm32f4xx_it.c **** 
-ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXch5yR.s 			page 2
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccz7LsYT.s 			page 2
 
 
   32:Src/stm32f4xx_it.c **** /* USER CODE END TD */
@@ -118,7 +118,7 @@ ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXch5yR.s 			page 1
   38              		.align	1
   39              		.global	HardFault_Handler
   40              		.syntax unified
-ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXch5yR.s 			page 3
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccz7LsYT.s 			page 3
 
 
   41              		.thumb
@@ -178,7 +178,7 @@ ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXch5yR.s 			page 1
   70              		@ Volatile: function does not return.
   71              		@ args = 0, pretend = 0, frame = 0
   72              		@ frame_needed = 0, uses_anonymous_args = 0
-ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXch5yR.s 			page 4
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccz7LsYT.s 			page 4
 
 
   73              		@ link register save eliminated.
@@ -238,7 +238,7 @@ ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXch5yR.s 			page 1
  126:Src/stm32f4xx_it.c ****     /* USER CODE END W1_BusFault_IRQn 0 */
  127:Src/stm32f4xx_it.c ****   }
  128:Src/stm32f4xx_it.c **** }
-ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXch5yR.s 			page 5
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccz7LsYT.s 			page 5
 
 
  129:Src/stm32f4xx_it.c **** 
@@ -298,7 +298,7 @@ ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXch5yR.s 			page 1
  146              		.fpu fpv4-sp-d16
  148              	DebugMon_Handler:
  149              	.LFB136:
-ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXch5yR.s 			page 6
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccz7LsYT.s 			page 6
 
 
  150:Src/stm32f4xx_it.c ****   /* USER CODE BEGIN SVCall_IRQn 0 */
@@ -358,7 +358,7 @@ ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXch5yR.s 			page 1
  181              		.syntax unified
  182              		.thumb
  183              		.thumb_func
-ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXch5yR.s 			page 7
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccz7LsYT.s 			page 7
 
 
  184              		.fpu fpv4-sp-d16
@@ -418,7 +418,7 @@ ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXch5yR.s 			page 1
  202:Src/stm32f4xx_it.c **** /* please refer to the startup file (startup_stm32f4xx.s).                    */
  203:Src/stm32f4xx_it.c **** /******************************************************************************/
  204:Src/stm32f4xx_it.c **** 
-ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXch5yR.s 			page 8
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccz7LsYT.s 			page 8
 
 
  205:Src/stm32f4xx_it.c **** /**
@@ -478,7 +478,7 @@ ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXch5yR.s 			page 1
  250              		@ args = 0, pretend = 0, frame = 0
  251              		@ frame_needed = 0, uses_anonymous_args = 0
  252 0000 08B5     		push	{r3, lr}
-ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXch5yR.s 			page 9
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccz7LsYT.s 			page 9
 
 
  253              	.LCFI2:
@@ -538,7 +538,7 @@ ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXch5yR.s 			page 1
  291              		.loc 1 243 0
  292 0002 2020     		movs	r0, #32
  293 0004 FFF7FEFF 		bl	HAL_GPIO_EXTI_IRQHandler
-ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXch5yR.s 			page 10
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccz7LsYT.s 			page 10
 
 
  294              	.LVL6:
@@ -598,7 +598,7 @@ ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXch5yR.s 			page 1
  332              		.loc 1 261 0
  333 0008 0248     		ldr	r0, .L25+4
  334 000a FFF7FEFF 		bl	HAL_TIM_IRQHandler
-ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXch5yR.s 			page 11
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccz7LsYT.s 			page 11
 
 
  335              	.LVL11:
@@ -643,173 +643,179 @@ ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXch5yR.s 			page 1
  274:Src/stm32f4xx_it.c ****   /* USER CODE END TIM6_DAC_IRQn 0 */
  275:Src/stm32f4xx_it.c ****   HAL_TIM_IRQHandler(&htim6);
  364              		.loc 1 275 0
- 365 0002 0248     		ldr	r0, .L29
+ 365 0002 0848     		ldr	r0, .L31
  366 0004 FFF7FEFF 		bl	HAL_TIM_IRQHandler
  367              	.LVL12:
- 368 0008 08BD     		pop	{r3, pc}
- 369              	.L30:
- 370 000a 00BF     		.align	2
- 371              	.L29:
- 372 000c 00000000 		.word	htim6
- 373              		.cfi_endproc
- 374              	.LFE143:
- 376              		.section	.text.TIM7_IRQHandler,"ax",%progbits
- 377              		.align	1
- 378              		.global	TIM7_IRQHandler
- 379              		.syntax unified
- 380              		.thumb
-ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXch5yR.s 			page 12
-
-
- 381              		.thumb_func
- 382              		.fpu fpv4-sp-d16
- 384              	TIM7_IRQHandler:
- 385              	.LFB144:
  276:Src/stm32f4xx_it.c ****   /* USER CODE BEGIN TIM6_DAC_IRQn 1 */
- 277:Src/stm32f4xx_it.c **** 
- 278:Src/stm32f4xx_it.c ****   // motor_position_loop(motor_position);
- 279:Src/stm32f4xx_it.c ****   /* USER CODE END TIM6_DAC_IRQn 1 */
- 280:Src/stm32f4xx_it.c **** }
- 281:Src/stm32f4xx_it.c **** 
- 282:Src/stm32f4xx_it.c **** /**
- 283:Src/stm32f4xx_it.c ****   * @brief This function handles TIM7 global interrupt.
- 284:Src/stm32f4xx_it.c ****   */
- 285:Src/stm32f4xx_it.c **** void TIM7_IRQHandler(void)
- 286:Src/stm32f4xx_it.c **** {
- 386              		.loc 1 286 0
- 387              		.cfi_startproc
- 388              		@ args = 0, pretend = 0, frame = 0
- 389              		@ frame_needed = 0, uses_anonymous_args = 0
- 390 0000 08B5     		push	{r3, lr}
- 391              	.LCFI6:
- 392              		.cfi_def_cfa_offset 8
- 393              		.cfi_offset 3, -8
- 394              		.cfi_offset 14, -4
- 287:Src/stm32f4xx_it.c ****   /* USER CODE BEGIN TIM7_IRQn 0 */
- 288:Src/stm32f4xx_it.c **** 
- 289:Src/stm32f4xx_it.c ****   /* USER CODE END TIM7_IRQn 0 */
- 290:Src/stm32f4xx_it.c ****   HAL_TIM_IRQHandler(&htim7);
- 395              		.loc 1 290 0
- 396 0002 0A48     		ldr	r0, .L34
- 397 0004 FFF7FEFF 		bl	HAL_TIM_IRQHandler
- 398              	.LVL13:
- 291:Src/stm32f4xx_it.c ****   /* USER CODE BEGIN TIM7_IRQn 1 */
- 292:Src/stm32f4xx_it.c ****   motor_pwm_buffer();
- 399              		.loc 1 292 0
- 400 0008 FFF7FEFF 		bl	motor_pwm_buffer
- 401              	.LVL14:
- 293:Src/stm32f4xx_it.c ****   M3508_update_control();
- 402              		.loc 1 293 0
- 403 000c FFF7FEFF 		bl	M3508_update_control
- 404              	.LVL15:
- 294:Src/stm32f4xx_it.c ****   can_tx_data();
- 405              		.loc 1 294 0
- 406 0010 FFF7FEFF 		bl	can_tx_data
- 407              	.LVL16:
- 295:Src/stm32f4xx_it.c **** 
- 296:Src/stm32f4xx_it.c ****   motor_get_speed();
- 408              		.loc 1 296 0
- 409 0014 FFF7FEFF 		bl	motor_get_speed
- 410              	.LVL17:
- 297:Src/stm32f4xx_it.c ****   motor_check_0_speed();
- 411              		.loc 1 297 0
- 412 0018 FFF7FEFF 		bl	motor_check_0_speed
- 413              	.LVL18:
- 298:Src/stm32f4xx_it.c ****   if (braking_flag)
- 414              		.loc 1 298 0
- 415 001c 044B     		ldr	r3, .L34+4
-ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXch5yR.s 			page 13
+ 277:Src/stm32f4xx_it.c ****   motor_get_speed();
+ 368              		.loc 1 277 0
+ 369 0008 FFF7FEFF 		bl	motor_get_speed
+ 370              	.LVL13:
+ 278:Src/stm32f4xx_it.c ****   motor_check_0_speed();
+ 371              		.loc 1 278 0
+ 372 000c FFF7FEFF 		bl	motor_check_0_speed
+ 373              	.LVL14:
+ 279:Src/stm32f4xx_it.c ****   if (braking_flag)
+ 374              		.loc 1 279 0
+ 375 0010 054B     		ldr	r3, .L31+4
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccz7LsYT.s 			page 12
 
 
- 416 001e 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
- 417 0020 13B1     		cbz	r3, .L31
- 299:Src/stm32f4xx_it.c ****     motor.pwm = 0;
- 418              		.loc 1 299 0
- 419 0022 0022     		movs	r2, #0
- 420 0024 034B     		ldr	r3, .L34+8
- 421 0026 1A70     		strb	r2, [r3]
- 422              	.L31:
- 423 0028 08BD     		pop	{r3, pc}
- 424              	.L35:
- 425 002a 00BF     		.align	2
- 426              	.L34:
- 427 002c 00000000 		.word	htim7
- 428 0030 00000000 		.word	braking_flag
- 429 0034 00000000 		.word	motor
- 430              		.cfi_endproc
- 431              	.LFE144:
- 433              		.text
- 434              	.Letext0:
- 435              		.file 2 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/machine/_defa
- 436              		.file 3 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/sys/_stdint.h
- 437              		.file 4 "Drivers/CMSIS/Include/core_cm4.h"
- 438              		.file 5 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h"
- 439              		.file 6 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h"
- 440              		.file 7 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h"
- 441              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
- 442              		.file 9 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
- 443              		.file 10 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h"
- 444              		.file 11 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_can.h"
- 445              		.file 12 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h"
- 446              		.file 13 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h"
- 447              		.file 14 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
- 448              		.file 15 "Inc/can.h"
- 449              		.file 16 "Inc/tim.h"
- 450              		.file 17 "Inc/spi.h"
- 451              		.file 18 "Inc/adc.h"
- 452              		.file 19 "Inc/User/algorithm.h"
- 453              		.file 20 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/sys/lock.h"
- 454              		.file 21 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/sys/_types.h
- 455              		.file 22 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/lib/gcc/arm-none-eabi/6.3.1/includ
- 456              		.file 23 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/sys/reent.h"
- 457              		.file 24 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/stdlib.h"
- 458              		.file 25 "Inc/User/motor_driver.h"
- 459              		.file 26 "Inc/User/can_protocol.h"
- 460              		.file 27 "Inc/User/WS2812B.h"
- 461              		.file 28 "Inc/User/MPU6050.h"
- 462              		.file 29 "Inc/User/M3508.h"
- 463              		.file 30 "Inc/User/user_control.h"
- 464              		.file 31 "Inc/User/user_main.h"
- 465              		.file 32 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h"
-ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXch5yR.s 			page 14
+ 376 0012 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 377 0014 03B9     		cbnz	r3, .L30
+ 378              	.L27:
+ 379 0016 08BD     		pop	{r3, pc}
+ 380              	.L30:
+ 280:Src/stm32f4xx_it.c ****     // motor.pwm = 0;
+ 281:Src/stm32f4xx_it.c ****     motor_speed_loop(0);
+ 381              		.loc 1 281 0
+ 382 0018 9FED040A 		vldr.32	s0, .L31+8
+ 383 001c FFF7FEFF 		bl	motor_speed_loop
+ 384              	.LVL15:
+ 282:Src/stm32f4xx_it.c ****   // motor_position_loop(motor_position);
+ 283:Src/stm32f4xx_it.c ****   /* USER CODE END TIM6_DAC_IRQn 1 */
+ 284:Src/stm32f4xx_it.c **** }
+ 385              		.loc 1 284 0
+ 386 0020 F9E7     		b	.L27
+ 387              	.L32:
+ 388 0022 00BF     		.align	2
+ 389              	.L31:
+ 390 0024 00000000 		.word	htim6
+ 391 0028 00000000 		.word	braking_flag
+ 392 002c 00000000 		.word	0
+ 393              		.cfi_endproc
+ 394              	.LFE143:
+ 396              		.section	.text.TIM7_IRQHandler,"ax",%progbits
+ 397              		.align	1
+ 398              		.global	TIM7_IRQHandler
+ 399              		.syntax unified
+ 400              		.thumb
+ 401              		.thumb_func
+ 402              		.fpu fpv4-sp-d16
+ 404              	TIM7_IRQHandler:
+ 405              	.LFB144:
+ 285:Src/stm32f4xx_it.c **** 
+ 286:Src/stm32f4xx_it.c **** /**
+ 287:Src/stm32f4xx_it.c ****   * @brief This function handles TIM7 global interrupt.
+ 288:Src/stm32f4xx_it.c ****   */
+ 289:Src/stm32f4xx_it.c **** void TIM7_IRQHandler(void)
+ 290:Src/stm32f4xx_it.c **** {
+ 406              		.loc 1 290 0
+ 407              		.cfi_startproc
+ 408              		@ args = 0, pretend = 0, frame = 0
+ 409              		@ frame_needed = 0, uses_anonymous_args = 0
+ 410 0000 08B5     		push	{r3, lr}
+ 411              	.LCFI6:
+ 412              		.cfi_def_cfa_offset 8
+ 413              		.cfi_offset 3, -8
+ 414              		.cfi_offset 14, -4
+ 291:Src/stm32f4xx_it.c ****   /* USER CODE BEGIN TIM7_IRQn 0 */
+ 292:Src/stm32f4xx_it.c **** 
+ 293:Src/stm32f4xx_it.c ****   /* USER CODE END TIM7_IRQn 0 */
+ 294:Src/stm32f4xx_it.c ****   HAL_TIM_IRQHandler(&htim7);
+ 415              		.loc 1 294 0
+ 416 0002 0648     		ldr	r0, .L35
+ 417 0004 FFF7FEFF 		bl	HAL_TIM_IRQHandler
+ 418              	.LVL16:
+ 295:Src/stm32f4xx_it.c ****   /* USER CODE BEGIN TIM7_IRQn 1 */
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccz7LsYT.s 			page 13
+
+
+ 296:Src/stm32f4xx_it.c ****   user_update_throttle();
+ 419              		.loc 1 296 0
+ 420 0008 FFF7FEFF 		bl	user_update_throttle
+ 421              	.LVL17:
+ 297:Src/stm32f4xx_it.c ****   motor_pwm_buffer();
+ 422              		.loc 1 297 0
+ 423 000c FFF7FEFF 		bl	motor_pwm_buffer
+ 424              	.LVL18:
+ 298:Src/stm32f4xx_it.c ****   M3508_update_control();
+ 425              		.loc 1 298 0
+ 426 0010 FFF7FEFF 		bl	M3508_update_control
+ 427              	.LVL19:
+ 299:Src/stm32f4xx_it.c ****   can_tx_data();
+ 428              		.loc 1 299 0
+ 429 0014 FFF7FEFF 		bl	can_tx_data
+ 430              	.LVL20:
+ 431 0018 08BD     		pop	{r3, pc}
+ 432              	.L36:
+ 433 001a 00BF     		.align	2
+ 434              	.L35:
+ 435 001c 00000000 		.word	htim7
+ 436              		.cfi_endproc
+ 437              	.LFE144:
+ 439              		.text
+ 440              	.Letext0:
+ 441              		.file 2 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/machine/_defa
+ 442              		.file 3 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/sys/_stdint.h
+ 443              		.file 4 "Drivers/CMSIS/Include/core_cm4.h"
+ 444              		.file 5 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h"
+ 445              		.file 6 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h"
+ 446              		.file 7 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h"
+ 447              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
+ 448              		.file 9 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
+ 449              		.file 10 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h"
+ 450              		.file 11 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_can.h"
+ 451              		.file 12 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h"
+ 452              		.file 13 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h"
+ 453              		.file 14 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
+ 454              		.file 15 "Inc/can.h"
+ 455              		.file 16 "Inc/tim.h"
+ 456              		.file 17 "Inc/spi.h"
+ 457              		.file 18 "Inc/adc.h"
+ 458              		.file 19 "Inc/User/algorithm.h"
+ 459              		.file 20 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/sys/lock.h"
+ 460              		.file 21 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/sys/_types.h
+ 461              		.file 22 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/lib/gcc/arm-none-eabi/6.3.1/includ
+ 462              		.file 23 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/sys/reent.h"
+ 463              		.file 24 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/stdlib.h"
+ 464              		.file 25 "Inc/User/motor_driver.h"
+ 465              		.file 26 "Inc/User/can_protocol.h"
+ 466              		.file 27 "Inc/User/WS2812B.h"
+ 467              		.file 28 "Inc/User/MPU6050.h"
+ 468              		.file 29 "Inc/User/M3508.h"
+ 469              		.file 30 "Inc/User/user_control.h"
+ 470              		.file 31 "Inc/User/user_main.h"
+ 471              		.file 32 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h"
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccz7LsYT.s 			page 14
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 stm32f4xx_it.c
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXch5yR.s:18     .text.NMI_Handler:0000000000000000 $t
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXch5yR.s:25     .text.NMI_Handler:0000000000000000 NMI_Handler
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXch5yR.s:38     .text.HardFault_Handler:0000000000000000 $t
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXch5yR.s:45     .text.HardFault_Handler:0000000000000000 HardFault_Handler
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXch5yR.s:59     .text.MemManage_Handler:0000000000000000 $t
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXch5yR.s:66     .text.MemManage_Handler:0000000000000000 MemManage_Handler
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXch5yR.s:80     .text.BusFault_Handler:0000000000000000 $t
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXch5yR.s:87     .text.BusFault_Handler:0000000000000000 BusFault_Handler
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXch5yR.s:101    .text.UsageFault_Handler:0000000000000000 $t
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXch5yR.s:108    .text.UsageFault_Handler:0000000000000000 UsageFault_Handler
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXch5yR.s:122    .text.SVC_Handler:0000000000000000 $t
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXch5yR.s:129    .text.SVC_Handler:0000000000000000 SVC_Handler
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXch5yR.s:141    .text.DebugMon_Handler:0000000000000000 $t
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXch5yR.s:148    .text.DebugMon_Handler:0000000000000000 DebugMon_Handler
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXch5yR.s:160    .text.PendSV_Handler:0000000000000000 $t
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXch5yR.s:167    .text.PendSV_Handler:0000000000000000 PendSV_Handler
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXch5yR.s:179    .text.SysTick_Handler:0000000000000000 $t
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXch5yR.s:186    .text.SysTick_Handler:0000000000000000 SysTick_Handler
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXch5yR.s:206    .text.EXTI4_IRQHandler:0000000000000000 $t
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXch5yR.s:213    .text.EXTI4_IRQHandler:0000000000000000 EXTI4_IRQHandler
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXch5yR.s:239    .text.CAN1_RX0_IRQHandler:0000000000000000 $t
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXch5yR.s:246    .text.CAN1_RX0_IRQHandler:0000000000000000 CAN1_RX0_IRQHandler
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXch5yR.s:268    .text.CAN1_RX0_IRQHandler:0000000000000010 $d
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXch5yR.s:273    .text.EXTI9_5_IRQHandler:0000000000000000 $t
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXch5yR.s:280    .text.EXTI9_5_IRQHandler:0000000000000000 EXTI9_5_IRQHandler
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXch5yR.s:310    .text.TIM1_UP_TIM10_IRQHandler:0000000000000000 $t
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXch5yR.s:317    .text.TIM1_UP_TIM10_IRQHandler:0000000000000000 TIM1_UP_TIM10_IRQHandler
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXch5yR.s:340    .text.TIM1_UP_TIM10_IRQHandler:0000000000000010 $d
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXch5yR.s:346    .text.TIM6_DAC_IRQHandler:0000000000000000 $t
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXch5yR.s:353    .text.TIM6_DAC_IRQHandler:0000000000000000 TIM6_DAC_IRQHandler
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXch5yR.s:372    .text.TIM6_DAC_IRQHandler:000000000000000c $d
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXch5yR.s:377    .text.TIM7_IRQHandler:0000000000000000 $t
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXch5yR.s:384    .text.TIM7_IRQHandler:0000000000000000 TIM7_IRQHandler
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXch5yR.s:427    .text.TIM7_IRQHandler:000000000000002c $d
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccz7LsYT.s:18     .text.NMI_Handler:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccz7LsYT.s:25     .text.NMI_Handler:0000000000000000 NMI_Handler
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccz7LsYT.s:38     .text.HardFault_Handler:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccz7LsYT.s:45     .text.HardFault_Handler:0000000000000000 HardFault_Handler
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccz7LsYT.s:59     .text.MemManage_Handler:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccz7LsYT.s:66     .text.MemManage_Handler:0000000000000000 MemManage_Handler
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccz7LsYT.s:80     .text.BusFault_Handler:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccz7LsYT.s:87     .text.BusFault_Handler:0000000000000000 BusFault_Handler
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccz7LsYT.s:101    .text.UsageFault_Handler:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccz7LsYT.s:108    .text.UsageFault_Handler:0000000000000000 UsageFault_Handler
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccz7LsYT.s:122    .text.SVC_Handler:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccz7LsYT.s:129    .text.SVC_Handler:0000000000000000 SVC_Handler
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccz7LsYT.s:141    .text.DebugMon_Handler:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccz7LsYT.s:148    .text.DebugMon_Handler:0000000000000000 DebugMon_Handler
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccz7LsYT.s:160    .text.PendSV_Handler:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccz7LsYT.s:167    .text.PendSV_Handler:0000000000000000 PendSV_Handler
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccz7LsYT.s:179    .text.SysTick_Handler:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccz7LsYT.s:186    .text.SysTick_Handler:0000000000000000 SysTick_Handler
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccz7LsYT.s:206    .text.EXTI4_IRQHandler:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccz7LsYT.s:213    .text.EXTI4_IRQHandler:0000000000000000 EXTI4_IRQHandler
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccz7LsYT.s:239    .text.CAN1_RX0_IRQHandler:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccz7LsYT.s:246    .text.CAN1_RX0_IRQHandler:0000000000000000 CAN1_RX0_IRQHandler
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccz7LsYT.s:268    .text.CAN1_RX0_IRQHandler:0000000000000010 $d
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccz7LsYT.s:273    .text.EXTI9_5_IRQHandler:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccz7LsYT.s:280    .text.EXTI9_5_IRQHandler:0000000000000000 EXTI9_5_IRQHandler
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccz7LsYT.s:310    .text.TIM1_UP_TIM10_IRQHandler:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccz7LsYT.s:317    .text.TIM1_UP_TIM10_IRQHandler:0000000000000000 TIM1_UP_TIM10_IRQHandler
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccz7LsYT.s:340    .text.TIM1_UP_TIM10_IRQHandler:0000000000000010 $d
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccz7LsYT.s:346    .text.TIM6_DAC_IRQHandler:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccz7LsYT.s:353    .text.TIM6_DAC_IRQHandler:0000000000000000 TIM6_DAC_IRQHandler
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccz7LsYT.s:390    .text.TIM6_DAC_IRQHandler:0000000000000024 $d
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccz7LsYT.s:397    .text.TIM7_IRQHandler:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccz7LsYT.s:404    .text.TIM7_IRQHandler:0000000000000000 TIM7_IRQHandler
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccz7LsYT.s:435    .text.TIM7_IRQHandler:000000000000001c $d
                      .debug_frame:0000000000000010 $d
 
 UNDEFINED SYMBOLS
@@ -823,15 +829,16 @@ hcan1
 HAL_TIM_IRQHandler
 htim1
 htim10
-htim6
-motor_pwm_buffer
-M3508_update_control
-can_tx_data
 motor_get_speed
 motor_check_0_speed
-htim7
+motor_speed_loop
+htim6
 braking_flag
-ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccXch5yR.s 			page 15
+user_update_throttle
+motor_pwm_buffer
+M3508_update_control
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccz7LsYT.s 			page 15
 
 
-motor
+can_tx_data
+htim7

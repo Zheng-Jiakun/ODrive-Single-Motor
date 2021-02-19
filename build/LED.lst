@@ -1,4 +1,4 @@
-ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc4Xkfdy.s 			page 1
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccWdPWWu.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -48,17 +48,17 @@ ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc4Xkfdy.s 			page 1
    6:Src/User/LED.c ****     for (uint8_t i = 0; i < LED_NUM / 2; i++)
   41              		.loc 1 6 0
   42 0006 0024     		movs	r4, #0
-  43 0008 17E0     		b	.L2
+  43 0008 18E0     		b	.L2
   44              	.LVL1:
   45              	.L3:
    7:Src/User/LED.c ****     {
    8:Src/User/LED.c ****         led_string[i + 4].r = 50;
   46              		.loc 1 8 0 discriminator 3
   47 000a 221D     		adds	r2, r4, #4
-  48 000c 0C49     		ldr	r1, .L5
+  48 000c 0D49     		ldr	r1, .L5
   49 000e 02EB4202 		add	r2, r2, r2, lsl #1
   50 0012 8818     		adds	r0, r1, r2
-ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc4Xkfdy.s 			page 2
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccWdPWWu.s 			page 2
 
 
   51 0014 3223     		movs	r3, #50
@@ -85,32 +85,32 @@ ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc4Xkfdy.s 			page 1
   66              		.loc 1 14 0 discriminator 3
   67 002c FFF7FEFF 		bl	WS2812_update
   68              	.LVL2:
-  15:Src/User/LED.c ****         HAL_Delay(200);
+  15:Src/User/LED.c ****         HAL_Delay(500);
   69              		.loc 1 15 0 discriminator 3
-  70 0030 C820     		movs	r0, #200
-  71 0032 FFF7FEFF 		bl	HAL_Delay
+  70 0030 4FF4FA70 		mov	r0, #500
+  71 0034 FFF7FEFF 		bl	HAL_Delay
   72              	.LVL3:
    6:Src/User/LED.c ****     {
   73              		.loc 1 6 0 discriminator 3
-  74 0036 0134     		adds	r4, r4, #1
+  74 0038 0134     		adds	r4, r4, #1
   75              	.LVL4:
-  76 0038 E4B2     		uxtb	r4, r4
+  76 003a E4B2     		uxtb	r4, r4
   77              	.LVL5:
   78              	.L2:
    6:Src/User/LED.c ****     {
   79              		.loc 1 6 0 is_stmt 0 discriminator 1
-  80 003a 032C     		cmp	r4, #3
-  81 003c E5D9     		bls	.L3
+  80 003c 032C     		cmp	r4, #3
+  81 003e E4D9     		bls	.L3
   82              	.LBE2:
   16:Src/User/LED.c ****     }
   17:Src/User/LED.c **** }
   83              		.loc 1 17 0 is_stmt 1
-  84 003e 10BD     		pop	{r4, pc}
+  84 0040 10BD     		pop	{r4, pc}
   85              	.LVL6:
   86              	.L6:
-  87              		.align	2
+  87 0042 00BF     		.align	2
   88              	.L5:
-  89 0040 00000000 		.word	led_string
+  89 0044 00000000 		.word	led_string
   90              		.cfi_endproc
   91              	.LFE130:
   93              		.section	.text.LED_stop,"ax",%progbits
@@ -118,7 +118,7 @@ ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc4Xkfdy.s 			page 1
   95              		.global	LED_stop
   96              		.syntax unified
   97              		.thumb
-ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc4Xkfdy.s 			page 3
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccWdPWWu.s 			page 3
 
 
   98              		.thumb_func
@@ -178,7 +178,7 @@ ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc4Xkfdy.s 			page 1
  141 0020 FFF7FEFF 		bl	WS2812_update
  142              	.LVL11:
  143 0024 10BD     		pop	{r4, pc}
-ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc4Xkfdy.s 			page 4
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccWdPWWu.s 			page 4
 
 
  144              	.L12:
@@ -238,7 +238,7 @@ ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc4Xkfdy.s 			page 1
  190              	.LVL14:
  191 001a DBB2     		uxtb	r3, r3
  192              	.LVL15:
-ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc4Xkfdy.s 			page 5
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccWdPWWu.s 			page 5
 
 
  193              	.L14:
@@ -298,7 +298,7 @@ ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc4Xkfdy.s 			page 1
  239 000e FF21     		movs	r1, #255
  240 0010 2154     		strb	r1, [r4, r0]
   46:Src/User/LED.c ****         led_string[i].g = 255;
-ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc4Xkfdy.s 			page 6
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccWdPWWu.s 			page 6
 
 
  241              		.loc 1 46 0 discriminator 3
@@ -358,7 +358,7 @@ ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc4Xkfdy.s 			page 1
   54:Src/User/LED.c ****     for (uint8_t i = 4; i < LED_NUM; i++)
  288              		.loc 1 54 0
  289 0002 0423     		movs	r3, #4
-ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc4Xkfdy.s 			page 7
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccWdPWWu.s 			page 7
 
 
  290 0004 0AE0     		b	.L26
@@ -418,7 +418,7 @@ ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc4Xkfdy.s 			page 1
   64:Src/User/LED.c **** {
  335              		.loc 1 64 0
  336              		.cfi_startproc
-ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc4Xkfdy.s 			page 8
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccWdPWWu.s 			page 8
 
 
  337              		@ args = 0, pretend = 0, frame = 0
@@ -478,7 +478,7 @@ ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc4Xkfdy.s 			page 1
  383              		.align	1
  384              		.global	LED_system_start
  385              		.syntax unified
-ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc4Xkfdy.s 			page 9
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccWdPWWu.s 			page 9
 
 
  386              		.thumb
@@ -538,7 +538,7 @@ ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc4Xkfdy.s 			page 1
  430 001e F3D9     		bls	.L39
  431              	.LBE8:
   81:Src/User/LED.c ****     }
-ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc4Xkfdy.s 			page 10
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccWdPWWu.s 			page 10
 
 
   82:Src/User/LED.c ****     led_string[(uint8_t)(a / 90.0f * 7 + 7)].r = 255;
@@ -598,37 +598,37 @@ ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc4Xkfdy.s 			page 1
  482              		.file 14 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/sys/lock.h"
  483              		.file 15 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/sys/_types.h
  484              		.file 16 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/lib/gcc/arm-none-eabi/6.3.1/includ
-ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc4Xkfdy.s 			page 11
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccWdPWWu.s 			page 11
 
 
  485              		.file 17 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/sys/reent.h"
  486              		.file 18 "Inc/User/WS2812B.h"
-ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc4Xkfdy.s 			page 12
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccWdPWWu.s 			page 12
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 LED.c
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc4Xkfdy.s:18     .text.LED_init:0000000000000000 $t
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc4Xkfdy.s:25     .text.LED_init:0000000000000000 LED_init
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc4Xkfdy.s:89     .text.LED_init:0000000000000040 $d
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc4Xkfdy.s:94     .text.LED_stop:0000000000000000 $t
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc4Xkfdy.s:101    .text.LED_stop:0000000000000000 LED_stop
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc4Xkfdy.s:147    .text.LED_stop:0000000000000028 $d
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc4Xkfdy.s:152    .text.LED_go:0000000000000000 $t
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc4Xkfdy.s:159    .text.LED_go:0000000000000000 LED_go
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc4Xkfdy.s:205    .text.LED_go:0000000000000028 $d
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc4Xkfdy.s:210    .text.LED_left:0000000000000000 $t
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc4Xkfdy.s:217    .text.LED_left:0000000000000000 LED_left
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc4Xkfdy.s:263    .text.LED_left:0000000000000028 $d
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc4Xkfdy.s:268    .text.LED_right:0000000000000000 $t
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc4Xkfdy.s:275    .text.LED_right:0000000000000000 LED_right
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc4Xkfdy.s:321    .text.LED_right:0000000000000028 $d
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc4Xkfdy.s:326    .text.LED_off:0000000000000000 $t
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc4Xkfdy.s:333    .text.LED_off:0000000000000000 LED_off
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc4Xkfdy.s:378    .text.LED_off:0000000000000024 $d
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc4Xkfdy.s:383    .text.LED_system_start:0000000000000000 $t
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc4Xkfdy.s:390    .text.LED_system_start:0000000000000000 LED_system_start
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc4Xkfdy.s:463    .text.LED_system_start:0000000000000058 $d
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccWdPWWu.s:18     .text.LED_init:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccWdPWWu.s:25     .text.LED_init:0000000000000000 LED_init
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccWdPWWu.s:89     .text.LED_init:0000000000000044 $d
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccWdPWWu.s:94     .text.LED_stop:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccWdPWWu.s:101    .text.LED_stop:0000000000000000 LED_stop
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccWdPWWu.s:147    .text.LED_stop:0000000000000028 $d
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccWdPWWu.s:152    .text.LED_go:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccWdPWWu.s:159    .text.LED_go:0000000000000000 LED_go
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccWdPWWu.s:205    .text.LED_go:0000000000000028 $d
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccWdPWWu.s:210    .text.LED_left:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccWdPWWu.s:217    .text.LED_left:0000000000000000 LED_left
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccWdPWWu.s:263    .text.LED_left:0000000000000028 $d
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccWdPWWu.s:268    .text.LED_right:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccWdPWWu.s:275    .text.LED_right:0000000000000000 LED_right
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccWdPWWu.s:321    .text.LED_right:0000000000000028 $d
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccWdPWWu.s:326    .text.LED_off:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccWdPWWu.s:333    .text.LED_off:0000000000000000 LED_off
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccWdPWWu.s:378    .text.LED_off:0000000000000024 $d
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccWdPWWu.s:383    .text.LED_system_start:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccWdPWWu.s:390    .text.LED_system_start:0000000000000000 LED_system_start
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccWdPWWu.s:463    .text.LED_system_start:0000000000000058 $d
                      .debug_frame:0000000000000010 $d
 
 UNDEFINED SYMBOLS

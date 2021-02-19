@@ -315,11 +315,11 @@ void motor_pwm_buffer()
     //         motor.pwm_buffer--;
     // }
 
-    // int8_t pwm_diff = motor.pwm - motor.pwm_buffer;
-    // if (pwm_diff > 0)
-    //     motor.pwm_buffer++;
-    // else if (pwm_diff < 0)
-    //     motor.pwm_buffer--;
+    int8_t pwm_diff = motor.pwm - motor.pwm_buffer;
+    if (pwm_diff > 0)
+        motor.pwm_buffer++;
+    else if (pwm_diff < 0)
+        motor.pwm_buffer--;
 
-    motor.pwm_buffer = motor.pwm;
+    // motor.pwm_buffer = motor.pwm;
 }

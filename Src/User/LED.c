@@ -12,7 +12,7 @@ void LED_init()
         led_string[LED_NUM / 2 - 1 - i].g = 50;
         led_string[LED_NUM / 2 - 1 - i].b = 50;
         WS2812_update();
-        HAL_Delay(200);
+        HAL_Delay(500);
     }
 }
 

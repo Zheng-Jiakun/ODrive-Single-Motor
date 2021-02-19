@@ -1,4 +1,4 @@
-ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccoGzz39.s 			page 1
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc2oM3EU.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -44,201 +44,194 @@ ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccoGzz39.s 			page 1
   34              		.cfi_def_cfa_offset 8
   35              		.cfi_offset 3, -8
   36              		.cfi_offset 14, -4
-   9:Src/User/user_main.c ****     // pid_init(&motor_pid_current, 5, 50, 50, 50.0f, 5.0f, 0.5f);
-  10:Src/User/user_main.c ****     // pid_init(&motor_pid_speed, -40, 40, 50, 0.05f, 0.005f, 0.001f);
-  11:Src/User/user_main.c ****     // pid_init(&motor_pid_position, -10, 10, 10, 1.0f, 0.00f, 0.0f);
-  12:Src/User/user_main.c **** 
-  13:Src/User/user_main.c ****     user_control_init();
-  37              		.loc 1 13 0
+   9:Src/User/user_main.c ****     user_control_init();
+  37              		.loc 1 9 0
   38 0002 FFF7FEFF 		bl	user_control_init
   39              	.LVL0:
   40              	.L2:
-  14:Src/User/user_main.c ****     while (wait_for_system_start())
-  41              		.loc 1 14 0 discriminator 1
+  10:Src/User/user_main.c ****     while (wait_for_system_start())
+  41              		.loc 1 10 0 discriminator 1
   42 0006 FFF7FEFF 		bl	wait_for_system_start
   43              	.LVL1:
   44 000a 0028     		cmp	r0, #0
-ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccoGzz39.s 			page 2
-
-
   45 000c FBD1     		bne	.L2
-  15:Src/User/user_main.c ****         ;
-  16:Src/User/user_main.c ****     can_init();
-  46              		.loc 1 16 0
+  11:Src/User/user_main.c ****         ;
+  12:Src/User/user_main.c ****     can_init();
+  46              		.loc 1 12 0
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc2oM3EU.s 			page 2
+
+
   47 000e FFF7FEFF 		bl	can_init
   48              	.LVL2:
-  17:Src/User/user_main.c ****     M3508_init();
-  49              		.loc 1 17 0
+  13:Src/User/user_main.c ****     M3508_init();
+  49              		.loc 1 13 0
   50 0012 FFF7FEFF 		bl	M3508_init
   51              	.LVL3:
-  18:Src/User/user_main.c ****     HAL_TIM_Base_Start_IT(&htim7);
-  52              		.loc 1 18 0
-  53 0016 0848     		ldr	r0, .L5
+  14:Src/User/user_main.c ****     HAL_TIM_Base_Start_IT(&htim6);
+  52              		.loc 1 14 0
+  53 0016 0A48     		ldr	r0, .L5
   54 0018 FFF7FEFF 		bl	HAL_TIM_Base_Start_IT
   55              	.LVL4:
-  56              	.L3:
-  19:Src/User/user_main.c ****     while (calibrate_flag != 3);
-  57              		.loc 1 19 0 discriminator 1
-  58 001c 074B     		ldr	r3, .L5+4
-  59 001e 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
-  60 0020 032B     		cmp	r3, #3
-  61 0022 FBD1     		bne	.L3
-  20:Src/User/user_main.c ****     LED_init();
-  62              		.loc 1 20 0
-  63 0024 FFF7FEFF 		bl	LED_init
-  64              	.LVL5:
-  21:Src/User/user_main.c ****     MPU6050_init();
-  65              		.loc 1 21 0
-  66 0028 FFF7FEFF 		bl	MPU6050_init
-  67              	.LVL6:
-  22:Src/User/user_main.c ****     motor.pwm = 0;
-  68              		.loc 1 22 0
-  69 002c 0022     		movs	r2, #0
-  70 002e 044B     		ldr	r3, .L5+8
-  71 0030 1A70     		strb	r2, [r3]
-  23:Src/User/user_main.c ****     motor_start();
-  72              		.loc 1 23 0
-  73 0032 FFF7FEFF 		bl	motor_start
-  74              	.LVL7:
-  75 0036 08BD     		pop	{r3, pc}
-  76              	.L6:
-  77              		.align	2
-  78              	.L5:
-  79 0038 00000000 		.word	htim7
-  80 003c 00000000 		.word	calibrate_flag
-  81 0040 00000000 		.word	motor
-  82              		.cfi_endproc
-  83              	.LFE130:
-  85              		.section	.text.user_loop,"ax",%progbits
-  86              		.align	1
-  87              		.global	user_loop
-  88              		.syntax unified
-  89              		.thumb
-  90              		.thumb_func
-  91              		.fpu fpv4-sp-d16
-  93              	user_loop:
-  94              	.LFB131:
-ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccoGzz39.s 			page 3
+  15:Src/User/user_main.c ****     HAL_TIM_Base_Start_IT(&htim7);
+  56              		.loc 1 15 0
+  57 001c 0948     		ldr	r0, .L5+4
+  58 001e FFF7FEFF 		bl	HAL_TIM_Base_Start_IT
+  59              	.LVL5:
+  60              	.L3:
+  16:Src/User/user_main.c ****     while (calibrate_flag != 3);
+  61              		.loc 1 16 0 discriminator 1
+  62 0022 094B     		ldr	r3, .L5+8
+  63 0024 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+  64 0026 032B     		cmp	r3, #3
+  65 0028 FBD1     		bne	.L3
+  17:Src/User/user_main.c ****     LED_init();
+  66              		.loc 1 17 0
+  67 002a FFF7FEFF 		bl	LED_init
+  68              	.LVL6:
+  18:Src/User/user_main.c ****     MPU6050_init();
+  69              		.loc 1 18 0
+  70 002e FFF7FEFF 		bl	MPU6050_init
+  71              	.LVL7:
+  19:Src/User/user_main.c ****     motor.pwm = 0;
+  72              		.loc 1 19 0
+  73 0032 0022     		movs	r2, #0
+  74 0034 054B     		ldr	r3, .L5+12
+  75 0036 1A70     		strb	r2, [r3]
+  20:Src/User/user_main.c ****     motor_start();
+  76              		.loc 1 20 0
+  77 0038 FFF7FEFF 		bl	motor_start
+  78              	.LVL8:
+  79 003c 08BD     		pop	{r3, pc}
+  80              	.L6:
+  81 003e 00BF     		.align	2
+  82              	.L5:
+  83 0040 00000000 		.word	htim6
+  84 0044 00000000 		.word	htim7
+  85 0048 00000000 		.word	calibrate_flag
+  86 004c 00000000 		.word	motor
+  87              		.cfi_endproc
+  88              	.LFE130:
+  90              		.section	.text.user_loop,"ax",%progbits
+  91              		.align	1
+  92              		.global	user_loop
+  93              		.syntax unified
+  94              		.thumb
+  95              		.thumb_func
+  96              		.fpu fpv4-sp-d16
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc2oM3EU.s 			page 3
 
 
-  24:Src/User/user_main.c ****     // HAL_TIM_Base_Start_IT(&htim6);
-  25:Src/User/user_main.c **** 
-  26:Src/User/user_main.c ****     // HAL_TIM_Base_Start_IT(&htim10);
-  27:Src/User/user_main.c **** }
-  28:Src/User/user_main.c **** 
-  29:Src/User/user_main.c **** void user_loop()
-  30:Src/User/user_main.c **** {
-  95              		.loc 1 30 0
-  96              		.cfi_startproc
-  97              		@ args = 0, pretend = 0, frame = 0
-  98              		@ frame_needed = 0, uses_anonymous_args = 0
-  99 0000 08B5     		push	{r3, lr}
- 100              	.LCFI1:
- 101              		.cfi_def_cfa_offset 8
- 102              		.cfi_offset 3, -8
- 103              		.cfi_offset 14, -4
-  31:Src/User/user_main.c ****     // HAL_Delay(3000);
-  32:Src/User/user_main.c ****     // HAL_NVIC_SystemReset();
-  33:Src/User/user_main.c ****     if (check_system_halt() == 0)
- 104              		.loc 1 33 0
- 105 0002 FFF7FEFF 		bl	check_system_halt
- 106              	.LVL8:
- 107 0006 48B1     		cbz	r0, .L10
- 108              	.L8:
-  34:Src/User/user_main.c ****     {
-  35:Src/User/user_main.c ****         LED_off();
-  36:Src/User/user_main.c ****         HAL_Delay(100);
-  37:Src/User/user_main.c ****         HAL_NVIC_SystemReset();
-  38:Src/User/user_main.c ****     }
-  39:Src/User/user_main.c **** 
-  40:Src/User/user_main.c ****     user_update_throttle();
- 109              		.loc 1 40 0
- 110 0008 FFF7FEFF 		bl	user_update_throttle
+  98              	user_loop:
+  99              	.LFB131:
+  21:Src/User/user_main.c **** 
+  22:Src/User/user_main.c ****     // HAL_TIM_Base_Start_IT(&htim10);
+  23:Src/User/user_main.c **** }
+  24:Src/User/user_main.c **** 
+  25:Src/User/user_main.c **** void user_loop()
+  26:Src/User/user_main.c **** {
+ 100              		.loc 1 26 0
+ 101              		.cfi_startproc
+ 102              		@ args = 0, pretend = 0, frame = 0
+ 103              		@ frame_needed = 0, uses_anonymous_args = 0
+ 104 0000 08B5     		push	{r3, lr}
+ 105              	.LCFI1:
+ 106              		.cfi_def_cfa_offset 8
+ 107              		.cfi_offset 3, -8
+ 108              		.cfi_offset 14, -4
+  27:Src/User/user_main.c ****     // HAL_Delay(3000);
+  28:Src/User/user_main.c ****     // HAL_NVIC_SystemReset();
+  29:Src/User/user_main.c ****     if (check_system_halt() == 0)
+ 109              		.loc 1 29 0
+ 110 0002 FFF7FEFF 		bl	check_system_halt
  111              	.LVL9:
-  41:Src/User/user_main.c ****     MPU6050_update_data();
- 112              		.loc 1 41 0
- 113 000c FFF7FEFF 		bl	MPU6050_update_data
- 114              	.LVL10:
-  42:Src/User/user_main.c ****     LED_control();
- 115              		.loc 1 42 0
- 116 0010 FFF7FEFF 		bl	LED_control
- 117              	.LVL11:
-  43:Src/User/user_main.c ****     HAL_Delay(1);
- 118              		.loc 1 43 0
- 119 0014 0120     		movs	r0, #1
- 120 0016 FFF7FEFF 		bl	HAL_Delay
- 121              	.LVL12:
- 122 001a 08BD     		pop	{r3, pc}
- 123              	.L10:
-  35:Src/User/user_main.c ****         HAL_Delay(100);
- 124              		.loc 1 35 0
- 125 001c FFF7FEFF 		bl	LED_off
- 126              	.LVL13:
-  36:Src/User/user_main.c ****         HAL_NVIC_SystemReset();
- 127              		.loc 1 36 0
- 128 0020 6420     		movs	r0, #100
- 129 0022 FFF7FEFF 		bl	HAL_Delay
-ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccoGzz39.s 			page 4
+ 112 0006 20B1     		cbz	r0, .L10
+ 113              	.L8:
+  30:Src/User/user_main.c ****     {
+  31:Src/User/user_main.c ****         LED_off();
+  32:Src/User/user_main.c ****         HAL_Delay(100);
+  33:Src/User/user_main.c ****         HAL_NVIC_SystemReset();
+  34:Src/User/user_main.c ****     }
+  35:Src/User/user_main.c **** 
+  36:Src/User/user_main.c ****     // user_update_throttle();
+  37:Src/User/user_main.c ****     MPU6050_update_data();
+ 114              		.loc 1 37 0
+ 115 0008 FFF7FEFF 		bl	MPU6050_update_data
+ 116              	.LVL10:
+  38:Src/User/user_main.c ****     LED_control();
+ 117              		.loc 1 38 0
+ 118 000c FFF7FEFF 		bl	LED_control
+ 119              	.LVL11:
+ 120 0010 08BD     		pop	{r3, pc}
+ 121              	.L10:
+  31:Src/User/user_main.c ****         HAL_Delay(100);
+ 122              		.loc 1 31 0
+ 123 0012 FFF7FEFF 		bl	LED_off
+ 124              	.LVL12:
+  32:Src/User/user_main.c ****         HAL_NVIC_SystemReset();
+ 125              		.loc 1 32 0
+ 126 0016 6420     		movs	r0, #100
+ 127 0018 FFF7FEFF 		bl	HAL_Delay
+ 128              	.LVL13:
+  33:Src/User/user_main.c ****     }
+ 129              		.loc 1 33 0
+ 130 001c FFF7FEFF 		bl	HAL_NVIC_SystemReset
+ 131              	.LVL14:
+ 132 0020 F2E7     		b	.L8
+ 133              		.cfi_endproc
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc2oM3EU.s 			page 4
 
 
- 130              	.LVL14:
-  37:Src/User/user_main.c ****     }
- 131              		.loc 1 37 0
- 132 0026 FFF7FEFF 		bl	HAL_NVIC_SystemReset
- 133              	.LVL15:
- 134 002a EDE7     		b	.L8
- 135              		.cfi_endproc
- 136              	.LFE131:
- 138              		.global	braking_flag
- 139              		.section	.bss.braking_flag,"aw",%nobits
- 142              	braking_flag:
- 143 0000 00       		.space	1
- 144              		.text
- 145              	.Letext0:
- 146              		.file 2 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/machine/_defa
- 147              		.file 3 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/sys/_stdint.h
- 148              		.file 4 "Drivers/CMSIS/Include/core_cm4.h"
- 149              		.file 5 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h"
- 150              		.file 6 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h"
- 151              		.file 7 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h"
- 152              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
- 153              		.file 9 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
- 154              		.file 10 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h"
- 155              		.file 11 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_can.h"
- 156              		.file 12 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h"
- 157              		.file 13 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h"
- 158              		.file 14 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
- 159              		.file 15 "Inc/can.h"
- 160              		.file 16 "Inc/tim.h"
- 161              		.file 17 "Inc/spi.h"
- 162              		.file 18 "Inc/adc.h"
- 163              		.file 19 "Inc/User/algorithm.h"
- 164              		.file 20 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/sys/lock.h"
- 165              		.file 21 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/sys/_types.h
- 166              		.file 22 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/lib/gcc/arm-none-eabi/6.3.1/includ
- 167              		.file 23 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/sys/reent.h"
- 168              		.file 24 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/stdlib.h"
- 169              		.file 25 "Inc/User/motor_driver.h"
- 170              		.file 26 "Inc/User/can_protocol.h"
- 171              		.file 27 "Inc/User/WS2812B.h"
- 172              		.file 28 "Inc/User/MPU6050.h"
- 173              		.file 29 "Inc/User/M3508.h"
- 174              		.file 30 "Inc/User/user_control.h"
- 175              		.file 31 "Inc/User/user_main.h"
- 176              		.file 32 "Inc/User/LED.h"
- 177              		.file 33 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h"
-ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccoGzz39.s 			page 5
+ 134              	.LFE131:
+ 136              		.global	braking_flag
+ 137              		.section	.bss.braking_flag,"aw",%nobits
+ 140              	braking_flag:
+ 141 0000 00       		.space	1
+ 142              		.text
+ 143              	.Letext0:
+ 144              		.file 2 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/machine/_defa
+ 145              		.file 3 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/sys/_stdint.h
+ 146              		.file 4 "Drivers/CMSIS/Include/core_cm4.h"
+ 147              		.file 5 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h"
+ 148              		.file 6 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h"
+ 149              		.file 7 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h"
+ 150              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
+ 151              		.file 9 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
+ 152              		.file 10 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h"
+ 153              		.file 11 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_can.h"
+ 154              		.file 12 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h"
+ 155              		.file 13 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h"
+ 156              		.file 14 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
+ 157              		.file 15 "Inc/can.h"
+ 158              		.file 16 "Inc/tim.h"
+ 159              		.file 17 "Inc/spi.h"
+ 160              		.file 18 "Inc/adc.h"
+ 161              		.file 19 "Inc/User/algorithm.h"
+ 162              		.file 20 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/sys/lock.h"
+ 163              		.file 21 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/sys/_types.h
+ 164              		.file 22 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/lib/gcc/arm-none-eabi/6.3.1/includ
+ 165              		.file 23 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/sys/reent.h"
+ 166              		.file 24 "/Users/geekzjk/opt/gcc-arm-none-eabi-6-2017-q2-update/arm-none-eabi/include/stdlib.h"
+ 167              		.file 25 "Inc/User/motor_driver.h"
+ 168              		.file 26 "Inc/User/can_protocol.h"
+ 169              		.file 27 "Inc/User/WS2812B.h"
+ 170              		.file 28 "Inc/User/MPU6050.h"
+ 171              		.file 29 "Inc/User/M3508.h"
+ 172              		.file 30 "Inc/User/user_control.h"
+ 173              		.file 31 "Inc/User/user_main.h"
+ 174              		.file 32 "Inc/User/LED.h"
+ 175              		.file 33 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h"
+ARM GAS  /var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc2oM3EU.s 			page 5
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 user_main.c
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccoGzz39.s:18     .text.user_setup:0000000000000000 $t
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccoGzz39.s:25     .text.user_setup:0000000000000000 user_setup
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccoGzz39.s:79     .text.user_setup:0000000000000038 $d
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccoGzz39.s:86     .text.user_loop:0000000000000000 $t
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccoGzz39.s:93     .text.user_loop:0000000000000000 user_loop
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccoGzz39.s:142    .bss.braking_flag:0000000000000000 braking_flag
-/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//ccoGzz39.s:143    .bss.braking_flag:0000000000000000 $d
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc2oM3EU.s:18     .text.user_setup:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc2oM3EU.s:25     .text.user_setup:0000000000000000 user_setup
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc2oM3EU.s:83     .text.user_setup:0000000000000040 $d
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc2oM3EU.s:91     .text.user_loop:0000000000000000 $t
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc2oM3EU.s:98     .text.user_loop:0000000000000000 user_loop
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc2oM3EU.s:140    .bss.braking_flag:0000000000000000 braking_flag
+/var/folders/kp/233_yh1j2dd9gvn3v4mq48f40000gn/T//cc2oM3EU.s:141    .bss.braking_flag:0000000000000000 $d
                      .debug_frame:0000000000000010 $d
 
 UNDEFINED SYMBOLS
@@ -250,13 +243,13 @@ HAL_TIM_Base_Start_IT
 LED_init
 MPU6050_init
 motor_start
+htim6
 htim7
 calibrate_flag
 motor
 check_system_halt
-user_update_throttle
 MPU6050_update_data
 LED_control
-HAL_Delay
 LED_off
+HAL_Delay
 HAL_NVIC_SystemReset
